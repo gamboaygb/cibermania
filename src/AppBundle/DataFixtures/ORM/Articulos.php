@@ -16,14 +16,15 @@ class Articulos implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for($i=0;$i<5;$i++){
+        for($i=0;$i<10;$i++){
             $p = new Post();
             $p->setTitle($this->titulos());
             $p->setCreatedDate(new \DateTime());
             $p->setContent($this->lorem());
-            $p->setImgPost('yusmel.png');
+            $p->setImgPost('3.jpg');
             $p->setShortContent($this->lorem_short());
             $p->setUpdateDate(new \DateTime());
+            $p->setCategory($this->categorias());
             $manager->persist($p);
         }
         $manager->flush();
@@ -37,6 +38,22 @@ class Articulos implements FixtureInterface
             'Facebook fake',
             'Google lanza nueva apps',
             'Amazon lo peta',
+        );
+
+        $num = rand(0, 5);
+
+        return $nombres[$num];
+    }
+
+
+    public function categorias(){
+        $nombres = array(
+            'Windows',
+            'Linux',
+            'Android',
+            'IOS',
+            'Internet',
+            'Tecnología',
         );
 
         $num = rand(0, 5);

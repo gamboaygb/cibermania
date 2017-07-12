@@ -131,6 +131,15 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'pagina')), array (  'nombrePagina' => 'ayuda',  '_controller' => 'AppBundle\\Controller\\FrontController::pageAction',));
         }
 
+        // view_post
+        if (preg_match('#^/(?P<slug>[^/]++)/?$#s', $pathinfo, $matches)) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'view_post');
+            }
+
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'view_post')), array (  '_controller' => 'AppBundle\\Controller\\PostController::singlePostAction',));
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

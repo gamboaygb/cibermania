@@ -10,4 +10,18 @@ namespace AppBundle\Repository;
  */
 class Post_commentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByPost($post){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+        SELECT u
+        FROM AppBundle:Post_comment u
+        WHERE u.post = :post');
+        $consulta->setParameter('post', $post);
+
+        try{
+            return $consulta->getResult();
+        }catch (\Exception $error){
+            return false;
+        }
+    }
 }

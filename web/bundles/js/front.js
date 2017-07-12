@@ -52,6 +52,8 @@
             $(this).parent().find( 'div' ).toggleClass( 'card__social--active' );
             $(this).toggleClass('share-expanded');
         });
+
+
     });
 
     

@@ -55,7 +55,7 @@ class Post_comment
     private $post;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Person")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
      */
     private $person;
 

@@ -423,10 +423,16 @@
     <service id="AppBundle\Controller\FrontController" class="AppBundle\Controller\FrontController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
+    <service id="AppBundle\Controller\PostController" class="AppBundle\Controller\PostController" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="AppBundle\DataFixtures\ORM\Articulos" class="AppBundle\DataFixtures\ORM\Articulos" public="false" autowire="true" autoconfigure="true"/>
     <service id="AppBundle\DataFixtures\ORM\Comentarios" class="AppBundle\DataFixtures\ORM\Comentarios" public="false" autowire="true" autoconfigure="true"/>
     <service id="AppBundle\DataFixtures\ORM\Personas" class="AppBundle\DataFixtures\ORM\Personas" public="false" autowire="true" autoconfigure="true"/>
     <service id="AppBundle\DataFixtures\ORM\UserData" class="AppBundle\DataFixtures\ORM\UserData" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\Form\Post_commentType" class="AppBundle\Form\Post_commentType" public="false" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
     <service id="AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -447,7 +453,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.5a25c6b1d7a0fedcce0337f8de09ae01"/>
+      <argument type="service" id="service_locator.053be9ea7c72cdf5c3683b8fb1a38c11"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -615,7 +621,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>FCur3u61nHRfoarKsYY0QG</argument>
+      <argument>9TU0I0BL8p6YCqwZgbByEN</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -625,7 +631,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>FCur3u61nHRfoarKsYY0QG</argument>
+      <argument>9TU0I0BL8p6YCqwZgbByEN</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -744,7 +750,7 @@
       <argument type="service" id="form.resolved_type_factory"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension" public="false">
-      <argument type="service" id="service_locator.46b3ee7177c028f69bd4a388768b2c81"/>
+      <argument type="service" id="service_locator.9cf7b1e235cf30ab617871eaa87612c3"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.http_foundation"/>
@@ -2180,12 +2186,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5965689ee65f43.98970479</argument>
+      <argument>5966a259c5ce82.60897842</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5965689ee65f43.98970479</argument>
+      <argument>5966a259c5ce82.60897842</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -3163,19 +3169,28 @@
     </service>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\FrontController" class="AppBundle\Controller\FrontController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\FrontController" class="AppBundle\Controller\FrontController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\PostController" class="AppBundle\Controller\PostController" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\PostController" class="AppBundle\Controller\PostController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\Post_commentType" class="AppBundle\Form\Post_commentType" public="false" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Form\Post_commentType" class="AppBundle\Form\Post_commentType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="service_locator.8f0bc62a61c174213918eec4f86b6cad" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.5a25c6b1d7a0fedcce0337f8de09ae01" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.3ebc5a1fa11094ad1666190293db1064" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.46b3ee7177c028f69bd4a388768b2c81" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.053be9ea7c72cdf5c3683b8fb1a38c11" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.9cf7b1e235cf30ab617871eaa87612c3" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="AppBundle\Form\Post_commentType" type="service" id="AppBundle\Form\Post_commentType"/>
         <argument key="AppBundle\Form\UserType" type="service" id="AppBundle\Form\UserType"/>
         <argument key="Symfony\Bridge\Doctrine\Form\Type\EntityType" type="service" id="form.type.entity"/>
         <argument key="Symfony\Component\Form\Extension\Core\Type\ChoiceType" type="service" id="form.type.choice"/>
@@ -3386,7 +3401,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>6cz36YhRDI</argument>
       <argument>0</argument>
-      <argument>FCur3u61nHRfoarKsYY0QG</argument>
+      <argument>9TU0I0BL8p6YCqwZgbByEN</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3394,7 +3409,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>5XelCEpbLO</argument>
       <argument>0</argument>
-      <argument>FCur3u61nHRfoarKsYY0QG</argument>
+      <argument>9TU0I0BL8p6YCqwZgbByEN</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3402,7 +3417,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>5C2l+++82j</argument>
       <argument>0</argument>
-      <argument>FCur3u61nHRfoarKsYY0QG</argument>
+      <argument>9TU0I0BL8p6YCqwZgbByEN</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3410,7 +3425,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>dBIsTSa+2h</argument>
       <argument>0</argument>
-      <argument>FCur3u61nHRfoarKsYY0QG</argument>
+      <argument>9TU0I0BL8p6YCqwZgbByEN</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

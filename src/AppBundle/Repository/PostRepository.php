@@ -38,4 +38,21 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    public function findByTitle($slug,$id){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+        SELECT u
+        FROM AppBundle:Post u
+        WHERE u.slug = :slug
+        AND u.id=:id');
+        $consulta->setParameter('slug', $slug);
+        $consulta->setParameter('id',$id);
+
+        try{
+            return $consulta->getSingleResult();
+        }catch (\Exception $error){
+            return false;
+        }
+    }
 }

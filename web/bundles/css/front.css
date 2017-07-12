@@ -4,6 +4,30 @@ html,body{
     margin: 0;
 }
 
+@font-face {
+    font-family: 'Ubuntu-B';
+    /* Antes de descargar el archivo, le decimos al buscador
+    que intente buscar en local la fuente con nombre
+    Cabin, Cabin Regular o Cabin-Regular */
+    src: local('Ubuntu-B'),
+    local('Ubuntu-Bold'),
+    url(../fonts/ubuntu/Ubuntu-B.ttf);
+}
+
+@font-face {
+    font-family: 'Ubuntu-R';
+    /* Antes de descargar el archivo, le decimos al buscador
+    que intente buscar en local la fuente con nombre
+    Cabin, Cabin Regular o Cabin-Regular */
+    src: local('Ubuntu-R'),
+    local('Ubuntu-Regular'),
+    url(../fonts/ubuntu/Ubuntu-R.ttf);
+}
+
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+
 a{
     color:#6089e5;
 }
@@ -20,6 +44,14 @@ a{
 
 ul li{
     list-style-type: none;
+}
+
+h1{
+    font-family: 'Ubuntu-B';
+}
+
+p{
+    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -190,6 +222,18 @@ ul li{
     padding: 0;
 }
 
+#featured-section .carousel-item div{
+    padding: 0;
+}
+#featured-section .carousel-item h1{
+    text-transform: uppercase;
+    text-align: center;
+}
+
+#featured-section .carousel-item p{
+    padding: 2%;
+}
+
 #main {
     transition: margin-left .5s;
     padding: 16px;
@@ -294,6 +338,10 @@ ul li{
     font-weight: 600;
     text-transform: uppercase;
 }
+.post-module .post-content .category a{
+    color: #ffffff !important;
+}
+
 .post-module .post-content .title {
     margin: 0;
     padding: 0 0 10px;
@@ -444,6 +492,61 @@ ul li{
 .twitter:hover,
 .googleplus:hover {
     color: #eee;
+}
+
+
+/*SINGLE ARTICLE*/
+
+.article-title h1{
+    font-size: 52px;
+    margin-bottom: 10px;
+    letter-spacing: -1.15px;
+    line-height: 110%;
+    color: #221f1f;
+    font-weight: normal
+}
+
+.article-autor{
+    border-top: 1px solid #00abe3;
+    border-bottom: 1px solid #00abe3;
+}
+
+.article-autor div{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.article-autor .card__share{
+    margin-top: 0;
+}
+
+.article-pic{
+    border-bottom: 1px solid #999999;
+}
+
+.article-pic span{
+    padding: 1%;
+}
+
+.article-content:first-letter{
+    color:#6089e5;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+span.time{
+    font-size: 11px;
+    line-height: 1;
+    color: #b4b4b4;
+    padding-left: 10px;
+}
+span.author-name{
+   color:#00abe3;
+}
+
+.nav-tabs .nav-link.active{
+    background: #6089e5;
+    color: #ffffff;
 }
 
 @media screen and (max-height: 450px) {

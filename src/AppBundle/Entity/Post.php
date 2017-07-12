@@ -84,6 +84,13 @@ class Post
      */
     private $person;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="views", type="integer")
+     */
+    private $views;
+
 
     /**
      * Get id
@@ -310,5 +317,29 @@ class Post
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     *
+     * @return Post
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 }
