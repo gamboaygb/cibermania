@@ -1,0 +1,14 @@
+/*back css*/
+#collapsePost,#collapseComment{
+	position: relative;
+	width: 100%;
+}
+
+.main{
+	margin:0;
+}
+
+/*Oculto campos del form*/
+#appbundle_post_createdDate{
+	display: none;
+}

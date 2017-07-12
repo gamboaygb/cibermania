@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{% endblock %} | Cibermania</title>
+    <link rel="stylesheet" href="{{ asset('bundles/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/css/front.css') }}" />
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}" />
+</head>
+<body id="{% block id '' %}">
+<div class="container-fuid">
+    {% block sidebar %}{% endblock %}
+    {% block body %}{% endblock %}
+
+
+    <section>
+        <footer class="col-12">
+
+            &copy; {{ 'now' | date('Y') }} - Cibermania
+        </footer>
+    </section>
+    {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+        <script type="text/javascript" src="{{ asset('bundles/js/bootstrap.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/js/font-awsome.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/js/front.js') }}"></script>
+    {% endblock %}
+
+</div>
+</body>
 </html>
+

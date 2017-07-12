@@ -1,0 +1,85 @@
+{% extends 'front/frontend.html.twig' %}
+
+{% block section %}
+    <section class="hidden-sm-down" id="featured-section">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 featured-slider mt-5 mb-5">
+                <div id="carouselExampleIndicators" class="carousel" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner" role="listbox">
+
+                        {% for featured in featureds %}
+                            <div class="carousel-item {{ loop.index0==0 ? 'active' : '' }}">
+                                <div class="col-xs-12 col-sm-12 col-md-7">
+                                    <h2>{{ featured.title }}</h2>
+                                    <div class="col-12">
+                                        <p>{{ featured.shortContent }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-5">
+                                    <img class="d-block img-fluid" src="{{ asset(featured.imgPost,'post') }}" alt="First slide">
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="container-fluid">
+        <div class="row">
+        {% for item in list %}
+            <div class="col-xs-12 col-sm-12 col-md-4">
+
+                        <!-- Post-->
+                        <div class="post-module">
+                            <!-- Thumbnail-->
+                            <div class="thumbnail">
+                                <div class="date">
+                                    <div class="day">{{ item.updateDate|date("d") }}</div>
+                                    <div class="month">{{ item.updateDate|date("F") }}</div>
+                                </div>
+                                <img class="img-fluid" src="{{ asset(item.imgPost,'post') }}"/>
+                            </div>
+                            <!-- Post Content-->
+
+                            <div class="post-content">
+                                <div class="category">{{ item.category|capitalize }}</div>
+                                <div class="card__share">
+                                    <div class="card__social">
+                                        <a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>
+                                        <a class="share-icon twitter" href="#"><span class="fa fa-twitter"></span></a>
+                                        <a class="share-icon googleplus" href="#"><span class="fa fa-google-plus"></span></a>
+                                    </div>
+
+                                    <a id="share" class="share-toggle share-icon" href="#"></a>
+                                </div>
+                                <a href="#"><h1 class="title">{{ item.title }}</h1></a>
+                                <h2 class="sub_title">{{ item.title }}</h2>
+                                <p class="description">{{ item.shortContent }}</p>
+                                <div class="post-meta">
+                                    <div class="chip">
+                                        <img src="{{ asset(item.imgPost,'post') }}" alt="Person" width="96" height="96">
+                                        <a href="#">Jonh Doe</a>
+                                    </div>
+                                    <span class="comments"><i class="fa fa-comments"></i><a href="#"> 39</a></span></div>
+                            </div>
+                        </div>
+                </div>
+        {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+

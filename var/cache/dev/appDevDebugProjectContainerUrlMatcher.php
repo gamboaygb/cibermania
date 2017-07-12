@@ -119,7 +119,16 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
                 return $this->redirect($pathinfo.'/', 'homepage');
             }
 
-            return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
+            return array (  '_controller' => 'AppBundle\\Controller\\FrontController::indexAction',  '_route' => 'homepage',);
+        }
+
+        // pagina
+        if (preg_match('#^/(?P<nombrePagina>ayuda|privacidad|sobre_nosotros|politicas)/?$#s', $pathinfo, $matches)) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'pagina');
+            }
+
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'pagina')), array (  'nombrePagina' => 'ayuda',  '_controller' => 'AppBundle\\Controller\\FrontController::pageAction',));
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
