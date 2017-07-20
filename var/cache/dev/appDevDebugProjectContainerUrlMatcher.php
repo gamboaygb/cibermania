@@ -132,12 +132,44 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
 
         // view_post
-        if (preg_match('#^/(?P<slug>[^/]++)/?$#s', $pathinfo, $matches)) {
+        if (0 === strpos($pathinfo, '/post') && preg_match('#^/post/(?P<slug>[^/]++)/?$#s', $pathinfo, $matches)) {
             if (substr($pathinfo, -1) !== '/') {
                 return $this->redirect($pathinfo.'/', 'view_post');
             }
 
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'view_post')), array (  '_controller' => 'AppBundle\\Controller\\PostController::singlePostAction',));
+        }
+
+        // my_post
+        if ('/my-post-list' === $trimmedPathinfo) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'my_post');
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\PostController::myPostListAction',  '_route' => 'my_post',);
+        }
+
+        if (0 === strpos($pathinfo, '/login')) {
+            // user_login
+            if ('/login' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::loginAction',  '_route' => 'user_login',);
+            }
+
+            // user_login_check
+            if ('/login_check' === $pathinfo) {
+                return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::loginCheckAction',  '_route' => 'user_login_check',);
+            }
+
+        }
+
+        // user_logout
+        if ('/logout' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'user_logout',);
+        }
+
+        // create_account
+        if ('/signup' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::createAccountAction',  '_route' => 'create_account',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();

@@ -12,14 +12,14 @@
                </div> 
             </form>
         </div>
-        {#{% if app.user.person is defined %}
+        {% if app.user.person is defined %}
             <div class="card mb-3">
-              <img alt="" class="img-fluid" src="{{ asset(app.user.person.photoPath, 'profile') }}">
+              <img alt="" class="img-fluid" src="{{ asset(app.user.person.picture, 'profile') }}">
               <div class="container">
-                <h1>{{ app.user.person|capitalize }}</h1>
-                <p class="title">{{ app.user.roles == "ROLE_USER" ? 'Usuario' : 'Administrador' }}</p>
+                <h1>{{ app.user.person.name|capitalize }}</h1>
+                <p class="title">{{ app.user.roles[0] == "ROLE_USER" ? 'Usuario' : 'Administrador' }}</p>
                 <ul>
-                  <li><a href="#">Mis Post</a></li>
+                  <li><a href="{{ path('my_post') }}">Mis Post</a></li>
                   <li><a href="#">Mi Perfil</a></li>
                   <li><a href="{{ path('user_logout') }}">Desconectar</a></li>
                 </ul>
@@ -32,9 +32,9 @@
               </div>
             </div>
         {%   else %}
-        {{ render(controller('AppBundle:Security:boxLogin')) }}
+            {{ render(controller('AppBundle:Security:boxLogin')) }}
         {% endif %} 
-        #}
+
         <div class="col-12 menu">
             <a href="#">Qué es CibErMaNia</a>
             <a href="#">Servicios</a>

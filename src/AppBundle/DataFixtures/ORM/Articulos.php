@@ -25,6 +25,7 @@ class Articulos implements FixtureInterface
             $p->setShortContent($this->lorem_short());
             $p->setUpdateDate(new \DateTime());
             $p->setCategory($this->categorias());
+            $p->setViews(0);
             $manager->persist($p);
         }
         $manager->flush();

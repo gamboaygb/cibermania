@@ -17,7 +17,7 @@ class PostController extends Controller
 {
 	
 	/**
-	 *@Route("/{slug}/",name="view_post")
+	 *@Route("/post/{slug}/",name="view_post")
 	 *
 	 */
 	public function singlePostAction(Request $request,$slug){
@@ -48,6 +48,23 @@ class PostController extends Controller
 
         return $this->render('front/post/_comment.html.twig', [
             'form'=>$form->createView(),
+        ]);
+
+    }
+
+    /**
+     *@Route("/my-post-list/",name="my_post")
+     *
+     */
+    public function myPostListAction(Request $request){
+        $user=$this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $my_list=$em->getRepository('AppBundle:Post')->findBy([
+            'person'=>$user,
+        ]);
+
+        return $this->render('front/post/_mylist.html.twig',[
+            'my_list'=>$my_list,
         ]);
 
     }

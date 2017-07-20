@@ -234,6 +234,24 @@ p{
     padding: 2%;
 }
 
+.carousel-control-next-icon{
+    background-image: url("../images/siguiente.png");
+}
+.carousel-control-prev-icon{
+    background-image: url("../images/anterior.png");
+}
+.carousel-control-next, .carousel-control-prev{
+    width: auto;
+}
+
+.carousel-indicators li{
+    background-color: #6089e5;
+}
+
+.carousel-indicators li.active{
+    background-color: #00abe3;
+}
+
 #main {
     transition: margin-left .5s;
     padding: 16px;

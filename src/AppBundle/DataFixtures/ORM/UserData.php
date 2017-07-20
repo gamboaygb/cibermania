@@ -23,6 +23,8 @@ class UserData implements FixtureInterface
             $user->setEmail($i.'@localhost.com');
             $user->setPassword($i);
             $user->setRoles('ROLE_USER');
+            $user->setExpired(false);
+            $user->setPerson($i);
             if ($i==1)
                 $user->setRoles('ROLE_ADMIN');
             $manager->persist($user);

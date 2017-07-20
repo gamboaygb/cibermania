@@ -34,7 +34,6 @@
 
         /*Hover efect to each one*/
         $('.post-content .description').each(function () {
-            console.log(this);
             $(this).hover(
                 function () {
                     $(this).addClass('show-content')

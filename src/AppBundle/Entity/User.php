@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * User
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User
+class User implements AdvancedUserInterface
 {
     /**
      * @var int
@@ -46,6 +47,12 @@ class User
      * @ORM\Column(type="json_array")
      */
     private $roles = array();
+
+    /**
+     * @ORM\Column(name="expired", type="boolean")
+     */
+
+    private $expired;
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\Person",cascade={"persist"})
@@ -156,7 +163,7 @@ class User
      */
     public function getRoles()
     {
-        return $this->roles;
+        return array($this->roles);
     }
 
     /**
@@ -181,5 +188,60 @@ class User
     public function getPerson()
     {
         return $this->person;
+    }
+
+    public function getUsername()
+    {
+        return $this->getEmail();
+    }
+    public function eraseCredentials()
+    {
+        $this->password = null;
+    }
+    public function getSalt()
+    {
+
+        return null;
+    }
+
+    public function isAccountNonExpired(){
+        return true;
+    }
+
+    public function isAccountNonLocked(){
+        return true;
+    }
+
+    public function isCredentialsNonExpired(){
+        return true;
+    }
+
+    public function isEnabled(){
+        return true;
+    }
+
+
+    /**
+     * Set expired
+     *
+     * @param boolean $expired
+     *
+     * @return User
+     */
+    public function setExpired($expired)
+    {
+        $this->expired = $expired;
+
+        return $this;
+    }
+
+    /**
+     * Get expired
+     *
+     * @return boolean
+     */
+    public function getExpired()
+    {
+        return $this->expired;
     }
 }

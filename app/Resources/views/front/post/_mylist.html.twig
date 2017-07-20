@@ -1,0 +1,20 @@
+{% extends 'front/frontend.html.twig' %}
+{% block section %}
+   <section>
+       <div class="col-12">
+           <div class="row">
+
+
+               {% for item in my_list %}
+               <div class="col-sm-12 col-md-2">
+                   <img class="img-thumbnail" src="{{ asset(item.imgPost,'post') }}">
+               </div>
+               <div class="col-sm-12 col-md-10">
+                   <a href="{{ path('view_post', { slug: item.slug,id: item.id }) }}"> <h3>{{ item.title }}</h3></a>
+                   {{ item.shortContent }}
+               </div>
+               {% endfor %}
+           </div>
+       </div>
+   </section>
+{% endblock %}

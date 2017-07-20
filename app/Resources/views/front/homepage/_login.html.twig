@@ -2,7 +2,7 @@
 <div class="col-12">
 
          <h2>Accede a tu cuenta</h2>
-         {#<form action="{{ path('user_login_check') }}" method="post">
+         <form action="{{ path('user_login_check') }}" method="post">
              {% if error %}
                  <div>{{ error.message }}</div>
              {% endif %}
@@ -27,7 +27,7 @@
              </div>
          </form>
     <a class="cuenta" href="{{ path('create_account') }}"><button class="btn btn-outline-danger">Regístrate</button></a>
-    #}
+
 
 </div>
 
