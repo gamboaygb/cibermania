@@ -17,9 +17,17 @@ class RegisterType extends AbstractType
         $builder
             ->add('user', UserType::class)
             ->add('person', PersonType::class)
-            ->add('Guardar',SubmitType::class,array(
+            ;
+
+        if ('user_register' === $options['action']) {
+            $builder->add('Registrarme',SubmitType::class,array(
                 'attr'=> array('class' => 'btn btn-success')
             ));
+        }else if('user_profile' === $options['action']){
+            $builder->add('Actualizar',SubmitType::class,array(
+                'attr'=> array('class' => 'btn btn-success')
+            ));
+        }
     }
 
 
@@ -33,7 +41,8 @@ class RegisterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Register'
+            'data_class' => 'AppBundle\Entity\Register',
+            'action'=>'register'
         ));
     }
 

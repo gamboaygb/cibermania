@@ -66,6 +66,11 @@ class Person
      */
     private $picture;
 
+    /**
+     * @Assert\Image(maxSize = "500k")
+     */
+    private $photoPath;
+
 
     /**
      * @var string
@@ -231,10 +236,43 @@ class Person
      *
      * @return string
      */
+    public function getPhotoPath()
+    {
+        return $this->photoPath;
+    }
+
+
+
+    /**
+     * @param UploadedFile $picture
+     */
+    public function setPhotoPath(UploadedFile $photoPath = null)
+    {
+        $this->photoPath = $photoPath;
+        $this->subirFoto();
+    }
+    /**
+     * @return UploadedFile
+     */
     public function getPicture()
     {
         return $this->picture;
     }
+
+    public function subirFoto()
+    {
+        if (null === $this->photoPath) {
+            return;
+        }
+
+
+        $nombreArchivoFoto = uniqid('usr-').$this->name.'-'.$this->photoPath->getClientOriginalName();
+        $this->photoPath->move($_SERVER['DOCUMENT_ROOT'].'/bundles/images/user/', $nombreArchivoFoto);
+        $this->setPicture($nombreArchivoFoto);
+    }
+
+
+
 
     /**
      * Set ipClient

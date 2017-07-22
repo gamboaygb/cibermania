@@ -20,7 +20,7 @@
                 <p class="title">{{ app.user.roles[0] == "ROLE_USER" ? 'Usuario' : 'Administrador' }}</p>
                 <ul>
                   <li><a href="{{ path('my_post') }}">Mis Post</a></li>
-                  <li><a href="#">Mi Perfil</a></li>
+                  <li><a href="{{ path('edit_profile') }}">Mi Perfil</a></li>
                   <li><a href="{{ path('user_logout') }}">Desconectar</a></li>
                 </ul>
                 <ul>

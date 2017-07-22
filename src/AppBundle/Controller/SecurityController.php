@@ -14,6 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use AppBundle\Form\RegisterType;
+use AppBundle\Entity\Register;
 
 class SecurityController extends Controller
 {
@@ -56,9 +58,12 @@ class SecurityController extends Controller
      */
     public function createAccountAction(Request $request){
 
-      /*  $registro= new Register();
+        $registro= new Register();
 
-        $form = $this->createForm(RegisterType::class, $registro);
+        $form = $this->createForm(RegisterType::class, $registro,array(
+            'action'=>'user_register',
+            'validation_groups' => array('default', 'register'),
+        ));
 
 
         $form->handleRequest($request);
@@ -67,6 +72,8 @@ class SecurityController extends Controller
             $user=$form->getData()->getUser();
             $person=$form->getData()->getPerson();
             $person->setIpClient($request->getClientIp());
+
+
 
 
             $encoder = $this->get('security.encoder_factory')->getEncoder($user);
@@ -91,8 +98,29 @@ class SecurityController extends Controller
 
         return $this->render('front/homepage/_create_acount.html.twig',array(
             'form'=>$form->createView(),
-        ));*/
+        ));
 
-      return $this->render('front/homepage/_create_acount.html.twig');
+    }
+
+    /**
+     * @Route("profile/edit",name="edit_profile")
+     */
+    public function profileEditAction(){
+        $user=$this->getUser();
+        if($user){
+            $user_profile=new Register();
+            $user_profile->setUser($user);
+            $user_profile->setPerson($user->getPerson());
+            $form = $this->createForm(RegisterType::class, $user_profile,array(
+                'action'=>'user_profile',
+            ));
+
+
+            return $this->render('front/user/_profile.html.twig',[
+                'form'=>$form->createView(),
+                'action'=>'user_profile',
+            ]);
+        }
+
     }
 }

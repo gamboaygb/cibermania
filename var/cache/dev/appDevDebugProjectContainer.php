@@ -40,6 +40,7 @@ class appDevDebugProjectContainer extends Container
             'appbundle\\form\\persontype' => 'AppBundle\\Form\\PersonType',
             'appbundle\\form\\post_commenttype' => 'AppBundle\\Form\\Post_commentType',
             'appbundle\\form\\posttype' => 'AppBundle\\Form\\PostType',
+            'appbundle\\form\\registertype' => 'AppBundle\\Form\\RegisterType',
             'appbundle\\form\\usertype' => 'AppBundle\\Form\\UserType',
         );
         $this->methodMap = array(
@@ -51,6 +52,7 @@ class appDevDebugProjectContainer extends Container
             'AppBundle\\Form\\PersonType' => 'getAppBundle_Form_PersonTypeService',
             'AppBundle\\Form\\PostType' => 'getAppBundle_Form_PostTypeService',
             'AppBundle\\Form\\Post_commentType' => 'getAppBundle_Form_PostCommentTypeService',
+            'AppBundle\\Form\\RegisterType' => 'getAppBundle_Form_RegisterTypeService',
             'AppBundle\\Form\\UserType' => 'getAppBundle_Form_UserTypeService',
             'annotation_reader' => 'getAnnotationReaderService',
             'annotations.reader' => 'getAnnotations_ReaderService',
@@ -289,6 +291,7 @@ class appDevDebugProjectContainer extends Container
             'AppBundle\\Form\\PersonType' => true,
             'AppBundle\\Form\\PostType' => true,
             'AppBundle\\Form\\Post_commentType' => true,
+            'AppBundle\\Form\\RegisterType' => true,
             'AppBundle\\Form\\UserType' => true,
             'annotations.reader' => true,
             'argument_resolver.default' => true,
@@ -834,9 +837,6 @@ class appDevDebugProjectContainer extends Container
         $instance->addListener('kernel.request', array(0 => function () {
             return ${($_ = isset($this->services['debug.debug_handlers_listener']) ? $this->services['debug.debug_handlers_listener'] : $this->get('debug.debug_handlers_listener')) && false ?: '_'};
         }, 1 => 'configure'), 2048);
-        $instance->addListener('console.command', array(0 => function () {
-            return ${($_ = isset($this->services['debug.debug_handlers_listener']) ? $this->services['debug.debug_handlers_listener'] : $this->get('debug.debug_handlers_listener')) && false ?: '_'};
-        }, 1 => 'configure'), 2048);
         $instance->addListener('kernel.request', array(0 => function () {
             return ${($_ = isset($this->services['router_listener']) ? $this->services['router_listener'] : $this->get('router_listener')) && false ?: '_'};
         }, 1 => 'onKernelRequest'), 32);
@@ -1229,6 +1229,8 @@ class appDevDebugProjectContainer extends Container
             return ${($_ = isset($this->services['AppBundle\Form\PostType']) ? $this->services['AppBundle\Form\PostType'] : $this->getAppBundle_Form_PostTypeService()) && false ?: '_'};
         }, 'AppBundle\\Form\\Post_commentType' => function () {
             return ${($_ = isset($this->services['AppBundle\Form\Post_commentType']) ? $this->services['AppBundle\Form\Post_commentType'] : $this->getAppBundle_Form_PostCommentTypeService()) && false ?: '_'};
+        }, 'AppBundle\\Form\\RegisterType' => function () {
+            return ${($_ = isset($this->services['AppBundle\Form\RegisterType']) ? $this->services['AppBundle\Form\RegisterType'] : $this->getAppBundle_Form_RegisterTypeService()) && false ?: '_'};
         }, 'AppBundle\\Form\\UserType' => function () {
             return ${($_ = isset($this->services['AppBundle\Form\UserType']) ? $this->services['AppBundle\Form\UserType'] : $this->getAppBundle_Form_UserTypeService()) && false ?: '_'};
         }, 'Symfony\\Bridge\\Doctrine\\Form\\Type\\EntityType' => function () {
@@ -2517,7 +2519,7 @@ class appDevDebugProjectContainer extends Container
         $q = new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $h, $n, $k, 'frontend', $o, $p, array('check_path' => 'user_login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'authenticate', 'post_only' => true), $a, $d, NULL);
         $q->setRememberMeServices($l);
 
-        return $this->services['security.firewall.map.context.frontend'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($j, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $c), 'frontend', $a, $d, $e), 2 => $m, 3 => $q, 4 => new \Symfony\Component\Security\Http\Firewall\RememberMeListener($b, $l, $h, $a, $d, true, $n), 5 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '5970e067ee1b22.96440004', $a, $h), 6 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, ${($_ = isset($this->services['debug.security.access.decision_manager']) ? $this->services['debug.security.access.decision_manager'] : $this->getDebug_Security_Access_DecisionManagerService()) && false ?: '_'}, $j, $h)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $e, $k, 'frontend', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($g, $k, 'user_login', false), NULL, NULL, $a, false), new \Symfony\Bundle\SecurityBundle\Security\FirewallConfig('frontend', 'security.user_checker', 'security.request_matcher.5d0eaa012d4a7d4e9196a7b64c99eb730a5e07fcacfcdbab66080072fdc431fde5521988', true, false, 'security.user.provider.concrete.usuarios', 'frontend', 'security.authentication.form_entry_point.frontend', NULL, NULL, array(0 => 'logout', 1 => 'form_login', 2 => 'remember_me', 3 => 'anonymous')));
+        return $this->services['security.firewall.map.context.frontend'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($j, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => $c), 'frontend', $a, $d, $e), 2 => $m, 3 => $q, 4 => new \Symfony\Component\Security\Http\Firewall\RememberMeListener($b, $l, $h, $a, $d, true, $n), 5 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '5971302b652633.84308178', $a, $h), 6 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, ${($_ = isset($this->services['debug.security.access.decision_manager']) ? $this->services['debug.security.access.decision_manager'] : $this->getDebug_Security_Access_DecisionManagerService()) && false ?: '_'}, $j, $h)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $e, $k, 'frontend', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($g, $k, 'user_login', false), NULL, NULL, $a, false), new \Symfony\Bundle\SecurityBundle\Security\FirewallConfig('frontend', 'security.user_checker', 'security.request_matcher.5d0eaa012d4a7d4e9196a7b64c99eb730a5e07fcacfcdbab66080072fdc431fde5521988', true, false, 'security.user.provider.concrete.usuarios', 'frontend', 'security.authentication.form_entry_point.frontend', NULL, NULL, array(0 => 'logout', 1 => 'form_login', 2 => 'remember_me', 3 => 'anonymous')));
     }
 
     /**
@@ -3467,6 +3469,25 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'AppBundle\Form\RegisterType' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * This service is private.
+     * If you want to be able to request this service from the container directly,
+     * make it public, otherwise you might end up with broken code.
+     *
+     * This service is autowired.
+     *
+     * @return \AppBundle\Form\RegisterType A AppBundle\Form\RegisterType instance
+     */
+    protected function getAppBundle_Form_RegisterTypeService()
+    {
+        return $this->services['AppBundle\Form\RegisterType'] = new \AppBundle\Form\RegisterType();
+    }
+
+    /**
      * Gets the 'AppBundle\Form\UserType' service.
      *
      * This service is shared.
@@ -3644,7 +3665,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_Annotations_RecorderInnerService($lazyLoad = true)
     {
-        return $this->services['cache.annotations.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('dBIsTSa+2h', 0, '1vW1RILEK0Z322BxH5ur++', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
+        return $this->services['cache.annotations.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('dBIsTSa+2h', 0, 'Qd1rAlvnZeSCacobeebaxI', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
     }
 
     /**
@@ -3688,7 +3709,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_Serializer_RecorderInnerService($lazyLoad = true)
     {
-        return $this->services['cache.serializer.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('5C2l+++82j', 0, '1vW1RILEK0Z322BxH5ur++', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
+        return $this->services['cache.serializer.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('5C2l+++82j', 0, 'Qd1rAlvnZeSCacobeebaxI', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
     }
 
     /**
@@ -3707,7 +3728,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_System_RecorderInnerService($lazyLoad = true)
     {
-        return $this->services['cache.system.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('6cz36YhRDI', 0, '1vW1RILEK0Z322BxH5ur++', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
+        return $this->services['cache.system.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('6cz36YhRDI', 0, 'Qd1rAlvnZeSCacobeebaxI', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
     }
 
     /**
@@ -3743,7 +3764,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_Validator_RecorderInnerService($lazyLoad = true)
     {
-        return $this->services['cache.validator.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('5XelCEpbLO', 0, '1vW1RILEK0Z322BxH5ur++', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
+        return $this->services['cache.validator.recorder_inner'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('5XelCEpbLO', 0, 'Qd1rAlvnZeSCacobeebaxI', (__DIR__.'/pools'), ${($_ = isset($this->services['monolog.logger.cache']) ? $this->services['monolog.logger.cache'] : $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE)) && false ?: '_'});
     }
 
     /**
@@ -4163,7 +4184,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_Provider_Anonymous_FrontendService()
     {
-        return $this->services['security.authentication.provider.anonymous.frontend'] = new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5970e067ee1b22.96440004');
+        return $this->services['security.authentication.provider.anonymous.frontend'] = new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('5971302b652633.84308178');
     }
 
     /**

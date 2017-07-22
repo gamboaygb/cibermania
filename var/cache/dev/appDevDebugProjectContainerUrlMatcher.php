@@ -140,6 +140,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return $this->mergeDefaults(array_replace($matches, array('_route' => 'view_post')), array (  '_controller' => 'AppBundle\\Controller\\PostController::singlePostAction',));
         }
 
+        // edit_profile
+        if ('/profile/edit' === $pathinfo) {
+            return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::profileEditAction',  '_route' => 'edit_profile',);
+        }
+
         // my_post
         if ('/my-post-list' === $trimmedPathinfo) {
             if (substr($pathinfo, -1) !== '/') {

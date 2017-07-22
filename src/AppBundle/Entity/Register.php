@@ -22,11 +22,14 @@ class Register
 
         $this->person->setToken(uniqid());
         $this->person->setUrlValidate($_SERVER['SERVER_NAME'].'/token/'.$this->person->getToken());
-
-
-
-        $this->person->setCreateDate(new \DateTime());
+        $this->person->setCreatedDate(new \DateTime());
         $this->person->setActivatedDate(new \DateTime());
+
+
+        /*for user*/
+        $this->user->setActive(true);
+        $this->user->setExpired(true);
+        $this->user->setRoles('ROLE_USER');
     }
 
     /**
