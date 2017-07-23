@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -11,7 +12,7 @@ use Symfony\Component\Security\Core\User\AdvancedUserInterface;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User implements AdvancedUserInterface
+class User implements AdvancedUserInterface,\Serializable
 {
     /**
      * @var int
@@ -26,6 +27,11 @@ class User implements AdvancedUserInterface
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
+     *
      */
     private $email;
 
@@ -35,6 +41,12 @@ class User implements AdvancedUserInterface
      * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\NotBlank(groups={"register"})
+     * @Assert\Length(min = 6)
+     */
+    private $passwordClear;
 
     /**
      * @var bool
@@ -119,6 +131,21 @@ class User implements AdvancedUserInterface
     }
 
     /**
+     * get PasswordClear
+     */
+
+    public function getPasswordClear(){
+        return $this->passwordClear;
+    }
+
+    /**
+     * set passwordClear
+     */
+    public function setPasswordClear($password){
+            $this->passwordClear=$password;
+    }
+
+    /**
      * Set active
      *
      * @param boolean $active
@@ -196,7 +223,7 @@ class User implements AdvancedUserInterface
     }
     public function eraseCredentials()
     {
-        $this->password = null;
+        $this->passwordClear = null;
     }
     public function getSalt()
     {
@@ -217,7 +244,7 @@ class User implements AdvancedUserInterface
     }
 
     public function isEnabled(){
-        return true;
+        return $this->active;
     }
 
 
@@ -243,5 +270,25 @@ class User implements AdvancedUserInterface
     public function getExpired()
     {
         return $this->expired;
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            ) = unserialize($serialized);
     }
 }

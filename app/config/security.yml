@@ -27,8 +27,9 @@ security:
                 lifetime:   604800  # 604.800 = 3.600 * 24 * 7 = 1 semana
     access_control:
             - { path: ^/*, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/create-post, roles: ROLE_ADMIN }
     encoders:
-            AppBundle\Entity\User: plaintext
+            AppBundle\Entity\User: bcrypt
 
     role_hierarchy:
         ROLE_ADMIN: [ROLE_USER]

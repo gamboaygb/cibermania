@@ -104,17 +104,17 @@
     <parameter key="database_user">root</parameter>
     <parameter key="database_password">gamboakelley</parameter>
     <parameter key="mailer_transport">smtp</parameter>
-    <parameter key="mailer_host">127.0.0.1</parameter>
-    <parameter key="mailer_user">null</parameter>
-    <parameter key="mailer_password">null</parameter>
+    <parameter key="mailer_host">mail.animaventures.com</parameter>
+    <parameter key="mailer_user">yusmel@animaventures.com</parameter>
+    <parameter key="mailer_password">Anima2017</parameter>
     <parameter key="secret">6d29bec13514b3a9ddc17ee7b96dccb873e08175</parameter>
-    <parameter key="locale">en</parameter>
+    <parameter key="locale">es</parameter>
     <parameter key="fragment.renderer.hinclude.global_template">null</parameter>
     <parameter key="fragment.path">/_fragment</parameter>
     <parameter key="kernel.secret">6d29bec13514b3a9ddc17ee7b96dccb873e08175</parameter>
     <parameter key="kernel.http_method_override">true</parameter>
     <parameter key="kernel.trusted_hosts" type="collection"/>
-    <parameter key="kernel.default_locale">en</parameter>
+    <parameter key="kernel.default_locale">es</parameter>
     <parameter key="templating.helper.code.file_link_format">null</parameter>
     <parameter key="debug.file_link_format">null</parameter>
     <parameter key="session.metadata.storage_key">_sf2_meta</parameter>
@@ -205,9 +205,9 @@
     <parameter key="swiftmailer.mailer.default.transport.name">smtp</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.encryption">null</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.port">25</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.host">127.0.0.1</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.username">null</parameter>
-    <parameter key="swiftmailer.mailer.default.transport.smtp.password">null</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.host">mail.animaventures.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.username">yusmel@animaventures.com</parameter>
+    <parameter key="swiftmailer.mailer.default.transport.smtp.password">Anima2017</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.auth_mode">null</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.timeout">30</parameter>
     <parameter key="swiftmailer.mailer.default.transport.smtp.source_ip">null</parameter>
@@ -469,7 +469,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.039ac0805b76e77467fe114d905415c8"/>
+      <argument type="service" id="service_locator.c31144db4317056ef21cc702e7d54dd3"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -487,7 +487,7 @@
     <service id="locale_listener" class="Symfony\Component\HttpKernel\EventListener\LocaleListener">
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="request_stack"/>
-      <argument>en</argument>
+      <argument>es</argument>
       <argument type="service" id="router.default" on-invalid="ignore"/>
     </service>
     <service id="validate_request_listener" class="Symfony\Component\HttpKernel\EventListener\ValidateRequestListener">
@@ -637,7 +637,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>Qd1rAlvnZeSCacobeebaxI</argument>
+      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -647,7 +647,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>Qd1rAlvnZeSCacobeebaxI</argument>
+      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -1764,9 +1764,9 @@
     <service id="security.encoder_factory.generic" class="Symfony\Component\Security\Core\Encoder\EncoderFactory" public="false">
       <argument type="collection">
         <argument key="AppBundle\Entity\User" type="collection">
-          <argument key="class">Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder</argument>
+          <argument key="class">Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder</argument>
           <argument key="arguments" type="collection">
-            <argument>false</argument>
+            <argument>13</argument>
           </argument>
         </argument>
       </argument>
@@ -1893,6 +1893,13 @@
         <argument type="service" id="security.request_matcher.a5394ac61642fe59c3f0acaa64f9c9e9672975f3bab1bdcef8c26b36f042306779d791a6"/>
         <argument type="collection">
           <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id="security.request_matcher.5bbae80fac6d5209d92ae3aa47d44a6e9c3f8f076c5b072c2df62328172f1d1b123a7713"/>
+        <argument type="collection">
+          <argument>ROLE_ADMIN</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -2364,12 +2371,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.frontend" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5971302b652633.84308178</argument>
+      <argument>5974c7a8b7bd19.46740428</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.frontend" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5971302b652633.84308178</argument>
+      <argument>5974c7a8b7bd19.46740428</argument>
     </service>
     <service id="security.exception_listener.frontend" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -2404,6 +2411,9 @@
     </service>
     <service id="security.request_matcher.a5394ac61642fe59c3f0acaa64f9c9e9672975f3bab1bdcef8c26b36f042306779d791a6" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/*</argument>
+    </service>
+    <service id="security.request_matcher.5bbae80fac6d5209d92ae3aa47d44a6e9c3f8f076c5b072c2df62328172f1d1b123a7713" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/create-post</argument>
     </service>
     <service id="security.console.user_password_encoder_command" class="Symfony\Bundle\SecurityBundle\Command\UserPasswordEncoderCommand" public="false">
       <tag name="console.command"/>
@@ -2832,10 +2842,10 @@
         <argument type="service" id="3_8a860e74deae963f462d2e5813d952badea5209a823534fd37bd9c14b3ee0396"/>
       </argument>
       <call method="setUsername">
-        <argument>null</argument>
+        <argument>yusmel@animaventures.com</argument>
       </call>
       <call method="setPassword">
-        <argument>null</argument>
+        <argument>Anima2017</argument>
       </call>
       <call method="setAuthMode">
         <argument>null</argument>
@@ -2855,7 +2865,7 @@
       </argument>
       <argument type="service" id="swiftmailer.mailer.default.transport.eventdispatcher"/>
       <call method="setHost">
-        <argument>127.0.0.1</argument>
+        <argument>mail.animaventures.com</argument>
       </call>
       <call method="setPort">
         <argument>25</argument>
@@ -3381,7 +3391,7 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.039ac0805b76e77467fe114d905415c8" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.c31144db4317056ef21cc702e7d54dd3" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
@@ -3602,7 +3612,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>6cz36YhRDI</argument>
       <argument>0</argument>
-      <argument>Qd1rAlvnZeSCacobeebaxI</argument>
+      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3610,7 +3620,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>5XelCEpbLO</argument>
       <argument>0</argument>
-      <argument>Qd1rAlvnZeSCacobeebaxI</argument>
+      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3618,7 +3628,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>5C2l+++82j</argument>
       <argument>0</argument>
-      <argument>Qd1rAlvnZeSCacobeebaxI</argument>
+      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3626,7 +3636,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>dBIsTSa+2h</argument>
       <argument>0</argument>
-      <argument>Qd1rAlvnZeSCacobeebaxI</argument>
+      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

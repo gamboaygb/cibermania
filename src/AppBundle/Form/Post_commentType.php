@@ -19,7 +19,7 @@ class Post_commentType extends AbstractType
     {
         $builder
             ->add('commentTitle',TextType::class,array(
-                'attr'=> array('class' => 'form-control','placeholder'=>'Titulo')
+                'attr'=> array('class' => 'form-control','placeholder'=>'Título')
             ))
             ->add('comment',TextareaType::class,array(
                 'attr'=> array('class' => 'form-control','placeholder'=>'Contenido')

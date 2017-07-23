@@ -20,11 +20,11 @@ class UserType extends AbstractType
             ->add('email',TextType::class,array(
                 'attr'=> array('class' => 'form-control','placeholder'=>'Email')
             ))
-            ->add('password',RepeatedType::class,array(
+            ->add('passwordClear',RepeatedType::class,array(
                 'type' => PasswordType::class,
                 'invalid_message' => 'Las contraseñas no coinciden.',
                 'options' => array('attr' => array('class' => 'form-control')),
-                'required' => true,
+                'required' => false,
                 'first_options'  => array('label' => 'Contraseña','attr' => array('placeholder' => 'Contraseña','class' => 'form-control')),
                 'second_options' => array('label' => 'Repetir','attr' => array('placeholder' => 'Repetir ontraseña','class' => 'form-control')),
             ));

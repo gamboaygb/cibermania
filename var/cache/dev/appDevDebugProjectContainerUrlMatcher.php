@@ -145,6 +145,15 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::profileEditAction',  '_route' => 'edit_profile',);
         }
 
+        // post_comment
+        if ('/insert/comment' === $trimmedPathinfo) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'post_comment');
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\PostController::postCommentAction',  '_route' => 'post_comment',);
+        }
+
         // my_post
         if ('/my-post-list' === $trimmedPathinfo) {
             if (substr($pathinfo, -1) !== '/') {
@@ -152,6 +161,15 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
 
             return array (  '_controller' => 'AppBundle\\Controller\\PostController::myPostListAction',  '_route' => 'my_post',);
+        }
+
+        // create_post
+        if ('/create-post' === $trimmedPathinfo) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'create_post');
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\PostController::createPostAction',  '_route' => 'create_post',);
         }
 
         if (0 === strpos($pathinfo, '/login')) {

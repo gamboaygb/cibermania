@@ -6,7 +6,7 @@ parameters:
     database_user: root
     database_password: gamboakelley
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_host: mail.animaventures.com
+    mailer_user: yusmel@animaventures.com
+    mailer_password: Anima2017
     secret: 6d29bec13514b3a9ddc17ee7b96dccb873e08175

@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Util\Slugger;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Post
@@ -25,7 +27,7 @@ class Post
     /**
      * @var string
      *
-     * @ORM\Column(name="title", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255,unique=true)
      */
     private $title;
 
@@ -80,6 +82,11 @@ class Post
     private $imgPost;
 
     /**
+     * @Assert\Image(maxSize = "500k")
+     */
+    private $photoPath;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Person")
      */
     private $person;
@@ -90,6 +97,12 @@ class Post
      * @ORM\Column(name="views", type="integer")
      */
     private $views;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="checked",type="boolean")
+     */
+    private $checked;
 
 
     /**
@@ -341,5 +354,62 @@ class Post
     public function getViews()
     {
         return $this->views;
+    }
+
+    /**
+     * Set checked
+     *
+     * @param boolean $checked
+     *
+     * @return Post
+     */
+    public function setChecked($checked)
+    {
+        $this->checked = $checked;
+
+        return $this;
+    }
+
+    /**
+     * Get checked
+     *
+     * @return boolean
+     */
+    public function getChecked()
+    {
+        return $this->checked;
+    }
+
+    /**
+     * Get picture
+     *
+     * @return string
+     */
+    public function getPhotoPath()
+    {
+        return $this->photoPath;
+    }
+
+
+
+    /**
+     * @param UploadedFile $picture
+     */
+    public function setPhotoPath(UploadedFile $photoPath = null)
+    {
+        $this->photoPath = $photoPath;
+        $this->subirFoto();
+    }
+
+    public function subirFoto()
+    {
+        if (null === $this->photoPath) {
+            return;
+        }
+
+
+        $nombreArchivoFoto = uniqid('post-').$this->id.'-'.$this->photoPath->getClientOriginalName();
+        $this->photoPath->move($_SERVER['DOCUMENT_ROOT'].'/bundles/images/post/', $nombreArchivoFoto);
+        $this->setImgPost($nombreArchivoFoto);
     }
 }
