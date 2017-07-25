@@ -62,7 +62,7 @@
                                                     <span class="time"><i class="fa fa-calendar" aria-hidden="true"></i> {{ comment.commentDate|date("d/m/Y") }}</span>
                                                 </div>
                                                 <h3 class="text-left">{{ comment.commentTitle }}</h3>
-                                                <p>{{ comment.comment }}</p>
+                                                <p>{{ comment.comment|raw }}</p>
                                             </div>
 
                                         </div>

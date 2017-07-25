@@ -16,7 +16,7 @@
                             <div class="carousel-item {{ loop.index0==0 ? 'active' : '' }}">
                                 <div class="col-xs-12 col-sm-12 col-md-7">
                                     <div class="col-12 mb-md-3">
-                                        <a href="#"><h1>{{ featured.title }}</h1></a>
+                                        <a href="{{ path('view_post', { slug: featured.slug}) }}"><h1>{{ featured.title }}</h1></a>
                                     </div>
                                     <div class="col-12 mt-md-3">
                                         <p class="text-capitalize text-center">{{ featured.shortContent }}</p>
@@ -57,7 +57,7 @@
                             <!-- Post Content-->
 
                             <div class="post-content">
-                                <div class="category"><a href="#">{{ item.category|capitalize }}</a> </div>
+                                <div class="category"><a href="{{ path('category_post_list',{slug:item.category.name}) }}">{{ item.category.name|capitalize }}</a> </div>
                                 <div class="card__share">
                                     <div class="card__social">
                                         <a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>

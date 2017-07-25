@@ -32,10 +32,9 @@ class Post
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=255)
-     */
+    * Many Post have One category.
+    * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
+    */
     private $category;
 
 
@@ -287,11 +286,11 @@ class Post
     /**
      * Set category
      *
-     * @param string $category
+     * @param \AppBundle\Entity\Category
      *
      * @return Post
      */
-    public function setCategory($category)
+    public function setCategory(\AppBundle\Entity\Category $category)
     {
         $this->category = $category;
 
@@ -301,7 +300,7 @@ class Post
     /**
      * Get category
      *
-     * @return string
+     * @return \AppBundle\Entity\Category
      */
     public function getCategory()
     {

@@ -113,6 +113,15 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        // category_post_list
+        if (0 === strpos($pathinfo, '/category') && preg_match('#^/category/(?P<slug>[^/]++)/?$#s', $pathinfo, $matches)) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'category_post_list');
+            }
+
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'category_post_list')), array (  '_controller' => 'AppBundle\\Controller\\CategoryController::listCategoryAction',));
+        }
+
         // homepage
         if ('' === $trimmedPathinfo) {
             if (substr($pathinfo, -1) !== '/') {

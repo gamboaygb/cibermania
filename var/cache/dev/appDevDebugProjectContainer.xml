@@ -424,6 +424,9 @@
   <services>
     <service id="service_container" class="Symfony\Component\DependencyInjection\ContainerInterface" synthetic="true"/>
     <service id="AppBundle\AppBundle" class="AppBundle\AppBundle" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\Controller\CategoryController" class="AppBundle\Controller\CategoryController" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="AppBundle\Controller\FrontController" class="AppBundle\Controller\FrontController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
@@ -433,10 +436,11 @@
     <service id="AppBundle\Controller\SecurityController" class="AppBundle\Controller\SecurityController" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
     </service>
-    <service id="AppBundle\DataFixtures\ORM\Articulos" class="AppBundle\DataFixtures\ORM\Articulos" public="false" autowire="true" autoconfigure="true"/>
-    <service id="AppBundle\DataFixtures\ORM\Comentarios" class="AppBundle\DataFixtures\ORM\Comentarios" public="false" autowire="true" autoconfigure="true"/>
-    <service id="AppBundle\DataFixtures\ORM\Personas" class="AppBundle\DataFixtures\ORM\Personas" public="false" autowire="true" autoconfigure="true"/>
-    <service id="AppBundle\DataFixtures\ORM\UserData" class="AppBundle\DataFixtures\ORM\UserData" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\DataFixtures\ORM\A" class="AppBundle\DataFixtures\ORM\A" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\DataFixtures\ORM\B" class="AppBundle\DataFixtures\ORM\B" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\DataFixtures\ORM\C" class="AppBundle\DataFixtures\ORM\C" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\DataFixtures\ORM\D" class="AppBundle\DataFixtures\ORM\D" public="false" autowire="true" autoconfigure="true"/>
+    <service id="AppBundle\DataFixtures\ORM\E" class="AppBundle\DataFixtures\ORM\E" public="false" autowire="true" autoconfigure="true"/>
     <service id="AppBundle\Form\PersonType" class="AppBundle\Form\PersonType" public="false" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -469,7 +473,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.c31144db4317056ef21cc702e7d54dd3"/>
+      <argument type="service" id="service_locator.44a3beaeb8e1d7750351ce08afc04a39"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -637,7 +641,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
+      <argument>o+aGkzrVP17EhK+ysoMpFM</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -647,7 +651,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
+      <argument>o+aGkzrVP17EhK+ysoMpFM</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -2371,12 +2375,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.frontend" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5974c7a8b7bd19.46740428</argument>
+      <argument>597673ee31c406.23179419</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.frontend" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5974c7a8b7bd19.46740428</argument>
+      <argument>597673ee31c406.23179419</argument>
     </service>
     <service id="security.exception_listener.frontend" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -3363,6 +3367,8 @@
     <service id="web_server.command.server_status" class="Symfony\Bundle\WebServerBundle\Command\ServerStatusCommand" public="false">
       <tag name="console.command"/>
     </service>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\CategoryController" class="AppBundle\Controller\CategoryController" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\CategoryController" class="AppBundle\Controller\CategoryController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\FrontController" class="AppBundle\Controller\FrontController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\FrontController" class="AppBundle\Controller\FrontController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\PostController" class="AppBundle\Controller\PostController" autowire="true" abstract="true"/>
@@ -3379,6 +3385,10 @@
     <service id="abstract.instanceof.AppBundle\Form\RegisterType" class="AppBundle\Form\RegisterType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Form\UserType" class="AppBundle\Form\UserType" public="false" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="service_locator.3361c83547e0e938169a0e35e60f6dac" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
     <service id="service_locator.8f0bc62a61c174213918eec4f86b6cad" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
@@ -3391,7 +3401,7 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.c31144db4317056ef21cc702e7d54dd3" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.44a3beaeb8e1d7750351ce08afc04a39" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
@@ -3612,7 +3622,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>6cz36YhRDI</argument>
       <argument>0</argument>
-      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
+      <argument>o+aGkzrVP17EhK+ysoMpFM</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3620,7 +3630,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>5XelCEpbLO</argument>
       <argument>0</argument>
-      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
+      <argument>o+aGkzrVP17EhK+ysoMpFM</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3628,7 +3638,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>5C2l+++82j</argument>
       <argument>0</argument>
-      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
+      <argument>o+aGkzrVP17EhK+ysoMpFM</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3636,7 +3646,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>dBIsTSa+2h</argument>
       <argument>0</argument>
-      <argument>j8kF0nx1y1zxF3WqjIZV49</argument>
+      <argument>o+aGkzrVP17EhK+ysoMpFM</argument>
       <argument>/var/www/cibermania/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

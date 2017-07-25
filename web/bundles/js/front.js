@@ -52,7 +52,18 @@
             $(this).toggleClass('share-expanded');
         });
 
+        $('.food').hover(
+            function () {
+                $(this).find('.recipe').show(500);
+                $(this).find('.content').css('left','154px');
+            },
+            function () {
+                $(this).find('.recipe').hide(500);
+                $(this).find('.content').css('left','22px');
+            }
+        );
 
+        CKEDITOR.replace( 'appbundle_post_comment_comment' );
     });
 
     

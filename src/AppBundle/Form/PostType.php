@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class PostType extends AbstractType
 {
@@ -20,8 +21,11 @@ class PostType extends AbstractType
         $builder->add('title',TextType::class,array(
                             'attr'=> array('class' => 'form-control','placeholder'=>'Título')
                      ))
-            ->add('category',TextType::class,array(
-                        'attr'=> array('class' => 'form-control','placeholder'=>'Categoría')
+            ->add('category',EntityType::class,array(
+                        'class' => 'AppBundle:Category',
+                        'multiple' => true,
+                        'expanded' => true,
+                        'attr'=> array('class' => '')
                     ))
             ->add('content',TextareaType::class,array(
                 'attr'=> array('class' => 'form-control','placeholder'=>'Contenido')
