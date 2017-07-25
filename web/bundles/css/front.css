@@ -31,6 +31,11 @@ html,body{
 a{
     color:#39b59f;
 }
+
+.btn{
+    padding: .4rem .5rem;
+    border-radius: 0;
+}
 .btn-outline-primary{
     color:#39b59f;
     border-color: #39b59f;
@@ -40,14 +45,21 @@ a{
 }
 .btn-outline-primary:hover{
     background: #39b59f;
+    border-color: #39b59f;
+}
+
+.btn-success{
+    background: #39b59f;
+    border-color: #39b59f;
+}
+
+.btn-success:hover{
+    background: #339783;
+    border-color:#339783;
 }
 
 ul li{
     list-style-type: none;
-}
-
-h1{
-    font-family: 'Ubuntu-B';
 }
 
 p{
@@ -539,7 +551,7 @@ p{
 }
 
 .article-pic{
-    border-bottom: 1px solid #999999;
+    border-bottom: 1px solid #339783;
 }
 
 .article-pic span{
@@ -566,7 +578,9 @@ span.author-name{
     background: #39b59f;
     color: #ffffff;
 }
-
+.nav-tabs{
+    border-bottom: 1px solid #39b59f;
+}
 /*===================================CATEGORY LIST PORT CARD==========================*/
 
 
