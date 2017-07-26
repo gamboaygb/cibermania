@@ -24,9 +24,12 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        $authUtils = $this->get('security.authentication_utils');
 
-        return $this->render('front/homepage/_login.html.twig', array(
+        if($this->getUser()){
+            return $this->redirectToRoute('homepage');
+        }
+        $authUtils = $this->get('security.authentication_utils');
+        return $this->render('front/homepage/_singin.html.twig', array(
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
         ));
@@ -36,6 +39,7 @@ class SecurityController extends Controller
      */
     public function loginCheckAction()
     {
+
     }
     /**
      * @Route("/logout", name="user_logout")
@@ -47,7 +51,6 @@ class SecurityController extends Controller
     public function boxloginAction()
     {
         $authUtils = $this->get('security.authentication_utils');
-
         return $this->render('front/homepage/_login.html.twig', array(
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
@@ -58,7 +61,9 @@ class SecurityController extends Controller
      * @Route("/signup",name="create_account")
      */
     public function createAccountAction(Request $request){
-
+        if($this->getUser()){
+            return $this->redirectToRoute('homepage');
+        }
         $registro= new Register();
 
         $form = $this->createForm(RegisterType::class, $registro,array(
@@ -112,6 +117,8 @@ class SecurityController extends Controller
             $user_profile=new Register();
             $user_profile->setUser($user);
             $user_profile->setPerson($user->getPerson());
+
+
             $form = $this->createForm(RegisterType::class, $user_profile,array(
                 'register'=>'user_profile',
             ));
@@ -122,6 +129,7 @@ class SecurityController extends Controller
 
                 $user=$form->getData()->getUser();
                 $person=$form->getData()->getPerson();
+                $person->setDescription($form->getData()->getDescription());
 
 
                 if(null!==$user->getPasswordClear()){

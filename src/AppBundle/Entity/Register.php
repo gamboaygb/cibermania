@@ -14,6 +14,7 @@ class Register
 {
     private $user;
     private $person;
+    private $description;
 
     public function __construct()
     {
@@ -62,5 +63,21 @@ class Register
     public function setPerson($person)
     {
         $this->person = $person;
+        $this->description=$this->getPerson()->getDescription();
+    }
+    /*
+     * @param string $description
+     */
+    public function setDescription($description){
+
+            $this->description=$description;
+
+
+    }
+    /*
+     *"return $description
+     */
+    public function getDescription(){
+        return $this->description;
     }
 }

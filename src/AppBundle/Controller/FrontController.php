@@ -22,6 +22,14 @@ class FrontController extends Controller
         ]);
     }
 
+    public function footerAction(){
+        $em = $this->getDoctrine()->getManager();
+        $category_list=$em->getRepository('AppBundle:Category')->findAll();
+        return $this->render('static/_category_list.html.twig',[
+                'category_list'=>$category_list,
+            ]);
+    }
+
     /**
      * @Route("/{nombrePagina}/",
      * defaults={ "nombrePagina" = "ayuda" },

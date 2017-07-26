@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
@@ -24,7 +25,11 @@ class RegisterType extends AbstractType
                 'attr'=> array('class' => 'btn btn-success')
             ));
         }else if('user_profile' === $options['register']){
-            $builder->add('Actualizar',SubmitType::class,array(
+            $builder
+                ->add('description',TextareaType::class,array(
+                    'attr'=> array('class' => 'form-control','placeholder'=>'Escribe algo sobre ti')
+                ))
+                ->add('Actualizar',SubmitType::class,array(
                 'attr'=> array('class' => 'btn btn-success')
             ));
         }

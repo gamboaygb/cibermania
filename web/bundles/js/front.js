@@ -63,7 +63,6 @@
             }
         );
 
-        CKEDITOR.replace( 'appbundle_post_comment_comment' );
     });
 
     

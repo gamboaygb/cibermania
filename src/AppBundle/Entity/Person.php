@@ -40,6 +40,13 @@ class Person
 
     /**
      * @var string
+     * @ORM\Column(name="desccription",type="string", length=255,nullable=true)
+     */
+
+    private $description;
+
+    /**
+     * @var string
      *
      * @ORM\Column(name="token", type="string", length=255)
      */
@@ -320,5 +327,29 @@ class Person
     public function getUrlValidate()
     {
         return $this->urlValidate;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Person
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
