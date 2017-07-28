@@ -30,6 +30,7 @@ html,body{
 
 a{
     color:#39b59f;
+    cursor: pointer;
 }
 
 .btn{

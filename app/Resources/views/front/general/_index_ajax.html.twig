@@ -1,0 +1,115 @@
+{% extends 'front/frontend.html.twig' %}
+{% block section %}
+        <section class="container-fluid container_ajax">
+
+        </section>
+{% endblock %}
+
+{% block js %}
+    <script>
+        jQuery(document).ready(function($)
+        {
+            $.ajax({
+                method: "GET",
+                url: "{{ url('post_ajax') }}",
+                dataType: 'json',
+                success: function(data)
+                {
+                    if(data.hasOwnProperty("response") && data.response === "success")
+                    {
+                        if(data.hasOwnProperty("posts"))
+                        {
+                            //http://stackoverflow.com/questions/3710204/how-to-check-if-a-string-is-a-valid-json-string-in-javascript-without-using-try/3710226
+                            if (/^[\],:{}\s]*$/.test(data.posts.replace(/\\["\\\/bfnrtu]/g, '@').
+                                replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').
+                                replace(/(?:^|:|,)(?:\s*\[)+/g, '')))
+                            {
+                                var posts = JSON.parse(data.posts);
+                                var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+                                    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+                                ];
+                                var col;
+                                var row;
+                                if(posts.length > 0)
+                                {
+                                    var html = "";
+                                    for(i in posts)
+                                    {
+
+                                        if(i%3==0){
+                                            col=$('<div>').addClass("col-12");
+                                            row=$('<div/>').addClass("row").appendTo(col);
+                                        }
+
+                                                var firstDiv = $('<div/>').addClass("col-xs-12 col-sm-12 col-md-4").appendTo(row);
+                                                    var postModule=$('<div/>').addClass("post-module").hover(function() {
+                                                        $(this).find('.description').stop().animate({
+                                                            height: "toggle",
+                                                            opacity: "toggle"
+                                                        }, 300);
+                                                    }).appendTo(firstDiv);
+                                                        var thumbnail=$('<div/>').addClass("thumbnail").appendTo(postModule);
+                                                            var date=$('<div/>').addClass("date").appendTo(thumbnail);
+                                                                 var day=$('<div/>').addClass("day").text(new Date(posts[i].createdDate.timestamp).getDate()).appendTo(date);
+                                                                 var month=$('<div/>').addClass("month").text(monthNames[new Date(posts[i].createdDate.timestamp).getMonth()]).appendTo(date);
+                                                            var imgen=$('<img />').attr({'src':'{{ asset('bundles/images/post') }}/'+posts[i].imgPost+''}).addClass("img-fluid").appendTo(thumbnail);
+                                                        var postContent=$('<div/>').addClass("post-content").appendTo(postModule);
+                                                            var category=$('<div/>').addClass("category").appendTo(postContent);
+                                                                var categoryLink=$('<a>').attr({'href':location.origin+'/app_dev.php/category/'+posts[i].category.name.toLocaleLowerCase()}).text(posts[i].category.name).appendTo(category);
+                                                            var cardShare=$('<div/>').addClass("card__share").appendTo(postContent);
+                                                                var cardSocial=$('<div/>').addClass("card__social").appendTo(cardShare);
+                                                                    var facebook=$('<a>').addClass("share-icon facebook").attr({'src':'#'}).appendTo(cardSocial);
+                                                                        var facebookSpan=$('<span/>').addClass("fa fa-facebook").appendTo(facebook);
+                                                                    var twitter=$('<a>').addClass("share-icon twitter").attr({'src':'#'}).appendTo(cardSocial);
+                                                                        var twitterSpan=$('<span/>').addClass("fa fa-twitter").appendTo(twitter);
+                                                                    var gplus=$('<a>').addClass("share-icon googleplus").attr({'src':'#'}).appendTo(cardSocial);
+                                                                        var gplusSpan=$('<span/>').addClass("fa fa-google-plus").appendTo(gplus);
+                                                                var share=$('<a>').addClass("share-toggle share-icon").attr({'id':'share'}).on('click', function(e){
+                                                                    e.preventDefault() // prevent default action - hash doesn't appear in url
+                                                                    $(this).parent().find( 'div' ).toggleClass( 'card__social--active' );
+                                                                    $(this).toggleClass('share-expanded');
+                                                                }).appendTo(cardShare);
+                                                            var viewPost=$('<a>').attr({'href':'#'}).appendTo(postContent);
+                                                                var titlePost=$('<h1/>').addClass('title').text(posts[i].title).appendTo(viewPost);
+                                                            var subTitle=$('<h2/>').addClass('sub_title').text(posts[i].title).appendTo(postContent);
+                                                            var description=$('<p>').addClass('description').text(posts[i].shortContent).appendTo(postContent);
+                                                            var postMeta=$('<div/>').addClass('post-meta').appendTo(postContent);
+                                                                var chip=$('<div/>').addClass('chip').appendTo(postMeta);
+                                                                    var imgChip=$('<img />').attr({'src':'{{ asset('bundles/images/user') }}/'+posts[i].person.picture+'','width':'96','height':'96'}).appendTo(chip);
+                                                                    var personName=$('<a>').attr({'href':'#'}).text(posts[i].person.name+' '+posts[i].person.lastName).appendTo(chip);
+                                                                var comment= $('<span/>').addClass("comments").appendTo(postMeta);
+                                                                    var eyes=$('<i/>').addClass("fa fa-eye").appendTo(comment);
+                                                                    var eyelink=$('<a>').attr({'href':'#'}).text(' '+posts[i].views).appendTo(comment);
+
+
+                                         if(i%3==0){
+                                             $('.container_ajax').append(col);
+                                         }
+
+                                        //console.log(posts[i]);
+                                    }
+
+                                }
+                            }
+                            else
+                            {
+                                console.log("Json no válido");
+                            }
+                        }
+                        else
+                        {
+                            console.log("NO existe ningun post");
+                        }
+                    }
+                },
+                error: function(jqXHR, exception)
+                {
+                    if(jqXHR.status === 405)
+                    {
+                        console.error("metodo no permitido!");
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

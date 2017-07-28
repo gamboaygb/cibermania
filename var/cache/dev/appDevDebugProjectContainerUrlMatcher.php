@@ -113,6 +113,33 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
+        elseif (0 === strpos($pathinfo, '/ajax')) {
+            // homeajax
+            if ('/ajax' === $trimmedPathinfo) {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'homeajax');
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\AjaxController::indexAction',  '_route' => 'homeajax',);
+            }
+
+            // post_ajax
+            if ('/ajax/list-post' === $trimmedPathinfo) {
+                if ('GET' !== $canonicalMethod) {
+                    $allow[] = 'GET';
+                    goto not_post_ajax;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'post_ajax');
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\AjaxController::postAction',  '_route' => 'post_ajax',);
+            }
+            not_post_ajax:
+
+        }
+
         // category_post_list
         if (0 === strpos($pathinfo, '/category') && preg_match('#^/category/(?P<slug>[^/]++)/?$#s', $pathinfo, $matches)) {
             if (substr($pathinfo, -1) !== '/') {

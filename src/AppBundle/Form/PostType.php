@@ -23,7 +23,7 @@ class PostType extends AbstractType
                      ))
             ->add('category',EntityType::class,array(
                         'class' => 'AppBundle:Category',
-                        'multiple' => true,
+                        'multiple' => false,
                         'expanded' => true,
                         'attr'=> array('class' => '')
                     ))
