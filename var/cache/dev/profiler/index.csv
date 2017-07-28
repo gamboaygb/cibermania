@@ -1029,3 +1029,6 @@ d7aa72,127.0.0.1,GET,http://localhost/app_dev.php/_fragment?_path=_format%3Dhtml
 0717b5,127.0.0.1,GET,http://localhost/app_dev.php/category/internet/,1501279477,,200
 bb3144,127.0.0.1,GET,http://localhost/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Des%26_controller%3DAppBundle%253AFront%253Afooter,1501279490,b97d9a,200
 b97d9a,127.0.0.1,GET,http://localhost/app_dev.php/,1501279490,,200
+b1927d,127.0.0.1,GET,http://localhost/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Des%26_controller%3DAppBundle%253ASecurity%253AboxLogin,1501281898,db99a2,200
+8fa0b8,127.0.0.1,GET,http://localhost/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Des%26_controller%3DAppBundle%253AFront%253Afooter,1501281898,db99a2,200
+db99a2,127.0.0.1,GET,http://localhost/app_dev.php/,1501281899,,200
