@@ -65,6 +65,57 @@
 
     });
 
+
+    if ($('#back-to-top').length) {
+        var scrollTrigger = 100, // px
+            backToTop = function () {
+                var scrollTop = $(window).scrollTop();
+                if (scrollTop > scrollTrigger) {
+                    $('#back-to-top').addClass('show');
+                } else {
+                    $('#back-to-top').removeClass('show');
+                }
+            };
+        backToTop();
+        $(window).on('scroll', function () {
+            backToTop();
+        });
+        $('#back-to-top').on('click', function (e) {
+            e.preventDefault();
+            $('html,body').animate({
+                scrollTop: 0
+            }, 700);
+        });
+    }
+
+
+    if($('.pagination-index').length>0){
+        $('.pagination-index li').each(function (index) {
+            if($(this).hasClass('active')){
+                var selected=index;
+            }
+           $(this).bind("click",function () {
+               $(this).addClass('active');
+              var num=parseInt($(this).first().text())*3;
+
+               $('.loading').addClass('overlay').toggle();
+
+               $('.card-home').each(function (index) {
+                   if(index<(num-3) || index>num){
+                       $(this).removeClass('show').addClass('hide');
+                   }else{
+
+                       $(this).removeClass('hide').addClass('show');
+                   }
+               });
+
+               setTimeout(function () {
+                   $('.loading').hide().removeClass('overlay');
+               },1000)
+           })
+        });
+    }
+
     
 
 })(jQuery);

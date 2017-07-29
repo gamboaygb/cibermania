@@ -1,7 +1,7 @@
 {% extends 'front/frontend.html.twig' %}
 {% block section %}
-    <section>
-        <div class="col-xs-12 col-sm-12 col-md-8 mx-auto">
+    <section class="container">
+        <div class="col-xs-12 col-sm-12 col-md-12">
             {{ form_start(form, {'attr': {'class': 'my-form-class'} }) }}
 
             <div class="form-group">
@@ -25,4 +25,10 @@
             {{ form_end(form) }}
         </div>
     </section>
+{% endblock %}
+{% block js %}
+    <script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'appbundle_regiser[description]' );
+    </script>
 {% endblock %}

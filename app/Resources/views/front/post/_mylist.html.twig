@@ -4,7 +4,8 @@
        <div class="col-12">
            <div class="row">
                 {% if my_list is iterable %}
-                           {% for item in my_list %}
+                    <a href="{{ path('create_post') }}">Crear Post</a>
+                    {% for item in my_list %}
                                <div class="col-sm-12 col-md-2">
                                    <img class="img-thumbnail" src="{{ asset(item.imgPost,'post') }}">
                                </div>

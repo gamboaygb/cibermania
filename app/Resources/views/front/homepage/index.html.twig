@@ -39,16 +39,20 @@
                 </div>
         </div>
     </section>
-    <section class="container">
-
+    <section class="container container-section">
+        <div class="loading">
+            <i class="fa fa-refresh fa-3x fa-spin"></i>
+        </div>
+        {% set i=0 %}
         {% for item in list %}
 
                 {% if loop.index0%3==0 %}
+                        {% set i=i+1 %}
                     {% if loop.index0>0 %}
                         </div>
                         </div>
                       {% endif %}
-                    <div class="col-12">
+                    <div class="col-12 card-home {{ loop.index<=9 ? 'show':'hide' }}">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-4">
 
@@ -135,6 +139,27 @@
                 {%  endif %}
 
         {% endfor %}
+        </div>
+                    </div>
+        <nav class="navbar">
+            <ul class="pagination pagination-index">
+                <li class="page-item disabled">
+                    <span class="page-link" href="#" tabindex="-1">&laquo;</span>
+                </li>
+
+                {% set value=1 %}
+                {% for a in 1..i %}
+                {% if loop.index0%3==0 %}
+                    <li class="page-item {{ loop.first ? ' active' }}"><span class="page-link" href="">{{ value }}</span></li>
+                    {% set value=value+1 %}
+                {% endif %}
+                {% endfor %}
+
+                <li class="page-item">
+                    <span class="page-link" href="">&raquo;</span>
+                </li>
+            </ul>
+        </nav>
     </section>
 {% endblock %}
 

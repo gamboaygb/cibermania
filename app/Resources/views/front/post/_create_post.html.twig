@@ -1,8 +1,14 @@
 {% extends 'front/frontend.html.twig' %}
 {% block section %}
-    <section>
+    <section class="container">
         {{ form_start(form, {'attr': {'class': 'my-form-class'} }) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
     </section>
+{% endblock %}
+{% block js %}
+    <script src="//cdn.ckeditor.com/4.7.1/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace( 'appbundle_post[content]' );
+    </script>
 {% endblock %}

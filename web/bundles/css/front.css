@@ -74,6 +74,10 @@ article{
     display: block;
 }
 
+.hide{
+    display: none;
+}
+
 
 
 
@@ -758,6 +762,44 @@ span.author-name{
     color: #333;
 }
 
+/*==Pagination========*/
+.pagination-index li{
+    cursor: pointer;
+}
+.page-item.active .page-link{
+    background: #339783;
+    border-color: #339783;
+}
+
+.page-link{
+    color:#339783;
+}
+.loading{
+    display: none;
+}
+.loading i{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter:alpha(opacity=50);
+    -moz-opacity:0.5;
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+    z-index: 10000;
+}
+
+
+
 
 /*=============<footer=================*/
 footer.container-fluid{
@@ -777,7 +819,31 @@ footer.container-fluid{
 .main-footer{
 
 }
-
+/* back scrolltop*/
+#back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 30px;
+    background: #39b59f;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    border-radius: 16px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+#back-to-top:hover {
+    background: #339783;
+}
+#back-to-top.show {
+    opacity: 1;
+}
 
 
 @media screen and (max-height: 450px) {
