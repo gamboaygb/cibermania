@@ -1,6 +1,6 @@
 {% extends 'front/frontend.html.twig' %}
 {% block section %}
-        <section class="container-fluid container_ajax">
+        <section class="container container_ajax">
 
         </section>
 {% endblock %}
@@ -58,11 +58,11 @@
                                                                 var categoryLink=$('<a>').attr({'href':location.origin+'/app_dev.php/category/'+posts[i].category.name.toLocaleLowerCase()}).text(posts[i].category.name).appendTo(category);
                                                             var cardShare=$('<div/>').addClass("card__share").appendTo(postContent);
                                                                 var cardSocial=$('<div/>').addClass("card__social").appendTo(cardShare);
-                                                                    var facebook=$('<a>').addClass("share-icon facebook").attr({'src':'#'}).appendTo(cardSocial);
+                                                                    var facebook=$('<a>').addClass("share-icon facebook").attr({'href':'#'}).appendTo(cardSocial);
                                                                         var facebookSpan=$('<span/>').addClass("fa fa-facebook").appendTo(facebook);
-                                                                    var twitter=$('<a>').addClass("share-icon twitter").attr({'src':'#'}).appendTo(cardSocial);
+                                                                    var twitter=$('<a>').addClass("share-icon twitter").attr({'href':'#'}).appendTo(cardSocial);
                                                                         var twitterSpan=$('<span/>').addClass("fa fa-twitter").appendTo(twitter);
-                                                                    var gplus=$('<a>').addClass("share-icon googleplus").attr({'src':'#'}).appendTo(cardSocial);
+                                                                    var gplus=$('<a>').addClass("share-icon googleplus").attr({'href':'#'}).appendTo(cardSocial);
                                                                         var gplusSpan=$('<span/>').addClass("fa fa-google-plus").appendTo(gplus);
                                                                 var share=$('<a>').addClass("share-toggle share-icon").attr({'id':'share'}).on('click', function(e){
                                                                     e.preventDefault() // prevent default action - hash doesn't appear in url

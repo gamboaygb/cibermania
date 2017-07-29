@@ -29,6 +29,9 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
         $single_post=$em->getRepository('AppBundle:Post')->findByTitle($slug);
         $coments=$em->getRepository('AppBundle:Post_comment')->findByPost($single_post);
+        $post_by_category=$em->getRepository('AppBundle:Post')->findByCategory($single_post->getCategory());
+        $more_visited=$em->getRepository('AppBundle:Post')->findByVisited(5);
+
 
         if($single_post){
             $single_post->setViews($single_post->getViews()+1);
@@ -38,6 +41,8 @@ class PostController extends Controller
 		return $this->render('front/post/_single.html.twig', [
 		    'single_post'=>$single_post,
             'comments'=>$coments,
+            'post_by_category'=>$post_by_category,
+            'more_visited'=>$more_visited
         ]);
 	}
 

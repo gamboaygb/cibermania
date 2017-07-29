@@ -84,7 +84,7 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="home" role="tabpanel">Pondre relacionado por la categoria</div>
-                                <div class="tab-pane" id="profile" role="tabpanel">otros escritos por el autor</div>
+                                <div class="tab-pane" id="profile" role="tabpanel">{{ single_post.person.description|raw }}</div>
                             </div>
                         </div>
                         <div class="article-comment">
@@ -92,8 +92,51 @@
                         </div>
                     </article>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-4">
-                    <h3>Lo más leido</h3>
+                <div class="col-xs-12 col-sm-12 col-md-4 mt-4">
+                    <div id="search" class="col-12">
+                        <form method="get" action="{{ path('search') }}">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="data" id="slug" placeholder="Buscar" />
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-12">
+                        <h3>Lo + visto</h3>
+                        <ul class="ul_views">
+                        {% for item in more_visited %}
+                            <li class="li_views">
+                                <article>
+                                    <a class="li_a" href="{{ path('view_post',{slug:item.slug}) }}">
+                                        <figure>
+                                            <img class="img-thumbnail" src="{{ asset(item.imgPost,'post') }}">
+                                        </figure>
+                                        <hgroup>
+                                            <h3 class="views-subtitle">{{ item.category.name|capitalize }}</h3>
+                                            <h4 class="views-title">{{ item.title }}</h4>
+                                        </hgroup>
+                                    </a>
+                                </article>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col-12">
+                        <h3>Relacionadas</h3>
+                        <ul class="ul_views">
+                            {% for item in post_by_category %}
+                                <li class="li_views">
+                                    <article>
+                                        <a class="li_a" href="{{ path('view_post',{slug:item.slug}) }}">
+                                            <hgroup>
+                                                <h3 class="views-subtitle">{{ item.category.name|capitalize }}</h3>
+                                                <h4 class="views-title">{{ item.title }}</h4>
+                                            </hgroup>
+                                        </a>
+                                    </article>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>

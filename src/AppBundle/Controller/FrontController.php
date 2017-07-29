@@ -31,6 +31,19 @@ class FrontController extends Controller
     }
 
     /**
+     * @Route("/seach/", name="search")
+     */
+    public function searchAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $slug=$request->get('data');
+        $result=$em->getRepository('AppBundle:Post')->findBySearch($slug);
+
+        return $this->render('static/_search_result.html.twig',[
+            'result'=>$result,
+        ]);
+    }
+
+    /**
      * @Route("/{nombrePagina}/",
      * defaults={ "nombrePagina" = "ayuda" },
      * requirements={ "nombrePagina"="ayuda|privacidad|sobre_nosotros|politicas" },

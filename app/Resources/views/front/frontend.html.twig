@@ -6,9 +6,9 @@
         <a href="javascript:void(0)" class="closebtn" >&times;</a>
 
         <div id="search" class="col-12">
-             <form method="post" action="#">
+             <form method="get" action="{{ path('search') }}">
               <div class="form-group">
-                <input type="text" class="form-control" name="query" id="query" placeholder="Buscar" />
+                <input type="text" class="form-control" name="data" id="slug" placeholder="Buscar" />
                </div> 
             </form>
         </div>

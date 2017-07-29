@@ -10,13 +10,13 @@ namespace AppBundle\Repository;
  */
 class PostRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findByFeatured(){
+    public function findByFeatured($featured){
         $em = $this->getEntityManager();
         $consulta = $em->createQuery('
         SELECT u
         FROM AppBundle:Post u
         WHERE u.category = :featured');
-        $consulta->setParameter('featured', featured);
+        $consulta->setParameter('featured', $featured);
 
         try{
             return $consulta->getSingleResult();
@@ -39,6 +39,21 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
         }
     }
 
+    public function findByVisited($limit){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+        SELECT u
+        FROM AppBundle:Post u
+        ORDER  by u.views DESC');
+        $consulta->setMaxResults($limit);
+
+        try{
+            return $consulta->getResult();
+        }catch (\Exception $error){
+            return false;
+        }
+    }
+
     public function findByTitle($slug){
         $em = $this->getEntityManager();
         $consulta = $em->createQuery('
@@ -49,6 +64,23 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
 
         try{
             return $consulta->getSingleResult();
+        }catch (\Exception $error){
+            return false;
+        }
+    }
+
+    public function findBySearch($slug){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+        SELECT u
+        FROM AppBundle:Post u
+        WHERE u.content like :slug
+        or u.title like :slug');
+        $consulta->setParameter('slug', "%$slug%");
+        $consulta->setParameter('slug',"%$slug%");
+
+        try{
+            return $consulta->getResult();
         }catch (\Exception $error){
             return false;
         }

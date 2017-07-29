@@ -70,6 +70,10 @@ p{
     font-family: 'Roboto', sans-serif;
 }
 
+article{
+    display: block;
+}
+
 
 
 
@@ -533,7 +537,7 @@ p{
 }
 
 
-/*SINGLE ARTICLE*/
+/*==================================================SINGLE ARTICLE===================================*/
 
 .article-title h1{
     font-size: 52px;
@@ -588,6 +592,65 @@ span.author-name{
 }
 .nav-tabs{
     border-bottom: 1px solid #39b59f;
+}
+
+.ul_views{
+    padding: 0;
+    margin: 0;
+}
+
+.li_views{
+    background: #fff;
+    margin-bottom: 10px;
+    overflow: hidden;
+
+}
+
+.li_a{
+
+    text-decoration: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: #101010;
+    display: block;
+}
+.li_a::before{
+    content: " ";
+    display: table;
+}
+
+.li_views figure {
+    width: 100px;
+    height: 65px;
+    overflow: hidden;
+    float: left;
+    position: relative;
+}
+.li_views figure img{
+    border: none;
+}
+
+.li_a hgroup {
+    display: table;
+    padding: 0 10px;
+}
+
+.views-subtitle {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    display: inline-block;
+    position: relative;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+    border-bottom: 2px solid #339783;
+}
+.views-title {
+    font-size: 13px;
+    color: #111;
+    font-weight: bold;
+    line-height: 15px;
 }
 /*===================================CATEGORY LIST PORT CARD==========================*/
 

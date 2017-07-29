@@ -158,6 +158,15 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'AppBundle\\Controller\\FrontController::indexAction',  '_route' => 'homepage',);
         }
 
+        // search
+        if ('/seach' === $trimmedPathinfo) {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'search');
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\FrontController::searchAction',  '_route' => 'search',);
+        }
+
         // pagina
         if (preg_match('#^/(?P<nombrePagina>ayuda|privacidad|sobre_nosotros|politicas)/?$#s', $pathinfo, $matches)) {
             if (substr($pathinfo, -1) !== '/') {
