@@ -1,27 +1,46 @@
 {% extends 'front/frontend.html.twig' %}
 {% block section %}
     <section class="container">
-        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12 mt-4">
             {{ form_start(form, {'attr': {'class': 'my-form-class'} }) }}
+            <div class="col-xs-12 col-sm-12 col-md-6">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-12">
+                            {% if action == 'user_profile' %}
+                                <img class="rounded-circle mb-1" src="{{ asset(app.user.person.picture, 'profile') }}" width="100" height="100"/>
+                            {% endif %}
+                        </div>
+                        <div class="col-12">
+                            <div class="input-file-container">
+                                {{ form_widget(form.person.photoPath) }}
+                                <label tabindex="0" for="my-file" class="input-file-trigger">Subir foto</label>
+                            </div>
+                            <p class="file-return"></p>
+                        </div>
+                    </div>
 
-            <div class="form-group">
-                {{ form_widget(form.person.name) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.person.name) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.person.lastName) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.user.email) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.user.passwordClear) }}
+                </div>
             </div>
-            <div class="form-group">
-                {{ form_widget(form.person.lastName) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.user.email) }}
-            </div>
-            <div class="form-group">
-                {{ form_widget(form.user.passwordClear) }}
-            </div>
-            <div class="form-group">
-                {% if action == 'user_profile' %}
-                    <img class="img-thumbnail" src="{{ asset(app.user.person.picture, 'profile') }}" width="100"/>
-                {% endif %}
-                {{ form_widget(form.person.photoPath) }}
-            </div>
+            {% if action is defined  %}
+                <div class="col-xs-12 col-sm-12 col-md-8">
+                    <div class="form-group">
+                        {{ form_widget(form.description) }}
+                    </div>
+                </div>
+            {% endif %}
             {{ form_end(form) }}
         </div>
     </section>

@@ -143,20 +143,20 @@
                     </div>
         <nav class="navbar">
             <ul class="pagination pagination-index">
-                <li class="page-item disabled">
-                    <span class="page-link" href="#" tabindex="-1">&laquo;</span>
+                <li class="page-item disabled" id="first">
+                    <span class="page-link"  tabindex="-1">&laquo;</span>
                 </li>
 
                 {% set value=1 %}
                 {% for a in 1..i %}
                 {% if loop.index0%3==0 %}
-                    <li class="page-item {{ loop.first ? ' active' }}"><span class="page-link" href="">{{ value }}</span></li>
+                    <li class="page-item {{ loop.first ? ' active' }}"><span class="page-link" >{{ value }}</span></li>
                     {% set value=value+1 %}
                 {% endif %}
                 {% endfor %}
 
-                <li class="page-item">
-                    <span class="page-link" href="">&raquo;</span>
+                <li class="page-item" id="last">
+                    <span class="page-link" >&raquo;</span>
                 </li>
             </ul>
         </nav>

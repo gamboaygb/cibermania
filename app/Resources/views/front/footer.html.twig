@@ -1,10 +1,9 @@
-<section class="mt-5">
     <footer class="container-fluid">
         <div class="col-12 footer">
             {{ render(controller('AppBundle:Front:footer')) }}
         </div>
         <div class="col-12 main-footer">
-            <div class="container">
+            {#<div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-3">
                         <img src="{{ asset('bundles/images/logo1.png') }}">
@@ -25,10 +24,10 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-3">
-                </div>
+                </div>#}
 
                 <div class="col-12">
-                    <p class="text-center">&copy; {{ 'now' | date('Y') }} - Cibermania</p>
+                    <p class="text-center reserved">&copy; {{ 'now' | date('Y') }} - Cibermania Todos los derechos reservados</p>
                     <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
                 </div>
 
@@ -37,4 +36,3 @@
 
 
     </footer>
-</section>

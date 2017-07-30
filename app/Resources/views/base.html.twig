@@ -15,22 +15,17 @@
     {% block sidebar %}{% endblock %}
     {% block body %}{% endblock %}
 
-
-
-
-    {% block footer %}{% endblock %}
-
-    {% block javascripts %}
-        <script type="text/javascript" src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/js/tether.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/js/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/js/font-awsome.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/js/front.js') }}"></script>
-        <!--script src="//cdn.ckeditor.com/4.7.1/basic/ckeditor.js"></script-->
-        {% block js %}{% endblock %}
-    {% endblock %}
-
 </div>
+{% block footer %}{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('bundles/js/jquery-3.2.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/js/tether.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/js/font-awsome.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/js/front.js') }}"></script>
+    <!--script src="//cdn.ckeditor.com/4.7.1/basic/ckeditor.js"></script-->
+    {% block js %}{% endblock %}
+{% endblock %}
 </body>
 </html>
 

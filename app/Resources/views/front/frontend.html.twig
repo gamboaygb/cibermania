@@ -14,7 +14,7 @@
         </div>
         {% if app.user.person is defined %}
             <div class="card mb-3">
-              <img alt="" class="img-fluid" src="{{ asset(app.user.person.picture, 'profile') }}">
+              <img alt="" class="rounded-circle mx-auto" width="150" height="150" src="{{ asset(app.user.person.picture, 'profile') }}">
               <div class="container">
                 <h1>{{ app.user.person.name|capitalize }}</h1>
                 <p class="title">{{ app.user.roles[0] == "ROLE_USER" ? 'Usuario' : 'Administrador' }}</p>
@@ -57,7 +57,12 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <span class="navbar-brand fa-3x" id="opennav">&#9776;</span>
+            {% if app.user.person is defined %}
+                <img alt="Ver Perfil" id="opennav" title="Ver Perfil" class="rounded-circle mx-auto " width="60" height="60" src="{{ asset(app.user.person.picture, 'profile') }}">
+            {% else %}
+                <span class="navbar-brand fa-2x" id="opennav">&#9776;</span>
+            {% endif %}
+
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">

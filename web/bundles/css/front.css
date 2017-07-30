@@ -78,6 +78,10 @@ article{
     display: none;
 }
 
+.form-control{
+    border-radius: 0;
+}
+
 
 
 
@@ -100,6 +104,9 @@ article{
 
 /*sidebar*/
 
+#opennav{
+    cursor: pointer;
+}
 .sidenav {
     height: 100%;
     width: 0;
@@ -799,14 +806,63 @@ span.author-name{
 }
 
 
+/*===============================PROFILE STYLE===================*/
+.input-file-container {
+    position: relative;
+    width: 100px;
+}
+ .input-file-trigger {
+     display: block;
+     padding: 6%;
+     background: #39b59f;
+     color: #fff;
+     font-size: 1em;
+     transition: all .4s;
+     cursor: pointer;
+     text-align: center;
+}
+.input-file {
+    position: absolute;
+    top: 0; left: 0;
+    width: 225px;
+    opacity: 0;
+    padding: 14px 0;
+    cursor: pointer;
+}
+.input-file:hover + .input-file-trigger,
+.input-file:focus + .input-file-trigger,
+.input-file-trigger:hover,
+.input-file-trigger:focus {
+    background: #339783;
+    color: #fff;
+}
 
+.file-return {
+    margin: 0;
+}
+.file-return:not(:empty) {
+    margin: 1em 0;
+}
+.file-return {
+    font-style: italic;
+    font-size: .9em;
+    font-weight: bold;
+    color:#000;
+}
+.file-return:not(:empty):before {
+    content: "Archivo seleccionado: ";
+    font-style: normal;
+    font-weight: normal;
+}
 
 /*=============<footer=================*/
 footer.container-fluid{
     padding: 0;
     background: #339783;
+    margin:0;
+    bottom: -16px;
 }
-.footer{ background: #39b59f}
+.footer{ background: #39b59f;}
 
 .in-line li{
     font-size: 10px;
@@ -816,8 +872,9 @@ footer.container-fluid{
 .in-line li a{
     color:white;
 }
-.main-footer{
 
+footer p.reserved{
+    color:white;
 }
 /* back scrolltop*/
 #back-to-top {

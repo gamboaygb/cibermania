@@ -23,7 +23,7 @@ class PersonType extends AbstractType
                 'attr'=> array('class' => 'form-control','placeholder'=>'Apellidos')
             ))
             ->add('photoPath',FileType::class,array(
-                'attr'=> array('class' => 'form-control'),
+                'attr'=> array('class' => 'input-file','id'=>'my-file'),
                 'required'=>false,
             ))
         ;
