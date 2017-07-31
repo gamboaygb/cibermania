@@ -151,7 +151,7 @@ class PostController extends Controller
             $excerpt = $str;
         }
 
-        return $excerpt;
+        return strip_tags($excerpt);
     }
 }
 
