@@ -1,24 +1,71 @@
 {% extends 'front/frontend.html.twig' %}
 {% block section %}
    <section>
-       <div class="col-12">
-           <div class="row">
-                {% if my_list is iterable %}
-                    <a href="{{ path('create_post') }}">Crear Post</a>
-                    {% for item in my_list %}
-                               <div class="col-sm-12 col-md-2">
-                                   <img class="img-thumbnail" src="{{ asset(item.imgPost,'post') }}">
-                               </div>
-                               <div class="col-sm-12 col-md-10">
-                                   <a href="{{ path('view_post', { slug: item.slug }) }}"> <h3>{{ item.title }}</h3></a>
-                                   {{ item.shortContent }}
-                               </div>
+       <div class="container">
+               <div class="col-12 mt-4">
+                   <a class="d-flex mr-0" href="{{ path('create_post') }}"><button class="btn btn-outline-success">Crear Post</button></a>
+               </div>
+                    {% if my_list is iterable %}
+                        <div class="col-12">
+                            {% set i=0 %}
+                        {% for item in my_list %}
+                            {% if loop.index0%10==0 %}
+                                {% set i=i+1 %}
+                             {% endif %}
+                            <article class="mt-2">
+                                <div class="row">
+                                       <div class="col-xs-12 col-sm-12 col-md-4">
+                                           <img class="img-fluid img-post" src="{{ asset(item.imgPost,'post') }}" width="300" height="300">
+                                       </div>
+                                       <div class="col-xs-12 col-sm-12 col-md-8">
+                                           <a href="{{ path('view_post', { slug: item.slug }) }}"> <h3>{{ item.title }}</h3></a>
+                                           {{ item.content|slice(0,500)|raw }}
+                                       </div>
+                                </div>
+                            </article>
+                               {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="col-12">
+                            <p>No se encontró ningun post escrito por ti, pero no te desanimes has <a href="{{ path('create_post') }}">Clic Aquí</a> y escribe tu primera entrada</p>
+                        </div>
+                    {% endif %}
+
+           {% if i>1 %}
+                <div class="col-12">
+                   <nav class="navbar">
+                       <ul class="pagination pagination-index">
+                           <li class="page-item disabled" id="first">
+                               <span class="page-link"  tabindex="-1">&laquo;</span>
+                           </li>
+
+                           {% set value=1 %}
+                           {% for a in 1..i %}
+                               {% if loop.index0%3==0 %}
+                                   <li class="page-item {{ loop.first ? ' active' }}"><span class="page-link" >{{ value }}</span></li>
+                                   {% set value=value+1 %}
+                               {% endif %}
                            {% endfor %}
-                {% else %}
-                    <div class="col-12">
-                        <p>No se encontró ningun post escrito por ti, pero no te desanimes has <a href="{{ path('create_post') }}">Clic Aquí</a> y escribe tu primera entrada</p>
-                    </div>
-                {% endif %}
+
+                           <li class="page-item" id="last">
+                               <span class="page-link" >&raquo;</span>
+                           </li>
+                       </ul>
+                   </nav>
+               </div>
+            {% endif %}
+       </div>
+   </section>
+   <section class="container-fluid">
+       <div class="row">
+           <div class="col-xs-12 col-sm-12 col-md-4">
+               <h5 class="text-center">Noticias Sobre tec</h5>
+           </div>
+           <div class="col-xs-12 col-sm-12 col-md-4">
+               <h5 class="text-center">Curiosidades</h5>
+           </div>
+           <div class="col-xs-12 col-sm-12 col-md-4">
+               <h5 class="text-center">Ultima Hora</h5>
            </div>
        </div>
    </section>

@@ -547,6 +547,17 @@ article{
     color: #eee;
 }
 
+/*==============================MY LIST POST===============*/
+.img-post{
+    width: 100%;
+    height: 225px;
+}
+
+.img-post:hover{
+    opacity: .5;
+    cursor:pointer;
+}
+
 
 /*==================================================SINGLE ARTICLE===================================*/
 
