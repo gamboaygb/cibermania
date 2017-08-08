@@ -141,6 +141,8 @@
         {% endfor %}
         </div>
                     </div>
+
+      {% if i>0%}
         <nav class="navbar">
             <ul class="pagination pagination-index">
                 <li class="page-item disabled" id="first">
@@ -160,6 +162,7 @@
                 </li>
             </ul>
         </nav>
+	{% endif%}
     </section>
 {% endblock %}
 
