@@ -19,7 +19,7 @@
                                         <a href="{{ path('view_post', { slug: featured.slug}) }}"><h1>{{ featured.title }}</h1></a>
                                     </div>
                                     <div class="col-12 mt-md-3">
-                                        <p class="text-capitalize text-center">{{ featured.shortContent }}</p>
+                                        <p class="text-center">{{ featured.shortContent|raw }}</p>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-5">
@@ -62,7 +62,7 @@
                                     <div class="thumbnail">
                                         <div class="date">
                                             <div class="day">{{ item.updateDate|date("d") }}</div>
-                                            <div class="month">{{ item.updateDate|date("F") }}</div>
+                                            <div class="month">{{ item.updateDate|date("F")|slice(0,3) }}</div>
                                         </div>
                                         <img class="img-fluid" src="{{ asset(item.imgPost,'post') }}"/>
                                     </div>
@@ -81,12 +81,11 @@
 
                                             <a id="share" class="share-toggle share-icon" href="#"></a>
                                         </div>
-                                        <a href="{{ path('view_post', { slug: item.slug}) }}"><h1 class="title">{{ item.title }}</h1></a>
-                                        <h2 class="sub_title">{{ item.title }}</h2>
-                                        <p class="description">{{ item.shortContent }}</p>
+                                        <a href="{{ path('view_post', { slug: item.slug}) }}"><h2 class="sub_title">{{ item.title }}</h2></a>
+                                        <p class="description">{{ item.shortContent|raw }}</p>
                                         <div class="post-meta">
                                             <div class="chip">
-                                                <img src="{{ asset(item.imgPost,'post') }}" alt="Person" width="96" height="96">
+                                                <img src="{{ asset(item.person.picture,'profile') }}" alt="{{item.person.name}}" width="96" height="96">
                                                 <a href="#">{{ item.person.name~' '~item.person.lastname }}</a>
                                             </div>
                                             <span class="comments">
@@ -142,7 +141,7 @@
         </div>
                     </div>
 
-      {% if i>0%}
+      {% if i>3%}
         <nav class="navbar">
             <ul class="pagination pagination-index">
                 <li class="page-item disabled" id="first">
@@ -163,6 +162,25 @@
             </ul>
         </nav>
 	{% endif%}
+
+		<div class="modal fade show">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+			<h5 class="modal-title">Ciber Aviso para usuarios</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true"></span>
+			</button>
+		      </div>
+		      <div class="modal-body">
+			<p>Estoy desarrollando la web, poco a poco iré avanzando, pronto estaré de vuelta, mientras tanto puedes ponerte en contacto conmigo en <a href="mailto:soporte@cibermania.es">soporte@cibermania.es</a></p>
+		      </div>
+		      <div class="modal-footer">
+			<button type="button" class="btn btn-success">Seguir buceando</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
     </section>
 {% endblock %}
 

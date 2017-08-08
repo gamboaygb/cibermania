@@ -3,6 +3,8 @@
  */
 
 (function($) {
+	/*temporali*/
+
     /*sidebar*/
     if(localStorage.getItem("sidenav")=="open"){
         $('.sidenav').css({'width':'20rem'});
@@ -21,6 +23,8 @@
        $('.main').css({'margin-left':'0rem'});
        localStorage.removeItem("sidenav");
    });
+
+
 
    /*animate post*/
 

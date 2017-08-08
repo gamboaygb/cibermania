@@ -2,10 +2,10 @@
 {% block section %}
    <section>
        <div class="container">
-               <div class="col-12 mt-4">
-                   <a class="d-flex mr-0" href="{{ path('create_post') }}"><button class="btn btn-outline-success">Crear Post</button></a>
-               </div>
                     {% if my_list is iterable %}
+			<div class="col-12 mt-4">
+		           <a class="d-flex mr-0" href="{{ path('create_post') }}"><button class="btn btn-outline-success">Crear Post</button></a>
+		       </div>
                         <div class="col-12">
                             {% set i=0 %}
                         {% for item in my_list %}
@@ -31,7 +31,7 @@
                         </div>
                     {% endif %}
 
-           {% if i>1 %}
+           {% if i is defined and i>1 %}
                 <div class="col-12">
                    <nav class="navbar">
                        <ul class="pagination pagination-index">
