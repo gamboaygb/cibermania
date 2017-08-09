@@ -152,7 +152,7 @@ class User implements AdvancedUserInterface,\Serializable
      *
      * @return User
      */
-    public function setActive($active)
+    public function setActive($active=0)
     {
         $this->active = $active;
 

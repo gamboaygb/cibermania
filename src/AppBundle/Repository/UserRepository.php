@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findByPerson($person){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+        SELECT u
+        FROM AppBundle:User u
+        WHERE u.person = :person');
+        $consulta->setParameter('person', $person);
+        try{
+           return $consulta->getSingleResult();
+        }catch (\Exception $error){
+            return false;
+        }
+    }
 }

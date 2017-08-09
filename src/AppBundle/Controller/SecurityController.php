@@ -24,10 +24,10 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-
-        if($this->getUser()){
+	if($this->getUser()){
             return $this->redirectToRoute('homepage');
         }
+
         $authUtils = $this->get('security.authentication_utils');
         return $this->render('front/homepage/_singin.html.twig', array(
             'last_username' => $authUtils->getLastUsername(),
@@ -182,6 +182,55 @@ class SecurityController extends Controller
         ;
         $this->get('mailer')->send($message);
 
+    }
+
+   /**
+     *
+     * @Route("/token/{token}", name="activate")
+     */
+    public function activateUserAction($token){
+        $em = $this->getDoctrine()->getManager();
+        $person=$em->getRepository('AppBundle:Person')->findByToken($token);
+
+
+
+        if($person){
+	    $user=$em->getRepository('AppBundle:User')->findByPerson($person);
+
+	
+            $user->setActive(1);
+            $person->setToken("");
+            $person->setActivatedDate(new \DateTime());
+
+            
+	    $em->persist($person);
+            $em->flush();
+            $em->persist($user);
+            $em->flush();
+
+
+
+
+            $token= new UsernamePasswordToken(
+                $user,
+                $user->getPassword(),
+                'frontend',
+                $user->getRoles()
+            );
+
+
+		
+
+            $this->get('security.token_storage')->setToken($token);
+          
+	 	
+
+            return $this->redirect($this->generateUrl('homepage'));
+	   
+		
+        }else{
+            return $this->redirect($this->generateUrl('caducada'));
+        }
     }
 
 
