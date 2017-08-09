@@ -105,7 +105,7 @@
                              <div class="thumbnail">
                                  <div class="date">
                                      <div class="day">{{ item.updateDate|date("d") }}</div>
-                                     <div class="month">{{ item.updateDate|date("F") }}</div>
+                                     <div class="month">{{ item.updateDate|date("F")|slice(0,3) }}</div>
                                  </div>
                                  <img class="img-fluid" src="{{ asset(item.imgPost,'post') }}"/>
                              </div>
@@ -122,12 +122,13 @@
 
                                      <a id="share" class="share-toggle share-icon" href="#"></a>
                                  </div>
-                                 <a href="{{ path('view_post', { slug: item.slug}) }}"><h1 class="title">{{ item.title }}</h1></a>
-                                 <h2 class="sub_title">{{ item.title }}</h2>
-                                 <p class="description">{{ item.shortContent }}</p>
+                                 {#<a href="{{ path('view_post', { slug: item.slug}) }}"><h1 class="title">{{ item.title }}</h1></a>#}
+				 <a href="{{ path('view_post', { slug: item.slug}) }}"><h2 class="sub_title">{{ item.title }}</h2></a>
+                                 {#<h2 class="sub_title">{{ item.title }}</h2>#}
+                                 <p class="description">{{ item.shortContent|raw }}</p>
                                  <div class="post-meta">
                                      <div class="chip">
-                                         <img src="{{ asset(item.imgPost,'post') }}" alt="Person" width="96" height="96">
+                                         <img src="{{ asset(item.person.picture,'profile') }}" alt="{{item.person.name}}" width="96" height="96">
                                          <a href="#">{{ item.person.name~' '~item.person.lastname }}</a>
                                      </div>
                                      <span class="comments"><i class="fa fa-eye"></i> <a href="#"> {{ item.views }}</a></span></div>
