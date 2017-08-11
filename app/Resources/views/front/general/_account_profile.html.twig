@@ -16,8 +16,9 @@
     <div class="form-group">
         {% if action is defined and  action == 'user_profile' %}
             <img class="img-thumbnail" src="{{ asset(app.user.person.picture, 'profile') }}" width="100"/>
+            {{ form_widget(form.person.photoPath) }}
         {% endif %}
-        {{ form_widget(form.person.photoPath) }}
+
     </div>
     {{ form_end(form) }}
 </div>
