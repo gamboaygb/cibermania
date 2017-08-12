@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Controller;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -171,12 +172,116 @@ class SecurityController extends Controller
     /**
      * @Route("/fb-callback/", name="fcallback")
      */
-    public function facebookLoginAction(){
+    public function facebookLoginAction(Request $request){
         $facebook  = new Facebook(
             array('app_id'=>'305634546574211','app_secret'=>'cd99f07cc4561956f700c4d383eb1042')
         );
-        var_dump($facebook);
-        exit;
+        $helper = $facebook->getRedirectLoginHelper();
+        $accessToken = $helper->getAccessToken();
+
+
+        if (! isset($accessToken)) {
+            if ($helper->getError()) {
+                header('HTTP/1.0 401 Unauthorized');
+                echo "Error: " . $helper->getError() . "\n";
+                echo "Error Code: " . $helper->getErrorCode() . "\n";
+                echo "Error Reason: " . $helper->getErrorReason() . "\n";
+                echo "Error Description: " . $helper->getErrorDescription() . "\n";
+            } else {
+                header('HTTP/1.0 400 Bad Request');
+                echo 'Bad request';
+            }
+            exit;
+        }else{
+
+            $_SESSION['facebook_access_token'] = (string) $accessToken;
+            $facebook->setDefaultAccessToken($_SESSION['facebook_access_token']);
+            $oAuth2Client = $facebook->getOAuth2Client();
+            $tokenMetadata = $oAuth2Client->debugToken($accessToken);
+            $tokenMetadata->validateAppId('305634546574211');
+            $tokenMetadata->validateExpiration();
+            $longLivedAccessToken              = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
+            $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
+            // setting default access token to be used in script
+            $facebook->setDefaultAccessToken($_SESSION['facebook_access_token']);
+            $profile_request = $facebook->get('/me?fields=name,first_name,last_name,email,gender,age_range,quotes,link,locale,picture');
+            $profile         = $profile_request->getGraphNode()->asArray();
+
+
+
+            $em = $this->getDoctrine()->getManager();
+            $user=$em->getRepository('AppBundle:User')->findByEmail($profile['email']);
+
+            if($user){
+                $token= new UsernamePasswordToken(
+                    $user,
+                    $user->getPassword(),
+                    'frontend',
+                    $user->getRoles()
+                );
+
+                $this->get('security.token_storage')->setToken($token);
+                return $this->redirect($this->generateUrl('homepage'));
+
+            }else{
+
+                $person= new Person();
+
+
+                if($profile['first_name']){
+                    $person->setName($profile['first_name']);
+                }else{
+                    $person->setName($profile['name']);
+                }
+
+                if($profile['last_name']){
+                    $person->setLastName($profile['last_name']);
+                }else{
+                    $person->setLastName($profile['name']);
+                }
+
+                $person->setCreatedDate(new  \DateTime());
+                $person->setActivatedDate(new  \DateTime());
+                $person->setPicture($profile['picture']['url']);
+                $person->setToken('');
+
+
+                $user= new User();
+                $user->setEmail($profile['email']);
+
+                $user->setPassword('hola');
+
+                $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+
+                $encoded = $encoder->encodePassword($user->getPasswordClear(), null);
+                $user->setPassword($encoded);
+                $user->setPerson($person);
+
+
+                $user->setUrlValidate($request->getClientIp());
+                $user->setRole("ROLE_USER");
+                $user->setActive(0);
+                $user->setPerson($person);
+
+
+                $em->persist($user);
+                $em->flush();
+
+
+                $em->persist($person);
+                $em->flush();
+
+                $token= new UsernamePasswordToken(
+                    $user,
+                    $user->getPassword(),
+                    'frontend',
+                    $user->getRoles()
+                );
+                $this->get('security.token_storage')->setToken($token);
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+
+        }
 
     }
 

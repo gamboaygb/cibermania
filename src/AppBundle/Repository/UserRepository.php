@@ -23,4 +23,18 @@ class UserRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    public function findByEmail($mail){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+        SELECT u
+        FROM AppBundle:User u
+        WHERE u.email = :email');
+        $consulta->setParameter('email', $mail);
+        try{
+            return $consulta->getSingleResult();
+        }catch (\Exception $error){
+            return false;
+        }
+    }
 }
