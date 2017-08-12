@@ -16,6 +16,7 @@ use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterfac
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use AppBundle\Form\RegisterType;
 use AppBundle\Entity\Register;
+use AppBundle\Service\Facebook\Facebook;
 
 class SecurityController extends Controller
 {
@@ -32,6 +33,7 @@ class SecurityController extends Controller
         return $this->render('front/homepage/_singin.html.twig', array(
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
+            'facebook'=>$this->faceUrl(),
         ));
     }
     /**
@@ -54,6 +56,7 @@ class SecurityController extends Controller
         return $this->render('front/homepage/_login.html.twig', array(
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
+            'facebook'=>$this->faceUrl(),
         ));
     }
 
@@ -165,6 +168,29 @@ class SecurityController extends Controller
 
     }
 
+    /**
+     * @Route("/fb-callback/", name="fcallback")
+     */
+    public function facebookLoginAction(){
+        $facebook  = new Facebook(
+            array('app_id'=>'305634546574211','app_secret'=>'cd99f07cc4561956f700c4d383eb1042')
+        );
+        var_dump($facebook);
+        exit;
+
+    }
+
+    private function faceUrl(){
+        /*facebook*/
+        $facebook  = new Facebook(
+            array('app_id'=>'305634546574211','app_secret'=>'cd99f07cc4561956f700c4d383eb1042')
+        );
+        $helper = $facebook->getRedirectLoginHelper();
+        $permissions = ['email', 'user_likes','public_profile'];
+        $loginUrl = $helper->getLoginUrl('http://www.cibermania.es/fb-callback', $permissions);
+
+        return $loginUrl;
+    }
 
     private function sendMailConfirmation($usuario){
         $message = \Swift_Message::newInstance()

@@ -29,6 +29,7 @@
    /*animate post*/
 
  /*   $('.modal').css({'background':'rgba(0, 0, 0, 0.6)','opacity':'1'}).show();
+    $('.modal').css({'background':'rgba(0, 0, 0, 0.6)','opacity':'1'}).show();
     $('.btn-success').click(function(){
 	$('.modal').hide(500);
     });*/

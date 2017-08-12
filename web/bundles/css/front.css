@@ -156,7 +156,7 @@ article{
 
 .cuenta{
     position: absolute;
-    bottom: 0px;
+    bottom: 47px;
     left: 6rem;
 }
 .sidenav .cuenta{
@@ -181,6 +181,13 @@ article{
 .sidenav .card  .title {
     color: grey;
     font-size: 18px;
+}
+
+.social-link{
+    padding: 0;
+}
+.social-link li a i.fa-facebook-official:hover{
+    color:rgb(59,89,152);
 }
 
 /*sin usar de momento*/
