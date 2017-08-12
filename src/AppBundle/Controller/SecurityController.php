@@ -194,16 +194,16 @@ class SecurityController extends Controller
             exit;
         }else{
 
-            $_SESSION['facebook_access_token'] = (string) $accessToken;
-            $facebook->setDefaultAccessToken($_SESSION['facebook_access_token']);
+            $accessToken= (string) $accessToken;
+            $facebook->setDefaultAccessToken($accessToken);
             $oAuth2Client = $facebook->getOAuth2Client();
             $tokenMetadata = $oAuth2Client->debugToken($accessToken);
             $tokenMetadata->validateAppId('305634546574211');
             $tokenMetadata->validateExpiration();
-            $longLivedAccessToken              = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
-            $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
+            $longLivedAccessToken              = $oAuth2Client->getLongLivedAccessToken($accessToken);
+            $accessToken = (string) $longLivedAccessToken;
             // setting default access token to be used in script
-            $facebook->setDefaultAccessToken($_SESSION['facebook_access_token']);
+            $facebook->setDefaultAccessToken($accessToken);
             $profile_request = $facebook->get('/me?fields=name,first_name,last_name,email,gender,age_range,quotes,link,locale,picture');
             $profile         = $profile_request->getGraphNode()->asArray();
 
