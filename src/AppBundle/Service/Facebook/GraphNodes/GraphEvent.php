@@ -34,10 +34,10 @@ class GraphEvent extends GraphNode
      * @var array Maps object key names to GraphNode types.
      */
     protected static $graphObjectMap = [
-        'cover' => '\Facebook\GraphNodes\GraphCoverPhoto',
-        'place' => '\Facebook\GraphNodes\GraphPage',
-        'picture' => '\Facebook\GraphNodes\GraphPicture',
-        'parent_group' => '\Facebook\GraphNodes\GraphGroup',
+        'cover' => 'AppBundle\Service\Facebook\GraphNodes\GraphCoverPhoto',
+        'place' => 'AppBundle\Service\Facebook\GraphNodes\GraphPage',
+        'picture' => 'AppBundle\Service\Facebook\GraphNodes\GraphPicture',
+        'parent_group' => 'AppBundle\Service\Facebook\GraphNodes\GraphGroup',
     ];
 
     /**

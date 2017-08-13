@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 use AppBundle\Entity\User;
+use AppBundle\Entity\Person;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -173,11 +174,20 @@ class SecurityController extends Controller
      * @Route("/fb-callback/", name="fcallback")
      */
     public function facebookLoginAction(Request $request){
+    
         $facebook  = new Facebook(
             array('app_id'=>'305634546574211','app_secret'=>'cd99f07cc4561956f700c4d383eb1042')
         );
+
         $helper = $facebook->getRedirectLoginHelper();
-        $accessToken = $helper->getAccessToken();
+        
+        if (isset($_GET['state'])) {
+            $helper->getPersistentDataHandler()->set('state', $_GET['state']);
+        }
+
+        $accessToken = $helper->getAccessToken('http://cibermania.es/fb-callback/');
+
+
 
 
         if (! isset($accessToken)) {
@@ -194,16 +204,16 @@ class SecurityController extends Controller
             exit;
         }else{
 
-            $accessToken= (string) $accessToken;
-            $facebook->setDefaultAccessToken($accessToken);
+            $_SESSION['facebook_access_token'] = (string) $accessToken;
+            $facebook->setDefaultAccessToken($_SESSION['facebook_access_token']);
             $oAuth2Client = $facebook->getOAuth2Client();
             $tokenMetadata = $oAuth2Client->debugToken($accessToken);
             $tokenMetadata->validateAppId('305634546574211');
             $tokenMetadata->validateExpiration();
-            $longLivedAccessToken              = $oAuth2Client->getLongLivedAccessToken($accessToken);
-            $accessToken = (string) $longLivedAccessToken;
+            $longLivedAccessToken              = $oAuth2Client->getLongLivedAccessToken($_SESSION['facebook_access_token']);
+            $_SESSION['facebook_access_token'] = (string) $longLivedAccessToken;
             // setting default access token to be used in script
-            $facebook->setDefaultAccessToken($accessToken);
+            $facebook->setDefaultAccessToken($_SESSION['facebook_access_token']);
             $profile_request = $facebook->get('/me?fields=name,first_name,last_name,email,gender,age_range,quotes,link,locale,picture');
             $profile         = $profile_request->getGraphNode()->asArray();
 
@@ -244,6 +254,8 @@ class SecurityController extends Controller
                 $person->setActivatedDate(new  \DateTime());
                 $person->setPicture($profile['picture']['url']);
                 $person->setToken('');
+                $person->setUrlValidate($profile['link']);
+                $person->setIpClient($request->getClientIp());
 
 
                 $user= new User();
@@ -258,10 +270,10 @@ class SecurityController extends Controller
                 $user->setPerson($person);
 
 
-                $user->setUrlValidate($request->getClientIp());
-                $user->setRole("ROLE_USER");
-                $user->setActive(0);
-                $user->setPerson($person);
+                
+                $user->setRoles("ROLE_USER");
+                $user->setActive(1);
+                $user->setExpired(1);
 
 
                 $em->persist($user);
@@ -291,8 +303,11 @@ class SecurityController extends Controller
             array('app_id'=>'305634546574211','app_secret'=>'cd99f07cc4561956f700c4d383eb1042')
         );
         $helper = $facebook->getRedirectLoginHelper();
+        if (isset($_GET['state'])) {
+            $helper->getPersistentDataHandler()->set('state', $_GET['state']);
+        }
         $permissions = ['email', 'user_likes','public_profile'];
-        $loginUrl = $helper->getLoginUrl('http://www.cibermania.es/fb-callback', $permissions);
+        $loginUrl = $helper->getLoginUrl('http://cibermania.es/fb-callback/', $permissions);
 
         return $loginUrl;
     }

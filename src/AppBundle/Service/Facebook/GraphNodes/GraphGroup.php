@@ -34,8 +34,8 @@ class GraphGroup extends GraphNode
      * @var array Maps object key names to GraphNode types.
      */
     protected static $graphObjectMap = [
-        'cover' => '\Facebook\GraphNodes\GraphCoverPhoto',
-        'venue' => '\Facebook\GraphNodes\GraphLocation',
+        'cover' => 'AppBundle\Service\Facebook\GraphNodes\GraphCoverPhoto',
+        'venue' => 'AppBundle\Service\Facebook\GraphNodes\GraphLocation',
     ];
 
     /**

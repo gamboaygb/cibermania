@@ -34,8 +34,8 @@ class GraphAchievement extends GraphNode
      * @var array Maps object key names to Graph object types.
      */
     protected static $graphObjectMap = [
-        'from' => '\Facebook\GraphNodes\GraphUser',
-        'application' => '\Facebook\GraphNodes\GraphApplication',
+        'from' => 'AppBundle\Service\Facebook\GraphNodes\GraphUser',
+        'application' => 'AppBundle\Service\Facebook\GraphNodes\GraphApplication',
     ];
 
     /**

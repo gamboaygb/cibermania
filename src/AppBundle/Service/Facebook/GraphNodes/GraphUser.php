@@ -34,10 +34,10 @@ class GraphUser extends GraphNode
      * @var array Maps object key names to Graph object types.
      */
     protected static $graphObjectMap = [
-        'hometown' => '\Facebook\GraphNodes\GraphPage',
-        'location' => '\Facebook\GraphNodes\GraphPage',
-        'significant_other' => '\Facebook\GraphNodes\GraphUser',
-        'picture' => '\Facebook\GraphNodes\GraphPicture',
+        'hometown' => 'AppBundle\Service\Facebook\GraphNodes\GraphPage',
+        'location' => 'AppBundle\Service\Facebook\GraphNodes\GraphPage',
+        'significant_other' => 'AppBundle\Service\Facebook\GraphNodes\GraphUser',
+        'picture' => 'AppBundle\Service\Facebook\GraphNodes\GraphPicture',
     ];
 
     /**
