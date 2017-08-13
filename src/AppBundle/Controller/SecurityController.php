@@ -36,6 +36,7 @@ class SecurityController extends Controller
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
             'facebook'=>$this->faceUrl(),
+            'instagram'=>getLoginUrl(),
         ));
     }
     /**
@@ -59,6 +60,7 @@ class SecurityController extends Controller
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
             'facebook'=>$this->faceUrl(),
+            'instagram'=>getLoginUrl(),
         ));
     }
 
@@ -311,6 +313,42 @@ class SecurityController extends Controller
 
         return $loginUrl;
     }
+
+
+    private function instaUrl(){
+        $instagram = new Instagram(array(
+            'apiKey'      => '15b11f98a3c74c68b46743304e81e20b',
+            'apiSecret'   => 'be149e6912164c16b55dc43a6d2b43e9',
+            'apiCallback' => 'http://cibermania.es/app_dev.php/in-callback',
+        ));
+
+        return $instagram->getLoginUrl();
+    }
+
+    /**
+     *@Route("/in-callback",name="callback-instagram")
+     *
+     */
+    public function loginInstagramAction(Request $request){
+
+        $instagram = new Instagram(array(
+            'apiKey'      => '15b11f98a3c74c68b46743304e81e20b',
+            'apiSecret'   => 'be149e6912164c16b55dc43a6d2b43e9',
+            'apiCallback' => 'http://cibermania.es/app_dev.php/in-callback',
+        ));
+
+        $code = $request->get('code');
+        $instagram_data = $instagram->getOAuthToken($code);
+
+        var_dump($instagram_data);
+        exit;
+        /*here create a lo*/
+        return $this->render('default/index.html.twig', array(
+            'instagram_data' => $instagram_data,
+
+        ));
+    }
+
 
     private function sendMailConfirmation($usuario){
         $message = \Swift_Message::newInstance()
