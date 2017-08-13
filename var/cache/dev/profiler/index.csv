@@ -1,0 +1,9 @@
+54d457,146.158.205.232,GET,http://cibermania.es/app_dev.php/,1502642713,,200
+98ff70,146.158.205.232,GET,http://cibermania.es/app_dev.php/,1502642713,98ff70,500
+96110e,146.158.205.232,GET,http://cibermania.es/app_dev.php/,1502642887,,200
+d9b2fe,146.158.205.232,GET,http://cibermania.es/app_dev.php/,1502642887,d9b2fe,500
+910df7,146.158.205.232,GET,http://cibermania.es/app_dev.php/,1502642921,,200
+a7e389,146.158.205.232,GET,http://cibermania.es/app_dev.php/,1502642921,a7e389,500
+e8aefd,127.0.0.1,GET,http://cibermania.es/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Des%26_controller%3DAppBundle%253ASecurity%253AboxLogin,1502642954,a2174b,200
+4f487c,127.0.0.1,GET,http://cibermania.es/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Des%26_controller%3DAppBundle%253AFront%253Afooter,1502642954,a2174b,200
+a2174b,146.158.205.232,GET,http://cibermania.es/app_dev.php/,1502642954,,200

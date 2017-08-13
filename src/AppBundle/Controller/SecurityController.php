@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use AppBundle\Form\RegisterType;
 use AppBundle\Entity\Register;
 use AppBundle\Service\Facebook\Facebook;
+use AppBundle\Service\Instagram\Instagram;
 
 class SecurityController extends Controller
 {
@@ -36,7 +37,7 @@ class SecurityController extends Controller
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
             'facebook'=>$this->faceUrl(),
-            'instagram'=>instaUrl(),
+            'instagram'=>$this->instaUrl(),
         ));
     }
     /**
@@ -60,7 +61,7 @@ class SecurityController extends Controller
             'last_username' => $authUtils->getLastUsername(),
             'error' => $authUtils->getLastAuthenticationError(),
             'facebook'=>$this->faceUrl(),
-            'instagram'=>instaUrl(),
+            'instagram'=>$this->instaUrl(),
         ));
     }
 
