@@ -40,7 +40,7 @@ class Person
 
     /**
      * @var string
-     * @ORM\Column(name="desccription",type="string", length=255,nullable=true)
+     * @ORM\Column(name="desccription",type="text",nullable=true)
      */
 
     private $description;

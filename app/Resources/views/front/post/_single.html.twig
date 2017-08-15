@@ -10,9 +10,8 @@
                         </div>
                         <div class="article-autor mb-3">
                             <div class="chip">
-                                <img src="{{ asset(single_post.imgPost,'post') }}" alt="Person" width="96" height="96">
+                                <img src="{{ asset(single_post.person.picture,'profile') }}" alt="Person" width="96" height="96">
                                 {{ single_post.person.name }}
-                                <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
                             </div>
 
                             <div class="card__share">
@@ -79,17 +78,13 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Articulos relacionados</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#profile" role="tab">+ Sobre el Autor</a>
+                                    <a class="nav-link active" data-toggle="tab" href="#profile" role="tab">+ Sobre el Autor</a>
                                 </li>
                             </ul>
 
                             <!-- Tab panes -->
                             <div class="tab-content">
-                                <div class="tab-pane active" id="home" role="tabpanel">Pondre relacionado por la categoria</div>
-                                <div class="tab-pane" id="profile" role="tabpanel">{{ single_post.person.description|raw }}</div>
+                                <div class="tab-pane active mt-2" id="profile" role="tabpanel">{{ single_post.person.description|raw }}</div>
                             </div>
                         </div>
                         <div class="article-comment">
@@ -116,7 +111,10 @@
                                             <img class="img-thumbnail" src="{{ asset(item.imgPost,'post') }}">
                                         </figure>
                                         <hgroup>
-                                            <h3 class="views-subtitle">{{ item.category.name|capitalize }}</h3>
+                                            
+                                            {% for c in item.category %}
+                                                <h3 class="views-subtitle">{{ c.name|capitalize }} | </h3>
+                                            {% endfor %}
                                             <h4 class="views-title">{{ item.title }}</h4>
                                         </hgroup>
                                     </a>
@@ -128,7 +126,7 @@
                     <div class="col-12">
                         <h3>Relacionadas</h3>
                         <ul class="ul_views">
-                            {% for item in post_by_category %}
+                            {#{% for item in post_by_category %}
                                 <li class="li_views">
                                     <article>
                                         <a class="li_a" href="{{ path('view_post',{slug:item.slug}) }}">
@@ -139,7 +137,7 @@
                                         </a>
                                     </article>
                                 </li>
-                            {% endfor %}
+                            {% endfor %}#}
                         </ul>
                     </div>
                 </div>

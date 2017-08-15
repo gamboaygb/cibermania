@@ -30,8 +30,8 @@ class Category
     private $name;
 
     /**
-     * One Category has Many Post.
-     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Post", mappedBy="category")
+     * Many Category has Many Post.
+     * @ORM\ManyToMany(targetEntity="\AppBundle\Entity\Post", mappedBy="category")
      */
     private $post;
 

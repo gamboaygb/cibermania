@@ -19,8 +19,10 @@
                                        </div>
                                        <div class="col-xs-12 col-sm-12 col-md-8">
                                            <a href="{{ path('view_post', { slug: item.slug }) }}"> <h3>{{ item.title }}</h3></a>
-                                           {{ item.content|slice(0,500)|raw }}
+                                           {{ item.content|slice(0,500)|raw }} ...
+                                           <a class="d-flex mr-0" href="{{ path('edit_post',{ id:item.id }) }}">Editar Post</a>
                                        </div>
+                                          
                                 </div>
                             </article>
                                {% endfor %}

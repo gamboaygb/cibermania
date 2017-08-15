@@ -19,25 +19,37 @@ class PostType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('title',TextType::class,array(
-                            'attr'=> array('class' => 'form-control','placeholder'=>'Título')
-                     ))
+                                                    'attr'=> array('class' => 'form-control','placeholder'=>'Título'),
+                                                    'label'=>'Título del Artículo'
+                                                    ))
             ->add('category',EntityType::class,array(
                         'class' => 'AppBundle:Category',
-                        'multiple' => false,
+                        'multiple' => true,
                         'expanded' => true,
+                        'label'=>'Seleccione una categoría',
                         'attr'=> array('class' => '')
                     ))
             ->add('content',TextareaType::class,array(
-                'attr'=> array('class' => 'form-control','placeholder'=>'Contenido')
-                    ))
+                                                        'attr'=> array('class' => 'form-control','placeholder'=>'Contenido'),
+                                                         'label'=>'Contenido del Artículo'
+                                                    ))
             ->add('photoPath',FileType::class,array(
                 'attr'=> array('class' => 'form-control'),
                 'required'=>false,
-            ))
-            ->add('Crear',SubmitType::class,array(
-                'attr'=> array('class' => 'btn btn-success')
+                'label'=>false,
             ))
         ;
+
+        if ('create_post' === $options['create']) {
+            $builder->add('Crear post',SubmitType::class,array(
+                'attr'=> array('class' => 'btn btn-success')
+            ));
+        }else if('edit_post' === $options['create']){
+            $builder
+                ->add('Actualizar',SubmitType::class,array(
+                'attr'=> array('class' => 'btn btn-success')
+            ));
+        }
     }
     
     /**
@@ -46,7 +58,8 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Post'
+            'data_class' => 'AppBundle\Entity\Post',
+            'create'=>'create'
         ));
     }
 

@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Util\Slugger;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -32,9 +33,10 @@ class Post
     private $title;
 
     /**
-    * Many Post have One category.
-    * @ORM\ManyToOne(targetEntity="Category", inversedBy="post")
-    */
+     * Many Post have Many Category.
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="post")
+     * @ORM\JoinTable(name="post_category")
+     */
     private $category;
 
 
@@ -102,6 +104,10 @@ class Post
      * @ORM\Column(name="checked",type="boolean")
      */
     private $checked;
+
+    public function __construct() {
+        $this->category = new ArrayCollection();
+    }
 
 
     /**
@@ -283,29 +289,6 @@ class Post
         return $this->person;
     }
 
-    /**
-     * Set category
-     *
-     * @param \AppBundle\Entity\Category
-     *
-     * @return Post
-     */
-    public function setCategory(\AppBundle\Entity\Category $category)
-    {
-        $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * Get category
-     *
-     * @return \AppBundle\Entity\Category
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
 
     /**
      * Set slug
@@ -410,5 +393,39 @@ class Post
         $nombreArchivoFoto = uniqid('post-').$this->id.'-'.$this->photoPath->getClientOriginalName();
         $this->photoPath->move($_SERVER['DOCUMENT_ROOT'].'/bundles/images/post/', $nombreArchivoFoto);
         $this->setImgPost($nombreArchivoFoto);
+    }
+
+    /**
+     * Add category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Post
+     */
+    public function addCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->category[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \AppBundle\Entity\Category $category
+     */
+    public function removeCategory(\AppBundle\Entity\Category $category)
+    {
+        $this->category->removeElement($category);
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

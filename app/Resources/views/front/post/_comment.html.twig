@@ -1,8 +1,10 @@
 {% if app.user.person is defined %}
+  <div class="mt-4"> 
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <input type="hidden" name="id_post" value="{{ id_post }}">
     {{ form_end(form) }}
+    </div>
 {% else %}
     <p>Para comentar tienes que loguearte <a href="#"  data-toggle="modal" data-target="#myModal">Click Aqui</a> <a href="{{ path('create_account') }}">¿No tienes cuenta ?</a></p>
     <!-- Button trigger modal -->

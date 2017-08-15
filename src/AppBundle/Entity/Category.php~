@@ -30,8 +30,8 @@ class Category
     private $name;
 
     /**
-     * One Category has Many Post.
-     * @ORM\OneToMany(targetEntity="\AppBundle\Entity\Post", mappedBy="category")
+     * Many Category has Many Post.
+     * @ORM\ManyToMany(targetEntity="\AppBundle\Entity\Post", mappedBy="category")
      */
     private $post;
 
@@ -80,5 +80,38 @@ class Category
         return $this->name;
     }
 
-}
 
+    /**
+     * Add post
+     *
+     * @param \AppBundle\Entity\Post $post
+     *
+     * @return Category
+     */
+    public function addPost(\AppBundle\Entity\Post $post)
+    {
+        $this->post[] = $post;
+
+        return $this;
+    }
+
+    /**
+     * Remove post
+     *
+     * @param \AppBundle\Entity\Post $post
+     */
+    public function removePost(\AppBundle\Entity\Post $post)
+    {
+        $this->post->removeElement($post);
+    }
+
+    /**
+     * Get post
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPost()
+    {
+        return $this->post;
+    }
+}

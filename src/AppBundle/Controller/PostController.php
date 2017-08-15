@@ -29,7 +29,28 @@ class PostController extends Controller
         $em = $this->getDoctrine()->getManager();
         $single_post=$em->getRepository('AppBundle:Post')->findByTitle($slug);
         $coments=$em->getRepository('AppBundle:Post_comment')->findByPost($single_post);
-        $post_by_category=$em->getRepository('AppBundle:Post')->findByCategory($single_post->getCategory());
+        
+        /*$post_by_category=$em->getRepository('AppBundle:Post')->findByCategory(['id'=>$single_post->getCategory()]);
+
+           $tem=array();
+
+           foreach ($single_post->getCategory() as $key ) {
+                # code...
+                $tem[]=$key->getId();
+            } 
+
+            var_dump($tem);
+            exit;
+
+
+        $post_by_category=$em->getRepository('AppBundle:Post')->findBy(array(
+                                                                                    'category' => 
+                                                                                )
+                                                                          );
+
+        var_dump($post_by_category);
+        exit;*/
+
         $more_visited=$em->getRepository('AppBundle:Post')->findByVisited(5);
 
 
@@ -41,7 +62,7 @@ class PostController extends Controller
 		return $this->render('front/post/_single.html.twig', [
 		    'single_post'=>$single_post,
             'comments'=>$coments,
-            'post_by_category'=>$post_by_category,
+            //'post_by_category'=>$post_by_category,
             'more_visited'=>$more_visited
         ]);
 	}
@@ -114,7 +135,10 @@ class PostController extends Controller
         if($user){
             $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'No Tienes permisos para crear post!');
             $post = new Post();
-            $form = $this->createForm(PostType::class,$post);
+            $form = $this->createForm(PostType::class,$post,array(
+                 'create'=>'create_post',
+                 'validation_groups' => array('default', 'create'),
+            ));
 
             $form->handleRequest($request);
             if($form->isSubmitted()){
@@ -140,6 +164,45 @@ class PostController extends Controller
         }
 
     }
+
+    /**
+     * @Route("/edit-post/{id}/",name="edit_post")
+     */
+
+    public function editPostAction(Request $request,$id){
+        $user=$this->getUser();
+
+        if($user){
+            $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'No Tienes permisos para crear post!');
+            $em = $this->getDoctrine()->getManager();
+            $post = $em->getRepository('AppBundle:Post')->findOneBy(['id'=>$id]);
+
+
+
+            $form = $this->createForm(PostType::class,$post,array(
+                'create'=>'edit_post',
+            ));
+
+            $form->handleRequest($request);
+            if($form->isSubmitted()){
+                $post=$form->getData();
+
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($post);
+                $em->flush();
+                return $this->redirectToRoute('my_post');
+            }
+            return $this->render('front/post/_create_post.html.twig',[
+               'form'=>$form->createView(),
+               'picture_post'=>$post->getImgPost(),
+            ]);
+
+        }else{
+            return $this->redirectToRoute('user_login');
+        }
+    }
+
 
     private function getExcerpt($str, $startPos=0, $maxLength=100) {
         if(strlen($str) > $maxLength) {

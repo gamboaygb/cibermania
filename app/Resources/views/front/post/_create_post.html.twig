@@ -1,8 +1,23 @@
 {% extends 'front/frontend.html.twig' %}
 {% block section %}
     <section class="container">
-        {{ form_start(form, {'attr': {'class': 'my-form-class'} }) }}
-        {{ form_widget(form) }}
+        {{ form_start(form, {'attr': {'class': 'my-form-class mt-4'} }) }}
+        		<div class="form-group">
+                    {{ form_widget(form.title) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.category) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.content) }}
+                </div>
+                <div class="form-group">
+                    {% if picture_post is defined %}
+                        <img class="img-fluid mb-1" src="{{ asset(picture_post, 'post') }}" width="100" height="100"/>
+                    {% endif %}
+                       
+                    {{ form_widget(form.photoPath) }}
+                </div>
         {{ form_end(form) }}
     </section>
 {% endblock %}
