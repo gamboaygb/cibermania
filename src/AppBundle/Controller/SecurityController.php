@@ -342,13 +342,72 @@ class SecurityController extends Controller
         $code = $request->get('code');
         $instagram_data = $instagram->getOAuthToken($code);
 
-        var_dump($instagram_data);
-        exit;
         /*here create a lo*/
-        return $this->render('default/index.html.twig', array(
-            'instagram_data' => $instagram_data,
+        if($instagram_data->user){
+            $em = $this->getDoctrine()->getManager();
+            $tem_mail=$instagram_data->user->username."@cibermania.es";
+            $user=$em->getRepository('AppBundle:User')->findByEmail($tem_mail);
 
-        ));
+            if(!$user){ 
+                $person = new Person();
+
+                $person->setName($instagram_data->user->username);  
+                $person->setLastName($instagram_data->user->full_name);
+                $person->setCreatedDate(new  \DateTime());
+                $person->setActivatedDate(new  \DateTime());
+                $person->setPicture($instagram_data->user->profile_picture);
+                $person->setToken($instagram_data->user->id);
+                $person->setUrlValidate($instagram_data->user->website);
+                $person->setIpClient($request->getClientIp());
+
+
+                $user= new User();
+                $user->setEmail($tem_mail);
+
+                $user->setPassword('hola');
+
+                $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+
+                $encoded = $encoder->encodePassword($user->getPasswordClear(), null);
+                $user->setPassword($encoded);
+                $user->setPerson($person);
+
+
+                
+                $user->setRoles("ROLE_USER");
+                $user->setActive(1);
+                $user->setExpired(1);
+
+
+                $em->persist($user);
+                $em->flush();
+
+
+                $em->persist($person);
+                $em->flush();
+
+                $token= new UsernamePasswordToken(
+                    $user,
+                    $user->getPassword(),
+                    'frontend',
+                    $user->getRoles()
+                );
+                $this->get('security.token_storage')->setToken($token);
+                return $this->redirect($this->generateUrl('homepage'));
+
+            }else{
+                $token= new UsernamePasswordToken(
+                    $user,
+                    $user->getPassword(),
+                    'frontend',
+                    $user->getRoles()
+                );
+
+                $this->get('security.token_storage')->setToken($token);
+                return $this->redirect($this->generateUrl('homepage'));
+            }
+
+        }
     }
 
 
