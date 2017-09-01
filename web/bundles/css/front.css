@@ -227,22 +227,19 @@ article{
 .ul-session ul{
     padding: 0;
 }
-.ul-session ul li{
+.social-link li{
     display: inline-block;
     padding-right: 5px;
     padding-left: 5px;
 }
-.ul-session ul li a i{
-    font-size: 2rem;
-}
 
-.ul-session ul li a i.fa-facebook:hover{
+.social-link li a i.fa-facebook:hover{
     color:#365899;
 }
-.ul-session ul li a i.fa-twitter:hover{
-    color:#1da1f2;
+.social-link li a i.fa-yahoo:hover{
+    color:#1a0dab;
 }
-.ul-session ul li a i.fa-instagram:hover{
+.social-link li a i.fa-instagram:hover{
     color:#C2398B
 }
 

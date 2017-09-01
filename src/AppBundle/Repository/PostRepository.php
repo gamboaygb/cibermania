@@ -29,7 +29,8 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
         $em = $this->getEntityManager();
         $consulta = $em->createQuery('
         SELECT u
-        FROM AppBundle:Post u');
+        FROM AppBundle:Post u
+        ORDER  by u.id DESC');
         $consulta->setMaxResults($limit);
 
         try{
