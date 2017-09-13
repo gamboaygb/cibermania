@@ -15,15 +15,17 @@ class YahooOAuth2 {
 
 
  public function getdata($xoauth_yahoo_guid){
- 	$url='http://social.yahooapis.com/progrss/v1/users.guid('.$xoauth_yahoo_guid.')/profile?format=json&.imgssl=1';
- 	$yql_base_url = "http://query.yahooapis.com/v1/public/yql";
+ 	$url='https://social.yahooapis.com/progrss/v1/users.guid('.$xoauth_yahoo_guid.')/profile?format=json&.imgssl=1';
+ 	$yql_base_url = "https://query.yahooapis.com/v1/public/yql";
  	$yql_query = 'select * from social.profile where guid="'.$xoauth_yahoo_guid.'"'; 
  	$yql_query_url = $yql_base_url . "?q=" . urlencode($yql_query);
  	$yql_query_url .= "&format=json";
  	
+ 	
+ 	
  	$session = curl_init($yql_query_url);  
 				curl_setopt($session, CURLOPT_RETURNTRANSFER,true);
-				curl_setopt($session,CURLOPT_SSL_VERIFYPEER, false);
+				curl_setopt($session,CURLOPT_SSL_VERIFYPEER, true);
 				$json = curl_exec($session);
 				curl_close($session); // close cURL handler
 				

@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="card__share">
                                             <div class="card__social">
-                                                <a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>
+                                                <a class="share-icon facebook" data-id={{item.id}} href="#"><span class="fa fa-facebook"></span></a>
                                                 <a class="share-icon twitter" href="#"><span class="fa fa-twitter"></span></a>
                                                 <a class="share-icon googleplus" href="#"><span class="fa fa-google-plus"></span></a>
                                             </div>
@@ -92,7 +92,7 @@
                                  <div class="category"><a href="{{ path('category_post_list',{slug:item.category[0].name}) }}">{{ item.category[0].name|capitalize }}</a> </div>
                                  <div class="card__share">
                                      <div class="card__social">
-                                         <a class="share-icon facebook" href="#"><span class="fa fa-facebook"></span></a>
+                                         <a class="share-icon facebook" data-id={{item.id}} href="#"><span class="fa fa-facebook"></span></a>
                                          <a class="share-icon twitter" href="#"><span class="fa fa-twitter"></span></a>
                                          <a class="share-icon googleplus" href="#"><span class="fa fa-google-plus"></span></a>
                                      </div>
@@ -160,6 +160,9 @@
 		  </div>
 		</div>
     </section>
+{% endblock %}
+{% block js %}
+    <script type="text/javascript" src="{{ asset('bundles/js/share.js') }}"></script>
 {% endblock %}
 
 

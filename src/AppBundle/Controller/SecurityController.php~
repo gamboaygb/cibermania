@@ -22,6 +22,7 @@ use AppBundle\Service\Facebook\Facebook;
 use AppBundle\Service\Instagram\Instagram;
 use AppBundle\Service\Yahoo\YahooOAuth2;
 use AppBundle\Service\Twitter\TwitterOAuth;
+use AppBundle\Service\Linkedin\Linkedin;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class SecurityController extends Controller
@@ -42,7 +43,8 @@ class SecurityController extends Controller
             'facebook'=>$this->faceUrl(),
             'instagram'=>$this->instaUrl(),
             'yahoo'=>$this->yahooUrl(),
-	    'twitter'=>$this->twtUrl(),
+	    	'twitter'=>$this->twtUrl(),
+	    	'linkedin'=>$this->linkedinUrl(),
         ));
     }
     /**
@@ -69,6 +71,7 @@ class SecurityController extends Controller
             'instagram'=>$this->instaUrl(),
             'yahoo'=>$this->yahooUrl(),
             'twitter'=>$this->twtUrl(),
+            'linkedin'=>$this->linkedinUrl(),
         ));
     }
 
@@ -195,7 +198,7 @@ class SecurityController extends Controller
             $helper->getPersistentDataHandler()->set('state', $_GET['state']);
         }
 
-        $accessToken = $helper->getAccessToken('http://cibermania.es/fb-callback/');
+        $accessToken = $helper->getAccessToken('https://cibermania.es/app_dev.php/fb-callback/');
 
 
 
@@ -317,7 +320,7 @@ class SecurityController extends Controller
             $helper->getPersistentDataHandler()->set('state', $_GET['state']);
         }
         $permissions = ['email', 'user_likes','public_profile'];
-        $loginUrl = $helper->getLoginUrl('http://cibermania.es/fb-callback/', $permissions);
+        $loginUrl = $helper->getLoginUrl('https://cibermania.es/app_dev.php/fb-callback/', $permissions);
 
         return $loginUrl;
     }
@@ -327,7 +330,7 @@ class SecurityController extends Controller
         $instagram = new Instagram(array(
             'apiKey'      => '15b11f98a3c74c68b46743304e81e20b',
             'apiSecret'   => 'be149e6912164c16b55dc43a6d2b43e9',
-            'apiCallback' => 'http://cibermania.es/app_dev.php/in-callback',
+            'apiCallback' => 'https://cibermania.es/in-callback',
         ));
 
         return $instagram->getLoginUrl();
@@ -343,7 +346,7 @@ class SecurityController extends Controller
         $instagram = new Instagram(array(
             'apiKey'      => '15b11f98a3c74c68b46743304e81e20b',
             'apiSecret'   => 'be149e6912164c16b55dc43a6d2b43e9',
-            'apiCallback' => 'http://cibermania.es/app_dev.php/in-callback',
+            'apiCallback' => 'https://cibermania.es/in-callback',
         ));
 
         $code = $request->get('code');
@@ -425,7 +428,7 @@ class SecurityController extends Controller
     public function yahooLoginAction(Request $request){
 
             $oauth2client=new YahooOAuth2();
-            $redirect_uri="http://".$_SERVER['SERVER_NAME'] . $this->generateUrl('callback-yahoo');
+            $redirect_uri="https://".$_SERVER['SERVER_NAME'] . $this->generateUrl('callback-yahoo');
 
         if ($request->get('code')){
 	     $code=$request->get('code');
@@ -437,9 +440,12 @@ class SecurityController extends Controller
              $headers= array('Content-Type: application/x-www-form-urlencoded 
                                Authorization:Basic ZGoweUptazlZWEpaWW1GUlRYbHNhMmd5Sm1ROVdWZHJPV042WkZoVmJWcDFUWHBKYldOSGJ6bE5RUzB0Sm5NOVkyOXVjM1Z0WlhKelpXTnlaWFFtZUQwMVpnLS06Y2ZlN2Y1YzZhNmMxMzEzYTFiOTBiNjcwYTYzZTE5ZTJlNGY2YjY5NA
                             ');
+                            
+                            
 	     $token=$oauth2client->get_access_token($apiClient,$apiKey,$redirect_uri,$code);
-	     
-             var_dump( $token);
+	    $t= $oauth2client->getdata($token->xoauth_yahoo_guid);
+	    var_dump($token);
+             var_dump( $t);
            exit;   
         }else {
          echo 'nada';
@@ -452,7 +458,7 @@ class SecurityController extends Controller
 
    private function yahooUrl(){
        $oauth2client=new YahooOAuth2();
-       $redirect_uri="http://".$_SERVER['SERVER_NAME'] . $this->generateUrl('callback-yahoo');
+       $redirect_uri="https://".$_SERVER['SERVER_NAME'] . $this->generateUrl('callback-yahoo');
        return $oauth2client->getAuthorizationURL('dj0yJmk9YXJZYmFRTXlsa2gyJmQ9WVdrOWN6ZFhVbVp1TXpJbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD01Zg--',$redirect_uri);
 
    }
@@ -562,16 +568,47 @@ class SecurityController extends Controller
             '964696968-V6N571eDYMHIF9hIxwKL7Bujbvh6Ha7DOrYsVG8Y',
             'vBWl7ZwPffUtscAru7rxcOhd6DIj86AITvtAfjQLeZSDm');
 
-    $request_token = $twitter->oauth( 'oauth/request_token', ['oauth_callback' => 'http://cibermania.es/tw-callback']);
+    $request_token = $twitter->oauth( 'oauth/request_token', ['oauth_callback' => 'https://cibermania.es/tw-callback']);
     $session = new Session();
 
 	// set and get session attributes
 	$session->set('request_token', $request_token);
 
 
-    return  $twitter->url("oauth/authorize", ['oauth_token' => $request_token['oauth_token']]);
+    	return  $twitter->url("oauth/authorize", ['oauth_token' => $request_token['oauth_token']]);
 
     }
+    
+    
+    
+    /**
+     * @Route("/ln-callback/",name="callback-linkedin")
+     */
+     
+     public function linkedinCallbackAction(Request $request){
+     	$linkedin= new Linkedin();
+     	
+     	if ($linkedin->isAuthenticated()) {
+			//we know that the user is authenticated now. Start query the API
+			$user=$linkedin->get('v1/people/~:(firstName,lastName)');
+			
+			var_dump($user);
+			exit;
+			
+		} elseif ($linkedin->hasError()) {
+			echo "El usuario ha cancelado la solicited.";
+			exit();
+		}
+     }
+     
+     private function linkedinUrl(){
+     	$linkedin= new Linkedin();
+     	return $linkedin->getLoginUrl();
+     }
+    
+    
+    
+    
 
 
 
@@ -593,6 +630,12 @@ class SecurityController extends Controller
         $this->get('mailer')->send($message);
 
     }
+    
+    
+    
+    
+    
+    
 
    /**
      *

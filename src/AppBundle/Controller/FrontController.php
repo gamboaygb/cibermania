@@ -5,6 +5,11 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use AppBundle\Util\Slugger;
 
 class FrontController extends Controller
 {
@@ -43,13 +48,73 @@ class FrontController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/{nombrePagina}/",
-     * defaults={ "nombrePagina" = "ayuda" },
-     * requirements={ "nombrePagina"="ayuda|privacidad|sobre_nosotros|politicas" },
-     * name="pagina" )
+   /**
+     * @Route("/site/{pageName}/",
+     *          defaults={"pageName"="ayuda"},
+     *          requirements={"pageName"="ayuda|aviso|cibermania"},
+     *          name="page"
+     *       )
      */
-    public function pageAction($nombrePagina){
-        return $this->render('static/'.$nombrePagina.'.html.twig');
+    public function pageAction(Request $request,$pageName){
+    	$pageName=Slugger::getSlug($pageName);
+        return $this->render('static/'.$pageName.'.html.twig');
+    }
+    
+    /**
+     *@Route("/contact/", name="contact")
+     *
+     *
+     */
+    public function contactAction(Request $request){
+		$defaultData = array('message' => '');
+		$form = $this->createFormBuilder($defaultData)
+		    ->add('name', TextType::class,array(
+                                                    'attr'=> array('class' => 'form-control','placeholder'=>'Nombre Completo'),
+                                                    'label'=>false
+                                                    ))
+		    ->add('email', EmailType::class,array(
+                                                    'attr'=> array('class' => 'form-control','placeholder'=>'Correco Electrónico'),
+                                                    ))
+		    ->add('message',TextareaType::class,array(
+                                                        'attr'=> array('class' => 'form-control','placeholder'=>'Contenido'),
+                                                         'label'=>false
+                                                    ))
+		    ->add('send',SubmitType::class,array(
+                'attr'=> array('class' => 'btn btn-success')))
+                
+		    ->getForm();
+	 
+		$form->handleRequest($request);
+	 
+		if ($form->isValid()) {
+		    // data es un array con claves 'name', 'email', y 'message'
+		    $data = $form->getData();
+		    
+		    
+		    $message = \Swift_Message::newInstance()
+            ->setSubject('Nuevo mensaje de '.$data['name'])
+            ->setFrom('info@cibermania.es')
+            ->setTo('soportecibermania@gmail.com')
+            ->setBody($data['message'], 'text/html'
+            )
+
+        ;
+        $this->get('mailer')->send($message);
+        
+        
+        return $this->render('static/contact.html.twig',[
+            'form'=>$form->createView(),
+            'sent'=>'Mensaje enviado correctamente, pronto nos pondremos en contacto',
+        ]);
+		    
+		    
+		    
+		}
+		
+		return $this->render('static/contact.html.twig',[
+            'form'=>$form->createView(),
+        ]);
+		
+		
     }
 }

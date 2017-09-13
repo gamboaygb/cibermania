@@ -1,0 +1,41 @@
+
+<div class="col-12">
+
+         <h2>Accede a tu cuenta</h2>
+         <form action="{{ path('user_login_check') }}" method="post">
+             {% if error %}
+                 <div>{{ error.message }}</div>
+             {% endif %}
+             <div class="form-group">
+                 <input class="form-control" placeholder="example@cibermania.es" id="login_user" type="text" name="_username" value="{{ last_username|default('') }}" />
+             </div>
+
+             <div class="form-group">
+                 <input type="password" class="form-control" id="login_pass" placeholder="Contraseña" name="_password">
+             </div>
+
+             <div class="form-check">
+                 <label for="remember_me" class="form-check-label">
+                     <input class="form-check-input" type="checkbox" id="remember_me" name="_remember_me" checked />
+                     No cerrar sesión
+                 </label>
+
+             </div>
+
+             <div class="form-group">
+                 <input type="submit" class="btn btn-outline-primary" value="Entrar">
+             </div>
+         </form>
+    <a class="cuenta" href="{{ path('create_account') }}"><button class="btn btn-outline-danger">Regístrate</button></a>
+
+    <ul class="social-link">
+        <li><a href="{{ facebook }}"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a> </li>
+        <li><a href="{{ instagram }}"><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a> </li>
+	<li><a href="{{ twitter }}"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a> </li>
+	<li><a href="{{ linkedin }}"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a> </li>
+        <li><a href="{{ yahoo }}"><i class="fa fa-yahoo fa-2x" aria-hidden="true"></i></a> </li>
+    </ul>
+
+
+</div>
+

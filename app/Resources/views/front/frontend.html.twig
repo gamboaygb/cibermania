@@ -27,23 +27,18 @@
                     <li><a href="https://www.youtube.com/user/cibermaniasful"><i class="fa fa-youtube"></i></a></li>
                     <li><a href="https://twitter.com/CibErMaNias"><i class="fa fa-twitter"></i></a></li>
                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="https://www.facebook.com/Cibermanias.es/"><i class="fa fa-facebook"></i></a></li>
                 </ul>
               </div>
             </div>
         {%   else %}
             {{ render(controller('AppBundle:Security:boxLogin')) }}
         {% endif %} 
-
         <div class="col-12 menu">
-            <a href="#">Qué es cibermania</a>
-            <a href="#">Servicios</a>
-            <a href="#">Contacto</a>
-        </div>
-        <div class="col-12">
-            <a href="{{ path('pagina', { pagina: 'ayuda' }) }}">Ayuda</a>
-            <a href="#">Aviso Legal</a>
-            <a href="#">Políticas de Privacidad</a>
+            <a href="{{ path('page', { pageName: 'cibermania' }) }}">¿Qué es cibermania?</a>
+            <a href="{{ path('contact') }}">Contacto</a>
+            <a href="{{ path('page', { pageName: 'ayuda' }) }}">Ayuda</a>
+            <a href="{{ path('page', { pageName: 'aviso' }) }}">Aviso Legal</a>
         </div>
     </div>
 

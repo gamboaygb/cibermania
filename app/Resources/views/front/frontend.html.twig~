@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mientras unos navegan por la tecnología, yo buceo{% endblock %}
+{% block sidebar %}
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" >&times;</a>
+
+        <div id="search" class="col-12">
+             <form method="get" action="{{ path('search') }}">
+              <div class="form-group">
+                <input type="text" class="form-control" name="data" id="slug" placeholder="Buscar" />
+               </div> 
+            </form>
+        </div>
+        {% if app.user.person is defined %}
+            <div class="card mb-3">
+              <img alt="{{app.user.person.name}}" class="rounded-circle mx-auto" width="150" height="150" src="{{ asset(app.user.person.picture?:'johndoe.png', 'profile') }}">
+              <div class="container">
+                <h1>{{ app.user.person.name|capitalize }}</h1>
+                <p class="title">{{ app.user.roles[0] == "ROLE_USER" ? 'Usuario' : 'Administrador' }}</p>
+                <ul>
+                  <li><a href="{{ path('my_post') }}">Mis Post</a></li>
+                  <li><a href="{{ path('edit_profile') }}">Mi Perfil</a></li>
+                  <li><a href="{{ path('user_logout') }}">Desconectar</a></li>
+                </ul>
+                <ul>
+                    <li><a href="https://www.youtube.com/user/cibermaniasful"><i class="fa fa-youtube"></i></a></li>
+                    <li><a href="https://twitter.com/CibErMaNias"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a href="https://www.facebook.com/Cibermanias.es/"><i class="fa fa-facebook"></i></a></li>
+                </ul>
+              </div>
+            </div>
+        {%   else %}
+            {{ render(controller('AppBundle:Security:boxLogin')) }}
+        {% endif %} 
+        <div class="col-12 menu">
+            <a href="{{ path('page', { pageName: 'cibermania' }) }}">¿Qué es cibermania?</a>
+            <a href="#">Contacto</a>
+            <a href="{{ path('page', { pageName: 'ayuda' }) }}">Ayuda</a>
+            <a href="{{ path('page', { pageName: 'aviso' }) }}">Aviso Legal</a>
+        </div>
+    </div>
+
+{% endblock %}
+{% block body %}
+    {% block id %}{% endblock %}
+
+<div class="container-fluid main">
+    {% block header %}
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            {% if app.user.person is defined %}
+                <img alt="Ver Perfil" id="opennav" title="Ver Perfil" class="rounded-circle mx-auto " width="60" height="60" src="{{ asset(app.user.person.picture?:'johndoe.png', 'profile') }}">
+            {% else %}
+                <span class="navbar-brand fa-2x" id="opennav">&#9776;</span>
+            {% endif %}
+	
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('homepage') }}"><i class="fa fa-home fa-3x" aria-hidden="true"></i>
+                            <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('category_post_list',{slug:'windows'}) }}"><i class="fa fa-windows fa-3x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('category_post_list',{slug:'linux'}) }}"><i class="fa fa-linux fa-3x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('category_post_list',{slug:'apple'}) }}"><i class="fa fa-apple fa-3x" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('category_post_list',{slug:'android'}) }}"><i class="fa fa-android fa-3x" aria-hidden="true"></i>
+
+                        </a>
+                    </li>
+                </ul>
+
+
+            </div>
+        </nav>
+
+    {% endblock %}
+
+    {% block section %}
+
+    {% endblock %}
+
+</div>
+{% endblock %}
+
+{% block footer %}
+    {{ include('front/footer.html.twig') }}
+
+{% endblock %}

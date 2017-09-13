@@ -239,17 +239,19 @@ article{
 .social-link li a i.fa-yahoo:hover{
     color:#1a0dab;
 }
+
+.social-link li a i.fa-twitter:hover{
+    color:#1da1f2;
+}
 .social-link li a i.fa-instagram:hover{
     color:#C2398B
-}
-
-.sidenav .menu a{
-    font-size: 25px !important;
 }
 
 .sidenav .menu a:hover{
     color:#39b59f;
 }
+
+
 
 
 .main{
@@ -916,6 +918,12 @@ footer p.reserved{
 #back-to-top.show {
     opacity: 1;
 }
+
+
+/*=============Aiso legal==========*/
+#aviso h4{
+	color:#39b59f;
+	}
 
 
 @media screen and (max-height: 450px) {

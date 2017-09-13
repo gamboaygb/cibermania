@@ -1,0 +1,15 @@
+{% extends 'front/frontend.html.twig' %}
+{% block section %}
+    <section>
+        <div class="container">
+ 			<div class="col-12">
+ 				<ul>
+ 					<li>Índice</li>
+ 					<li>
+ 						<ul></
+ 					</li>
+ 				</ul>
+ 			</div>
+        </div>
+    </section>
+{% endblock %}

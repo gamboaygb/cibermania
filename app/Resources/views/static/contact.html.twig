@@ -1,0 +1,15 @@
+{% extends 'front/frontend.html.twig' %}
+{% block section %}
+    <section>
+        <div class="container">
+ 			<div class="col-12">
+ 				{{ form_start(form) }}
+				{{ form_widget(form) }}
+				{{ form_end(form) }}
+				{% if sent is defined %}
+				    <p class="text-center">{{ sent }}</p>
+				{% endif %}
+ 			</div>
+        </div>
+    </section>
+{% endblock %}
