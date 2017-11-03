@@ -20,7 +20,7 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $featured=$em->getRepository('AppBundle:Post')->findBylimit(3);
-        $list_post=$em->getRepository('AppBundle:Post')->findAll();
+        $list_post=$em->getRepository('AppBundle:Post')->findBy([],['id'=>'DESC']);
         return $this->render('front/homepage/index.html.twig',[
             'featureds'=>$featured,
             'list'=>$list_post,
@@ -29,7 +29,7 @@ class FrontController extends Controller
 
     public function footerAction(){
         $em = $this->getDoctrine()->getManager();
-        $category_list=$em->getRepository('AppBundle:Category')->findAll();
+        $category_list=$em->getRepository('AppBundle:Category')->findBy([],['id'=>'DESC']);
         return $this->render('static/_category_list.html.twig',[
                 'category_list'=>$category_list,
             ]);

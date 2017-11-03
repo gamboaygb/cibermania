@@ -126,18 +126,18 @@
                     <div class="col-12">
                         <h3>Relacionadas</h3>
                         <ul class="ul_views">
-                            {#{% for item in post_by_category %}
+                            {% for item in single_post.category %}
                                 <li class="li_views">
                                     <article>
-                                        <a class="li_a" href="{{ path('view_post',{slug:item.slug}) }}">
+                                        <a class="li_a" href="{{ path('view_post',{slug:item.post[0].slug}) }}">
                                             <hgroup>
-                                                <h3 class="views-subtitle">{{ item.category.name|capitalize }}</h3>
-                                                <h4 class="views-title">{{ item.title }}</h4>
+                                                <h3 class="views-subtitle">{{ item.name|capitalize }}</h3>
+                                                <h4 class="views-title">{{ item.post[0].title }}</h4>
                                             </hgroup>
                                         </a>
                                     </article>
                                 </li>
-                            {% endfor %}#}
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

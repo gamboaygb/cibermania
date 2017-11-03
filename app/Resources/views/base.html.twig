@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <meta name="description" content="Cibermania es un blog para ayudar a la comunidad con temas tecnológicos y que puedan entender la importancia de las nuevas tecnologías.">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript,Jquery,php,Windows,Linux,Mac,Andrid,red no identificada,acceso a internet,programación,symfony">
+  <meta name="author" content="Yus Gamboa">
     <title>{% block title %}{% endblock %} | Cibermania</title>
     {% block stylesheet %}
         <link rel="stylesheet" href="{{ asset('bundles/css/bootstrap.min.css') }}" />
@@ -9,8 +13,19 @@
         {% block css %}{% endblock %}
     {% endblock %}
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NPQN7ZB');</script>
+<!-- End Google Tag Manager -->
 </head>
 <body id="{% block id '' %}">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPQN7ZB"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="container-fuid">
     {% block sidebar %}{% endblock %}
     {% block body %}{% endblock %}
@@ -23,7 +38,17 @@
     <script type="text/javascript" src="{{ asset('bundles/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/js/font-awsome.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/js/front.js') }}"></script>
-    <!--script src="//cdn.ckeditor.com/4.7.1/basic/ckeditor.js"></script-->
+    
+       	<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43321727-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
     {% block js %}{% endblock %}
 {% endblock %}
 </body>

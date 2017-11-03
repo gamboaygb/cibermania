@@ -35,6 +35,34 @@
     });*/
 
     $(window).ready(function() {
+    	
+    	
+    	var cibermania={
+    		login_in:function(){
+    			$('.login-in').click(function(){
+    					console.log($(this).attr('data-close'));
+    				if($(this).attr('data-close')!=0){
+    					$('.sign-in').show(500);
+    					$(this).attr('data-close',0);
+    					$(this).text('Cerrar');
+    			     }else{
+    			     	$('.sign-in').hide(500);
+    			     	$(this).attr('data-close',1);
+    					$(this).text('Acceso');
+    			     }
+    			
+    				
+    			});
+    		},
+    		out:function(){
+    			$('.logout').click(function(){
+    				$('.main').css({'margin-left':'0rem'});
+       				localStorage.removeItem("sidenav");
+    			});
+    		}
+    	}
+    
+    
         $('.post-module').hover(function() {
             $(this).find('.description').stop().animate({
                 height: "toggle",
@@ -72,8 +100,14 @@
                 $(this).find('.content').css('left','22px');
             }
         );
+        
+        
+            cibermania.login_in();
+            cibermania.out();
 
     });
+    
+
 
 
     if ($('#back-to-top').length) {
@@ -98,7 +132,7 @@
         });
     }
 
-/**/
+/*pagination*/
     if($('.pagination-index').length>0){
         var active;
         $('.pagination-index li').each(function (index) {
@@ -112,7 +146,7 @@
                         $(active).removeClass('active');
                         $(active).prev().addClass('active');
                         active=$(active).prev()[0];
-                        loading(active);
+                        loading(active,'prev');
                     }else{
                         $(this).addClass('disabled');
                     }
@@ -121,15 +155,23 @@
                        $(active).removeClass('active');
                        $(active).next().addClass('active');
                        active=$(active).next()[0];
-                       loading(active);
+                       loading(active,'next');
                    }else {
                        $(this).addClass('disabled');
                    }
                }else{
-                   $(active).removeClass('active');
-                   active=this;
-                   $(this).addClass('active');
-                   loading($(this));
+               
+               		prev= parseInt($('.pagination-index .active').first().text());
+               		current=parseInt($(this).first().text());
+               		if(current>prev){
+               			loading($(this),'next');
+               			$(this).prev().removeClass('active');
+               		}else if(current<prev){
+               			loading($(this),'prev');
+               			$(this).next().removeClass('active');
+               		}
+               		$(this).addClass('active');
+                   
                }
 
 
@@ -146,18 +188,24 @@
            })
         });
 
-        function loading (element) {
-            var num=parseInt($(element).first().text())*3;
+        function loading (element,action=null) {
             $('.loading').addClass('overlay').toggle();
-
-            $('.card-home').each(function (index) {
-                if(index<(num-3) || index>num){
-                    $(this).removeClass('show').addClass('hide');
-                }else{
-
-                    $(this).removeClass('hide').addClass('show');
-                }
-            });
+            nextpage=$('.show-card');
+            
+            if(action=='next'){
+            	$(nextpage[0]).removeClass('show-card').addClass('hide-card');
+            	if($(nextpage[2]).next().length>0){
+            		$(nextpage[2]).next().removeClass('hide-card').addClass('show-card');
+            	}
+            }else if(action=='prev'){
+            	$(nextpage[2]).removeClass('show-card').addClass('hide-card');
+            	if($(nextpage[0]).prev().length>0){
+            		$(nextpage[0]).prev().removeClass('hide-card').addClass('show-card');
+            	}
+            
+            }
+            
+            
 
             setTimeout(function () {
                 $('.loading').hide().removeClass('overlay');

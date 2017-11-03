@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mientras unos navegan por la tecnología, yo buceo{% endblock %}
+{% block title %}Bienvenidos a cibermania{% endblock %}
 {% block sidebar %}
+	{% if app.user.person is defined %}
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" >&times;</a>
 
@@ -12,7 +13,6 @@
                </div> 
             </form>
         </div>
-        {% if app.user.person is defined %}
             <div class="card mb-3">
               <img alt="{{app.user.person.name}}" class="rounded-circle mx-auto" width="150" height="150" src="{{ asset(app.user.person.picture?:'johndoe.png', 'profile') }}">
               <div class="container">
@@ -21,7 +21,7 @@
                 <ul>
                   <li><a href="{{ path('my_post') }}">Mis Post</a></li>
                   <li><a href="{{ path('edit_profile') }}">Mi Perfil</a></li>
-                  <li><a href="{{ path('user_logout') }}">Desconectar</a></li>
+                  <li><a class="logout" href="{{ path('user_logout') }}">Desconectar</a></li>
                 </ul>
                 <ul>
                     <li><a href="https://www.youtube.com/user/cibermaniasful"><i class="fa fa-youtube"></i></a></li>
@@ -31,16 +31,17 @@
                 </ul>
               </div>
             </div>
-        {%   else %}
+        {#%   else %}
             {{ render(controller('AppBundle:Security:boxLogin')) }}
         {% endif %} 
         <div class="col-12 menu">
             <a href="{{ path('page', { pageName: 'cibermania' }) }}">¿Qué es cibermania?</a>
-            <a href="#">Contacto</a>
+            <a href="{{ path('contact') }}">Contacto</a>
             <a href="{{ path('page', { pageName: 'ayuda' }) }}">Ayuda</a>
             <a href="{{ path('page', { pageName: 'aviso' }) }}">Aviso Legal</a>
-        </div>
+        </div>#}
     </div>
+    {% endif %} 
 
 {% endblock %}
 {% block body %}
@@ -54,8 +55,6 @@
             </button>
             {% if app.user.person is defined %}
                 <img alt="Ver Perfil" id="opennav" title="Ver Perfil" class="rounded-circle mx-auto " width="60" height="60" src="{{ asset(app.user.person.picture?:'johndoe.png', 'profile') }}">
-            {% else %}
-                <span class="navbar-brand fa-2x" id="opennav">&#9776;</span>
             {% endif %}
 	
             <div class="collapse navbar-collapse" id="navbarSupportedContent">

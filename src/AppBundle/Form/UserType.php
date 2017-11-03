@@ -26,7 +26,7 @@ class UserType extends AbstractType
                 'options' => array('attr' => array('class' => 'form-control')),
                 'required' => false,
                 'first_options'  => array('label' => 'Contraseña','attr' => array('placeholder' => 'Contraseña','class' => 'form-control')),
-                'second_options' => array('label' => 'Repetir','attr' => array('placeholder' => 'Repetir ontraseña','class' => 'form-control')),
+                'second_options' => array('label' => 'Repetir','attr' => array('placeholder' => 'Repetir contraseña','class' => 'form-control')),
             ));
     }
     

@@ -20,7 +20,7 @@ class FrontController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $featured=$em->getRepository('AppBundle:Post')->findBylimit(3);
-        $list_post=$em->getRepository('AppBundle:Post')->findAll();
+        $list_post=$em->getRepository('AppBundle:Post')->findBy([],['id'=>'DESC']);
         return $this->render('front/homepage/index.html.twig',[
             'featureds'=>$featured,
             'list'=>$list_post,
@@ -104,6 +104,7 @@ class FrontController extends Controller
         
         return $this->render('static/contact.html.twig',[
             'form'=>$form->createView(),
+            'sent'=>'Mensaje enviado correctamente, pronto nos pondremos en contacto',
         ]);
 		    
 		    

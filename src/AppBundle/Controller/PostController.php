@@ -110,7 +110,7 @@ class PostController extends Controller
         $user=$this->getUser();
         if($user){
             $em = $this->getDoctrine()->getManager();
-            $my_list=$em->getRepository('AppBundle:Post')->findByPerson($user->getPerson());
+            $my_list=$em->getRepository('AppBundle:Post')->findByPerson(['person'=>$user->getPerson()],['id'=>'DESC']);
             if(count($my_list)==0){
                 $my_list=null;
             }
