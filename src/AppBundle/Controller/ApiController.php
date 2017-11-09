@@ -7,6 +7,7 @@
  */
 
 namespace AppBundle\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +25,7 @@ use AppBundle\Service\Facebook\Facebook;
 /**
  * @Route("/api")
  */
-class ApiController
+class ApiController extends Controller
 {
 
     /**
@@ -34,10 +35,13 @@ class ApiController
     public function indexAction(Request $request){
 
 
-        if($request->isXmlHttpRequest())
-        {
+            //var_dump($request->server->get('HTTP_USER_AGENT'));
+           // exit;
+        if($request->isMethod('GET')){
             $encoder = new JsonEncoder();
             $normalizer = new ObjectNormalizer();
+
+
 
             $normalizer->setCircularReferenceHandler(function ($object) {
                 return $object->getId();
@@ -47,7 +51,8 @@ class ApiController
 
 
             $em = $this->getDoctrine()->getManager();
-            $posts =  $em->getRepository('AppBundle:Post')->findAll();
+
+            $posts =  $em->getRepository('AppBundle:Post')->findAllPost();
 
 
             $response = new JsonResponse(array(
@@ -55,21 +60,20 @@ class ApiController
                 'posts' => $serializer->serialize($posts, 'json')
             ),200);
 
-            return $response;
-        }
 
+
+            return $response;
+
+        }
 
     }
 
     /**
-     * @Route("/post-info/{id}",name="post_info")
+     * @Route("/post/",name="post_info")
      * @Method({"GET"})
      */
-    public function postInfoAction(Request $request,$id){
+    public function postInfoAction(Request $request){
 
-
-        if($request->isXmlHttpRequest())
-        {
             $encoder = new JsonEncoder();
             $normalizer = new ObjectNormalizer();
 
@@ -82,6 +86,7 @@ class ApiController
 
             $em = $this->getDoctrine()->getManager();
             $post =  $em->getRepository('AppBundle:Post')->findOneById($id);
+
             $_SESSION['link']='https://cibermania.es/'.$post->getSlug();
 
             $this->shareFacebookAction($request);
@@ -91,7 +96,7 @@ class ApiController
             ),200);
 
             return $response;
-        }
+
 
 
     }
