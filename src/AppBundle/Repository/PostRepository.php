@@ -86,4 +86,19 @@ class PostRepository extends \Doctrine\ORM\EntityRepository
             return false;
         }
     }
+
+    public function findByAllPost(){
+        $em = $this->getEntityManager();
+        $consulta = $em->createQuery('
+        SELECT u.id,u.title,u.slug,u.content,u.createdDate,u.updateDate,u.shortContent,u.imgPost,u.views
+        FROM AppBundle:Post u
+        ORDER  by u.id DESC');
+        /*LEFT JOIN u.category descomentar cuando lo arregle ' );*/
+
+        try{
+            return $consulta->getResult();
+        }catch (\Exception $error){
+            return false;
+        }
+    }
 }
