@@ -52,7 +52,7 @@ class ApiController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            $posts =  $em->getRepository('AppBundle:Post')->findAllPost();
+            $posts =  $em->getRepository('AppBundle:Post')->findByAllPost();
 
 
             $response = new JsonResponse(array(
