@@ -3,7 +3,7 @@
  */
 
 (function($) {
-	/*temporali*/
+	var card_home=$('.card-home');
 
     /*sidebar*/
     if(localStorage.getItem("sidenav")=="open"){
@@ -35,9 +35,15 @@
     });*/
 
     $(window).ready(function() {
-    	
+
     	
     	var cibermania={
+            initialize: function() {
+                this.login_in();
+                this.out();
+                this.pagination();
+
+            },
     		login_in:function(){
     			$('.login-in').click(function(){
     					console.log($(this).attr('data-close'));
@@ -59,8 +65,94 @@
     				$('.main').css({'margin-left':'0rem'});
        				localStorage.removeItem("sidenav");
     			});
-    		}
+    		},
+            pagination:function () {
+                var num = card_home.length;
+
+                console.log(card_home);
+
+                if(num<5){
+                    $('.paginate').hide();
+                }else{
+                    $('.paginate').show();
+                    var paginas = num / 4;
+                    paginas = Math.trunc(paginas);
+                    var modulo = num % 4;
+                    if (modulo > 0){
+                        paginas++;
+                    }
+
+                    var html = "";
+                    for (var i = 1; i <= paginas; i++) {
+
+                            html+="<option value='"+i+"'>"+i+"</option>";
+
+                    }
+                    $('#paginador option').remove()
+                    $('#paginador').append(html);
+                }
+
+                $('.change-paginate').click(function(event) {
+                    var aux = $('#paginador').val();
+                    var ultimo = $('#paginador option:last-child').val();
+                    aux = parseInt(aux);
+                    ultimo = parseInt(ultimo);
+
+                    switch ($(this).attr('id')){
+                        case 'first':
+                            if(aux != 1){
+                                mostrar(1);
+                                //$("#paginador option[value='"+(aux-1)+"']").prop("selected",true);
+                            }
+                            break;
+                        case 'anterior':
+                            if(aux != 1){
+                                mostrar(aux-1);
+                               // $("#paginador option[value='"+(aux-1)+"']").prop("selected",true);
+                            }
+                            break;
+                        case 'siguiente':
+                            if(aux != ultimo){
+                                mostrar(aux+1);
+                                //$("#paginador option[value='"+(aux+1)+"']").prop("selected",true);
+                            }
+                            break;
+                        case 'fin':
+                            if(aux != ultimo){
+                                mostrar(ultimo);
+                            }
+                            break;
+                    }
+                });
+
+
+                $('#paginador').change(function(event) {
+                    mostrar($(this).val());
+                });
+
+
+                function mostrar(pagina){
+                    $('.show-card').each(function () {
+                        $(this).removeClass('show-card').addClass('hide-card');
+                    });
+                    var seleccionado = $('#paginador').val();
+                    var j = 0;
+
+                    for (var i = ((pagina-1)*3); i < (pagina*3); i++) {
+                        $(card_home[i]).addClass('show-card').removeClass('hide-card');
+
+                        j++;
+                    }
+
+                    $("#paginador option[value='"+pagina+"']").prop("selected",true);
+
+                }
+            }
+
+
     	}
+
+        cibermania.initialize();
     
     
         $('.post-module').hover(function() {
@@ -100,11 +192,6 @@
                 $(this).find('.content').css('left','22px');
             }
         );
-        
-        
-            cibermania.login_in();
-            cibermania.out();
-
     });
     
 
@@ -132,7 +219,7 @@
         });
     }
 
-/*pagination*/
+/*pagination
     if($('.pagination-index').length>0){
         var active;
         $('.pagination-index li').each(function (index) {
@@ -233,6 +320,7 @@
     $(fileInput).bind( "change", function( event ) {
         $(the_return).val($(this).val());
     });
+
 
 
 

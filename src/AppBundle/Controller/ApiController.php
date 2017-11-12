@@ -60,6 +60,8 @@ class ApiController extends Controller
                 'posts' => $serializer->serialize($posts, 'json')
             ),200);
 
+            //$this->m_log("Llega bien");
+
 
 
             return $response;
@@ -95,10 +97,45 @@ class ApiController extends Controller
                 'post' => $serializer->serialize($_SESSION['facebook_access_token'], 'json')
             ),200);
 
-            return $response;
+        $this->console_log('todo cool');
+
+        return $response;
 
 
 
+    }
+
+
+    function console_log( $data ){
+        echo '<script>';
+        echo 'console.log('. json_encode( $data ) .')';
+        echo '</script>';
+    }
+
+
+   private  function m_log($arMsg)
+    {
+        //creamos una variable vacía
+        $stEntry="";
+        //coje el evento en el momento que ocurre
+        $arLogData['event_datetime']='['.date('D Y-m-d h:i:s A').'] [client '.$_SERVER['REMOTE_ADDR'].']';
+        //si el mensahe es de tipo array
+        if(is_array($arMsg)){
+            //recorremos el array y lo concatenamos con la hora
+            foreach($arMsg as $clave => $value)
+                $stEntry.=$clave.":".$value.'rn';
+        }else{   //concatenamos mensaje con la hora
+
+            $stEntry.=$arMsg."rn";
+        }
+        //creamos un archivo con el nombre log_mas fecha
+        $stCurLogFileName='log_'.date('Ymd').'.txt';
+        //abrimos el archivo y concatenamos
+        $fHandler=fopen(LOG_PATH.$stCurLogFileName,'a+');
+        //escribimos en el archivo
+        fwrite($fHandler,$stEntry);
+        //cerramos en manejador
+        fclose($fHandler);
     }
 
 }

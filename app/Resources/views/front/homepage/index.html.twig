@@ -139,7 +139,7 @@
                     </div>
 
       {% if i>3%}
-        <nav class="navbar">
+        {#<nav class="navbar">
             <ul class="pagination pagination-index">
                 <li class="page-item disabled" id="first">
                     <span class="page-link"  tabindex="-1">&laquo;</span>
@@ -157,7 +157,32 @@
                     <span class="page-link" >&raquo;</span>
                 </li>
             </ul>
-        </nav>
+        </nav>#}
+
+          <nav class="navbar paginate">
+              <ul class="pagination pagination-index pg-psicologo">
+                  <li class="page-item">
+                      <button class="btn  change-paginate" id="first" type="text"><<</button>
+                  </li>
+                  <li class="page-item">
+                      <button class="btn change-paginate" id="anterior" type="text"><</button>
+                  </li>
+                  <li class="page-item">
+                      {% set value=1 %}
+                      <select class="form-control" id="paginador">
+                      </select>
+                  </li>
+
+                  <li class="page-item">
+                      <button class="btn change-paginate" id="siguiente" type="text">></button>
+                  </li>
+
+                  <li class="page-item">
+                      <button class="btn change-paginate" id="fin" type="text">>></button>
+                  </li>
+              </ul>
+          </nav>
+
 	{% endif%}
 
 		<div class="modal fade show">
