@@ -689,11 +689,32 @@ span.author-name{
 }
 
 .nav-tabs .nav-link.active{
-    background: #39b59f;
-    color: #ffffff;
+    background: transparent;
+    color: #39b59f;
+    border-radius: 0;
+}
+.nav-tabs .nav-link{
+    padding: 5px 10px 5px 10px;
 }
 .nav-tabs{
     border-bottom: 1px solid #39b59f;
+}
+
+.last{
+    position: absolute;
+    right: 1rem;
+}
+
+.last a{
+    padding: 0 !important;;
+}
+
+.last a:hover{
+    border:none;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: 0;
 }
 
 .ul_views{
@@ -753,6 +774,35 @@ span.author-name{
     color: #111;
     font-weight: bold;
     line-height: 15px;
+}
+
+/*Coment*/
+#comment input, #comment textarea{
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    border: 1px solid #e0e0e0;
+    display: block;
+    font-size: 14px;
+    margin-left: 4px;
+    width: 96%;
+    padding: 10px 10px;
+}
+#comment textarea{
+    height: 250px;
+}
+#comment input{
+    float: left;
+    width: 31%;
+    margin: 5px;
+}
+#comment input[type="checkbox"]{
+    width: auto;
+}
+#comment label{
+    font-size: 10px;
+}
+#comment button{
+    width: 20%;
 }
 /*===================================CATEGORY LIST PORT CARD==========================*/
 
@@ -1045,6 +1095,9 @@ footer p.reserved{
 	.tab-content>.active {
 		 word-break: break-word; 
 	}
+    #comment input, #comment textarea{
+        width: 100%;
+    }
 }
 
 @media (max-width: 992px) {

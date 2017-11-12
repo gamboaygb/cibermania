@@ -1,0 +1,23 @@
+    <div class="mt-4">
+        {{ form_start(form) }}
+            <div class="form-group">
+                {{ form_widget(form.commentTitle) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.comment) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.name) }}
+                {{ form_widget(form.email) }}
+                {{ form_widget(form.website) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.isUser) }}
+                {{ form_widget(form.isUser) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.enviar) }}
+            </div>
+        <input type="hidden" name="id_post" value="{{ id_post }}">
+        {{ form_end(form) }}
+    </div>

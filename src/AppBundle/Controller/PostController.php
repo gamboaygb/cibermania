@@ -3,6 +3,8 @@
 
 namespace AppBundle\Controller;
 
+
+use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use AppBundle\Form\Post_commentType;
 use AppBundle\Entity\Post_comment;
+use AppBundle\Entity\PostCommentNotLogin;
+use AppBundle\Form\PostCommentNotLoginType;
 use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
 
@@ -96,6 +100,63 @@ class PostController extends Controller
         }
 
         return $this->render('front/post/_comment.html.twig', [
+            'form'=>$form->createView(),
+            'id_post'=>$id,
+        ]);
+
+    }
+
+
+
+    /**
+     * @Route("/create/comment/",name="post_comment_not_logged")
+     */
+    public function postCommentNotLoginAction(Request $request,$id=null){
+
+
+        $comment= new PostCommentNotLogin();
+        $com= new Post_comment();
+        $form = $this->createForm(PostCommentNotLoginType::class, $comment,[
+            'action'=>$this->generateUrl('post_comment_not_logged'),
+        ]);
+
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $em = $this->getDoctrine()->getManager();
+            $id=$request->get('id_post');
+
+            $comment=$form->getData();
+            $comment->setCommentDate(new \DateTime());
+            $com->setCommentDate(new \DateTime());
+            $comment->setUpdateDate(new \DateTime());
+            $com->setUpdateDate(new \DateTime());
+            $com->setComment($comment->getComment());
+            $com->setCommentTitle($comment->getCommentTitle());
+            $com->setPerson(null);
+            $com->setCommentAnonnymous($comment);
+
+            if($comment->getIsUser()){
+                $user= new User();
+            }else{
+
+            }
+
+
+
+            //$comment->setPerson($this->getUser()->getPerson());
+            $post=$em->getRepository('AppBundle:Post')->find($id);
+            $comment->setPost($post);
+            $com->setPost($post);
+
+            $em->persist($comment);
+            $em->persist($com);
+
+            $em->flush();
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        return $this->render('front/post/_comment_not_logged.html.twig', [
             'form'=>$form->createView(),
             'id_post'=>$id,
         ]);

@@ -4,7 +4,7 @@ parameters:
     database_port: null
     database_name: cibermania
     database_user: root
-    database_password: yusmel871024
+    database_password: yusmel
     mailer_transport: smtp
     mailer_host: mail.animaventures.com
     mailer_user: yusmel@animaventures.com

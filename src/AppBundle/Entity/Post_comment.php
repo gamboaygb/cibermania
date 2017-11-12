@@ -59,6 +59,13 @@ class Post_comment
      */
     private $person;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PostCommentNotLogin")
+     */
+    private $commentAnonnymous;
+
+
+
 
     /**
      * Get id
@@ -212,5 +219,29 @@ class Post_comment
     public function getPerson()
     {
         return $this->person;
+    }
+
+    /**
+     * Set commentAnonnymous
+     *
+     * @param \AppBundle\Entity\PostCommentNotLogin $commentAnonnymous
+     *
+     * @return Post_comment
+     */
+    public function setCommentAnonnymous(\AppBundle\Entity\PostCommentNotLogin $commentAnonnymous = null)
+    {
+        $this->commentAnonnymous = $commentAnonnymous;
+
+        return $this;
+    }
+
+    /**
+     * Get commentAnonnymous
+     *
+     * @return \AppBundle\Entity\PostCommentNotLogin
+     */
+    public function getCommentAnonnymous()
+    {
+        return $this->commentAnonnymous;
     }
 }

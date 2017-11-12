@@ -1,31 +1,12 @@
-{% if app.user.person is defined %}
-  <div class="mt-4"> 
+
+  <div class="mt-4">
     {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="form-group" style="overflow: auto">
+        {{ form_widget(form.commentTitle) }}
+    </div>
+    <div class="form-group">
+        {{ form_widget(form.comment) }}
+    </div>
     <input type="hidden" name="id_post" value="{{ id_post }}">
     {{ form_end(form) }}
     </div>
-{% else %}
-    <p>Para comentar tienes que loguearte <a href="#"  data-toggle="modal" data-target="#myModal">Click Aqui</a> <a href="{{ path('create_account') }}">¿No tienes cuenta ?</a></p>
-    <!-- Button trigger modal -->
-
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Inicia session para comentar este post</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    {{ render(controller('AppBundle:Security:boxLogin')) }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endif %}
