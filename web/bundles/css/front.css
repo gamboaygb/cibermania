@@ -117,6 +117,19 @@ article{
     color:#98BC00;
 }
 
+.navbar-light .navbar-nav .nav-link{
+    color:white;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+
+.navbar-light .navbar-nav .nav-link i{
+    font-weight: 600;
+    font-size: 3rem;
+    font-style: normal;
+}
+}
+
 
 /*sidebar*/
 
