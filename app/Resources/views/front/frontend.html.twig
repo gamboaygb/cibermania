@@ -49,65 +49,62 @@
 
 <div class="container-fluid main">
     {% block header %}
+        <section id="featured-section">
+            <div class="row">
+                <div class="container">
+
+                    <div class="col-12">
+                        <span class="time-today">{{ "now"|dateFormat}}</span>
+                        <nav class="nav-home">
+                            <ul>
+                                {% if app.user.person is defined %}
+                                    <li>Conectado como: {{ app.user.person.name|capitalize }}</li>
+                                {% else %}
+                                    <li class="login-in" data-close="1">Conectarse</li>
+                                    <li><a href="{{ path('create_account') }}">Registro</a></li>
+                                    <li><a href="{{ path('contact') }}">Contacto</a></li>
+                                    <li><a href="{{ path('page', { pageName: 'aviso' }) }}">Aviso Legal</a></li>
+                                    <li><a href="{{ path('page', { pageName: 'ayuda' }) }}">Ayuda</a></li>
+                                {% endif %}
+                            </ul>
+                            <div class="sign-in">
+                                {{ render(controller('AppBundle:Security:boxLogin')) }}
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                {#{% for featured in featureds %}
+
+                    <div class="col-md-4 featured-item">
+                        <img class="d-block img-fluid" src="{{ asset(featured.imgPost,'post') }}" alt="{{ featured.title }}" title="{{ featured.title }}">
+                        <a href="{{ path('view_post', { slug: featured.slug}) }}">{{ featured.title }}</a>
+                    </div>
+                {% endfor %}#}
+            </div>
+
+        </section>
         <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            {% if app.user.person is defined %}
-                <img alt="Ver Perfil" id="opennav" title="Ver Perfil" class="rounded-circle mx-auto " width="60" height="60" src="{{ asset(app.user.person.picture?:'johndoe.png', 'profile') }}">
-            {% endif %}
-	
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto cb-menu">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'css'}) }}"><i>c</i>ss
-                            <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'javascript'}) }}">javascr<i>i</i>pt
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'boopstrap'}) }}"><i>b</i>oopstrap
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'apple'}) }}">t<i>e</i>cnología
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'tecnologia'}) }}">jQue<i>r</i>y
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                {% if app.user.person is defined %}
+                    <img alt="Ver Perfil" id="opennav" title="Ver Perfil" class="rounded-circle mx-auto " width="60" height="60" src="{{ asset(app.user.person.picture?:'johndoe.png', 'profile') }}">
+                {% endif %}
 
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'mysql'}) }}"><i>M</i>ysql
-
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'android'}) }}"><i>a</i>ndroid
-
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'symfony'}) }}">symfo<i>n</i>y
-
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'linux'}) }}">L<i>i</i>nux
-
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('category_post_list',{slug:'prestashop'}) }}">prest<i>a</i>shop
-
-                        </a>
-                    </li>
-                </ul>
-
-
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto cb-menu">
+                        <li class="nav-item {{ app.request.pathinfo=='/' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ path('homepage') }}">Inicio <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item {{ app.request.pathinfo=='/info/cibermania/' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ path('page', { pageName: 'cibermania' }) }}">¿Que es cibermania? </a>
+                        </li>
+                        <li class="nav-item {{ app.request.pathinfo=='/info/participa/' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ path('page', { pageName: 'participa' }) }}">Participa </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
 

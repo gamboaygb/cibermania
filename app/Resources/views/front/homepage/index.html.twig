@@ -2,37 +2,6 @@
 {% block metacontent %}Cibermania es un blog para ayudar a la comunidad con temas tecnológicos y que puedan entender la importancia de las nuevas tecnologías{% endblock %}
 
 {% block section %}
-    <section class=" mb-md-3" id="featured-section">
-        <div class="row">
-        		<div class="container">
-
-					<div class="col-12">
-						<span class="time-today">{{ "now"|date("d/m/Y", "Europe/Paris") }}</span>
-						<nav class="nav-home">
-							<ul>
-								{% if app.user.person is defined %}
-								<li>Conectado como: {{ app.user.person.name|capitalize }}</li>
-								{% else %}
-								<li class="login-in" data-close="1">Acceso</li>
-								<li><a href="{{ path('create_account') }}">¿No tienes cuenta?</a></li>
-								{% endif %}
-							</ul>
-							<div class="sign-in">
-								{{ render(controller('AppBundle:Security:boxLogin')) }}
-							</div>
-						</nav>
-					</div>
-        		</div>
-                {#{% for featured in featureds %}
-
-                    <div class="col-md-4 featured-item">
-                        <img class="d-block img-fluid" src="{{ asset(featured.imgPost,'post') }}" alt="{{ featured.title }}" title="{{ featured.title }}">
-                        <a href="{{ path('view_post', { slug: featured.slug}) }}">{{ featured.title }}</a>
-                    </div>
-                {% endfor %}#}
-          </div>                 
-
-    </section>
     <section class="container container-section mt-5">
         <div class="loading">
             <i class="fa fa-refresh fa-3x fa-spin"></i>

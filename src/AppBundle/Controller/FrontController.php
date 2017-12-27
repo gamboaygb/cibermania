@@ -49,9 +49,9 @@ class FrontController extends Controller
     }
 
    /**
-     * @Route("/site/{pageName}/",
+     * @Route("/info/{pageName}/",
      *          defaults={"pageName"="ayuda"},
-     *          requirements={"pageName"="ayuda|aviso|cibermania"},
+     *          requirements={"pageName"="ayuda|aviso|cibermania|participa"},
      *          name="page"
      *       )
      */
