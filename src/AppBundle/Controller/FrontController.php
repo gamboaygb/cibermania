@@ -68,7 +68,13 @@ class FrontController extends Controller
     public function contactAction(Request $request){
 		$defaultData = array('message' => '');
 		$form = $this->createFormBuilder($defaultData)
-		    ->add('message',TextareaType::class,array(
+
+            ->add('asunto', TextType::class,array(
+                'attr'=> array('class' => 'form-control','placeholder'=>'Asunto'),
+                'label'=>'Asunto *',
+            ))
+
+            ->add('message',TextareaType::class,array(
                                                         'attr'=> array('class' => 'form-control','placeholder'=>'Contenido'),
                                                         'label'=>'Cuéntanos tu historia',
                                                     ))

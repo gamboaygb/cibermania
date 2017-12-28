@@ -2,14 +2,37 @@
 {% block section %}
     <section>
         <div class="container">
+            <div class="col-12">
+                <div class="diviver">
+                        <ul class="d-flex pl-0 mr-auto">
+                            <li class="nav-item ">
+                                <a class="nav-link pl-0 pr-1" href="/"><i class="fa fa-home" aria-hidden="true"></i><span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link pl-0 pr-1" href="#"> > </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link pl-0 pr-1" href="#">Contacto </a>
+                            </li>
+                        </ul>
+                    <h2>Contáctanos</h2>
+                    <code>Ninguno de sus datos serán publicado*</code>
+                </div>
+            </div>
  			<div class="col-12" id="contact">
  				{{ form_start(form) }}
-                    <div class="form-group">
+                <div class="form-group">
+                    {{ form_widget(form.asunto) }}
+                </div>
+                <div class="form-group">
                         {{ form_widget(form.message) }}
-                    </div>
+                </div>
                 <div class="form-group">
                     {{ form_widget(form.name) }}
                     {{ form_widget(form.email) }}
+                </div>
+                <div class="form-group">
+                    {{ form_widget(form.Enviar) }}
                 </div>
 				{{ form_end(form) }}
 				{% if sent is defined %}

@@ -60,11 +60,30 @@ a{
 .btn-success{
     background: #39b59f;
     border-color: #39b59f;
+    text-transform: uppercase;
+    padding: 15px 25px 15px 25px;
+    font-weight: 700;
 }
 
 .btn-success:hover{
     background: #339783;
     border-color:#339783;
+}
+
+.pl-0{
+    padding-left: 0;
+}
+
+.pr-0{
+    padding-right: 0;
+}
+
+.pr-1{
+    padding-right: .5rem;
+}
+
+.mt-5{
+    margin-top: 2.5rem;
 }
 
 .in-line li{
@@ -1113,11 +1132,40 @@ footer p.reserved{
 #contact input {
     float: left;
     width: 48%;
-    margin: 2px;
+    margin: 10px 5px 25px 5px;
+    height: 66px;
 }
 
 #contact textarea {
     height: 250px;
+}
+
+#contact #form_Enviar{
+    text-transform: uppercase;
+    padding: 15px 25px 15px 25px;
+    font-weight: 700;
+}
+
+
+/*===============RESGISTRO================*/
+.my-form-class input {
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    border: 1px solid #e0e0e0;
+    display: block;
+    font-size: 14px;
+    margin-left: 4px;
+    width: 96%;
+    padding: 10px 10px;
+    height: 66px;
+}
+
+#appbundle_regiser_user_passwordClear div{
+    margin-top: 1rem;
+}
+
+.my-form-class .input-file{
+    display: none;
 }
 
 
