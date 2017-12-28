@@ -2,9 +2,15 @@
 {% block section %}
     <section>
         <div class="container">
- 			<div class="col-12">
+ 			<div class="col-12" id="contact">
  				{{ form_start(form) }}
-				{{ form_widget(form) }}
+                    <div class="form-group">
+                        {{ form_widget(form.message) }}
+                    </div>
+                <div class="form-group">
+                    {{ form_widget(form.name) }}
+                    {{ form_widget(form.email) }}
+                </div>
 				{{ form_end(form) }}
 				{% if sent is defined %}
 				    <p class="text-center">{{ sent }}</p>

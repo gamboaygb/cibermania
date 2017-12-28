@@ -68,18 +68,20 @@ class FrontController extends Controller
     public function contactAction(Request $request){
 		$defaultData = array('message' => '');
 		$form = $this->createFormBuilder($defaultData)
-		    ->add('name', TextType::class,array(
-                                                    'attr'=> array('class' => 'form-control','placeholder'=>'Nombre Completo'),
-                                                    'label'=>false
-                                                    ))
-		    ->add('email', EmailType::class,array(
-                                                    'attr'=> array('class' => 'form-control','placeholder'=>'Correco Electrónico'),
-                                                    ))
 		    ->add('message',TextareaType::class,array(
                                                         'attr'=> array('class' => 'form-control','placeholder'=>'Contenido'),
-                                                         'label'=>false
+                                                        'label'=>'Cuéntanos tu historia',
                                                     ))
-		    ->add('send',SubmitType::class,array(
+            ->add('name', TextType::class,array(
+                'attr'=> array('class' => 'form-control','placeholder'=>'Nombre Completo'),
+                'label'=>'Nombre Completo *',
+            ))
+            ->add('email', EmailType::class,array(
+                'attr'=> array('class' => 'form-control','placeholder'=>'Correco Electrónico'),
+                'label'=>'Correo Electrónico *',
+            ))
+
+		    ->add('Enviar',SubmitType::class,array(
                 'attr'=> array('class' => 'btn btn-success')))
                 
 		    ->getForm();

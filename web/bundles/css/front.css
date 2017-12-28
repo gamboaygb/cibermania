@@ -1098,7 +1098,27 @@ footer p.reserved{
 	color:#39b59f;
 	}
 
+/*===========Contacto===========*/
+#contact textarea,#contact input {
+    box-sizing: border-box;
+    background-color: #f2f2f2;
+    border: 1px solid #e0e0e0;
+    display: block;
+    font-size: 14px;
+    margin-left: 4px;
+    width: 96%;
+    padding: 10px 10px;
+}
 
+#contact input {
+    float: left;
+    width: 48%;
+    margin: 2px;
+}
+
+#contact textarea {
+    height: 250px;
+}
 
 
 /*==========RESPONSIVE=========*/
