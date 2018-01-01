@@ -36,11 +36,12 @@
 
     $(window).ready(function() {
 
-    	
     	var cibermania={
             initialize: function() {
                 this.login_in();
                 this.out();
+                if(location.pathname.substr(1,'/signup'.length)=='signup')
+                    this.fileUpload();
                 this.pagination();
 
             },
@@ -147,6 +148,37 @@
                     $("#paginador option[value='"+pagina+"']").prop("selected",true);
 
                 }
+            },
+            fileUpload:function () {
+                if($('#mjs-error').length>0){
+                    $('#mjs-error').text('').hide();
+                }
+                var i = $('#appbundle_regiser_person_photoPath');
+                i.change(function (e) {
+                    var file = e.target.files[0],
+                        imageType = /image.*/;
+                    var sizeByte = file.size;
+                    var siezekiloByte = parseInt(sizeByte / 1024);
+console.log(file);
+                    if(siezekiloByte > 4096){
+                        $('#mjs-error').text('La imagen no puede superar los 4MB').show();
+                    }else{
+                        if (!file.type.match(imageType))
+                            return;
+
+                        var reader = new FileReader();
+                        reader.onload = fileOnload;
+                        reader.readAsDataURL(file);
+
+                        function fileOnload(e) {
+                            var result=e.target.result;
+                            $('#img-salida').attr("src",result);
+                        }
+                    }
+                });
+
+
+
             }
 
 
@@ -219,89 +251,8 @@
         });
     }
 
-/*pagination
-    if($('.pagination-index').length>0){
-        var active;
-        $('.pagination-index li').each(function (index) {
-            if($(this).hasClass('active')){
-                active=this;
-            }
-           $(this).bind("click",function () {
 
-               if($(this).attr('id')=='first'){
-                    if(parseInt($(active).first().text())>1){
-                        $(active).removeClass('active');
-                        $(active).prev().addClass('active');
-                        active=$(active).prev()[0];
-                        loading(active,'prev');
-                    }else{
-                        $(this).addClass('disabled');
-                    }
-               }else if($(this).attr('id')=='last'){
-                   if(!$(active).next().is("#last")){
-                       $(active).removeClass('active');
-                       $(active).next().addClass('active');
-                       active=$(active).next()[0];
-                       loading(active,'next');
-                   }else {
-                       $(this).addClass('disabled');
-                   }
-               }else{
-               
-               		prev= parseInt($('.pagination-index .active').first().text());
-               		current=parseInt($(this).first().text());
-               		if(current>prev){
-               			loading($(this),'next');
-               			$(this).prev().removeClass('active');
-               		}else if(current<prev){
-               			loading($(this),'prev');
-               			$(this).next().removeClass('active');
-               		}
-               		$(this).addClass('active');
-                   
-               }
-
-
-               if(parseInt($(active).first().text())>1){
-                   $('#first').removeClass('disabled');
-               }else {
-                   $('#first').addClass('disabled');
-               }
-               if($(active).next().is("#last")){
-                   $('#last').addClass('disabled');
-               }else {
-                   $('#last').removeClass('disabled');
-               }
-           })
-        });
-
-        function loading (element,action=null) {
-            $('.loading').addClass('overlay').toggle();
-            nextpage=$('.show-card');
-            
-            if(action=='next'){
-            	$(nextpage[0]).removeClass('show-card').addClass('hide-card');
-            	if($(nextpage[2]).next().length>0){
-            		$(nextpage[2]).next().removeClass('hide-card').addClass('show-card');
-            	}
-            }else if(action=='prev'){
-            	$(nextpage[2]).removeClass('show-card').addClass('hide-card');
-            	if($(nextpage[0]).prev().length>0){
-            		$(nextpage[0]).prev().removeClass('hide-card').addClass('show-card');
-            	}
-            
-            }
-            
-            
-
-            setTimeout(function () {
-                $('.loading').hide().removeClass('overlay');
-            },1000)
-        }
-    }
-
-
-    /*upload file profile*/
+    /*upload file profile
 
 
     var fileInput  = $( ".input-file" ),
@@ -320,6 +271,32 @@
     $(fileInput).bind( "change", function( event ) {
         $(the_return).val($(this).val());
     });
+
+*/
+
+
+    function addImage(e){
+
+        var sizeByte = file.size;
+        var siezekiloByte = parseInt(sizeByte / 1024);
+
+        if(siezekiloByte > 4096){
+            $('#msj-error').show();
+        }else{
+            $('#img-salida').css('display', 'block');
+
+
+            var reader = new FileReader();
+            reader.onload = fileOnload;
+            reader.readAsDataURL(file);
+
+            function fileOnload(e) {
+                var result=e.target.result;
+                $('.foto-perfil').attr("src",result);
+            }
+
+        }
+    }
 
 
 
